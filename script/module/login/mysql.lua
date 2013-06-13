@@ -48,7 +48,7 @@ local function open(settings)
     return true
 end
 
-local function register(_username, _password)
+player_command_function("register", function(_username, _password)
     local adduser = [[INSERT INTO logins (username, password, privileges)
         VALUES ('%s', '%s', 'verify')]]
     if not execute_statement(string.format(
@@ -58,9 +58,9 @@ local function register(_username, _password)
     local cursor = execute_statement("SELECT last_insert_id()")
     if not cursor then return nil end
     return cursor:fetch()
-end
+end)
 
-local function login(cn, _username, _password)
+player_command_function("login", function(cn, _username, _password)
     local _usernames = [[SELECT username FROM logins]]
     if _usernames[_username] then
         local checkpassword = [[SELECT password FROM logins WHERE username='%s']]
@@ -82,6 +82,4 @@ local function login(cn, _username, _password)
             end
         end
     end
-end
-
-return {open = open, register = register, login = login}
+end)

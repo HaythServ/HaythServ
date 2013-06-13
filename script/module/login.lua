@@ -1,1 +1,1 @@
-exec("login/init.lua");
+exec("stats/init.lua");

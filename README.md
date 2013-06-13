@@ -1,6 +1,6 @@
 HaythServ
 ========
-HaythServ — A server modification for Cube 2: Sauerbraten based on <a href="https://code.google.com/p/suckerserv/">SuckerServ-v5</a>.
+HaythServ — A server modification for <a href="http://sauerbraten.org">Cube 2: Sauerbraten</a> based on <a href="https://code.google.com/p/suckerserv/">SuckerServ-v5</a>.
 
 	- Installation:
 		- chmod +x ./install.sh

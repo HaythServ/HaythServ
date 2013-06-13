@@ -48,7 +48,14 @@ local function open(settings)
     return true
 end
 
-player_command_function("register", function(_username, _password)
+player_command_function("register", function(cn, _username, _password)
+    local usage = "#register username password"
+    if not _username then
+        return false, usage
+    end
+    if not _password then
+        return false, usage
+    end
     local adduser = [[INSERT INTO logins (username, password, privileges)
         VALUES ('%s', '%s', 'verify')]]
     if not execute_statement(string.format(
@@ -62,6 +69,14 @@ end)
 
 player_command_function("login", function(cn, _username, _password)
     local _usernames = [[SELECT username FROM logins]]
+    local error_user_not_found = "user does not exist!"
+    local usage = "#login username password"
+    if not _username then
+        return false, usage
+    end
+    if not _password then
+        return false, usage
+    end
     if _usernames[_username] then
         local checkpassword = [[SELECT password FROM logins WHERE username='%s']]
         if not execute_statement(string.format(
@@ -81,5 +96,28 @@ player_command_function("login", function(cn, _username, _password)
                 server.setadmin(cn)
             end
         end
+    else
+        return false, error_user_not_found
+    end
+end)
+
+player_command_function("setloginprivs", function(cn, _username, _privileges)
+    local _usernames = [[SELECT username FROM logins]]
+    local error_user_not_found = "user does not exist!"
+    local usage = "#setloginprivs username privilege-level"
+    if not _username then
+        return false, usage
+    end
+    if not _privileges then
+        return false, usage
+    end
+    if _usernames[_username] then
+        local _changeprivs = [[UPDATE logins SET privileges='%s' WHERE username='%s']]
+        execute_statement(string.format(
+            _changeprivs,
+            escape_string(_privileges),
+            escape_string(_username)))
+    else
+        return false, error_user_not_found
     end
 end)

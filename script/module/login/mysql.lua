@@ -67,14 +67,14 @@ player_command_function("register", function(cn, _username, _password)
     return cursor:fetch()
 end)
 
-local function _privileges(__username, __password) {
+local function _privileges(__username, __password)
     local __privileges = [[SELECT privileges FROM logins WHERE username='%s' AND password='%s']]
     return execute_statement(string.format(
         __privileges,
         escape_string(__username),
         escape_string(__password)
     ))
-}
+end
 
 player_command_function("login", function(cn, _username, _password)
     local _usernames = [[SELECT username FROM logins]]

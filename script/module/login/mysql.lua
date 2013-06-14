@@ -92,7 +92,7 @@ player_command_function("login", function(cn, _username, _password)
             checkpassword,
             escape_string(_username))) then return nil
         else
-            _privs = (_privileges(escape_string(_username), escape_string(_password)))
+            _privs = _privileges(escape_string(_username), escape_string(_password))
             if _privs == "verify" then
                 server.msg(string.format(server.verify_message, server.player_displayname(cn), _username))
             end

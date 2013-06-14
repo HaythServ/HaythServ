@@ -36,9 +36,11 @@ local function install_db(connection, settings)
 end
 
 local function open(settings)
-    connection = luasql.mysql():connect(settings.database, settings.username, settings.password, settings.hostname, settings.port)  
+    connection = luasql.mysql():connect(settings.database, settings.username,
+        settings.password, settings.hostname, settings.port)  
     if not connection then
-        server.log_error(string.format("couldn't connect to MySQL server at %s:%s", settings.hostname, settings.port))
+        server.log_error(string.format("couldn't connect to MySQL server at %s:%s",
+            settings.hostname, settings.port))
         return nil
     end  
     servername = settings.servername   
@@ -161,11 +163,11 @@ player_command_function("loginpm", function(cn, _username, _message)
         )) then return nil
         else
             execute_statement(string.format(
-            sendpm,
-            escape_string(_username),
-            escape_string(server.player_displayname(cn)),
-            escape_string(_message)
-        ))
+                sendpm,
+                escape_string(_username),
+                escape_string(server.player_displayname(cn)),
+                escape_string(_message)
+            ))
         end
     else
         return false, error_user_not_found
@@ -187,7 +189,8 @@ player_command_function("setloginprivs", function(cn, _username, _privileges)
         execute_statement(string.format(
             _changeprivs,
             escape_string(_privileges),
-            escape_string(_username)))
+            escape_string(_username)
+        ))
     else
         return false, error_user_not_found
     end

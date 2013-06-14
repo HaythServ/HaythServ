@@ -14,7 +14,8 @@ end
 local function execute_statement(statement)
     local cursor, errorinfo = connection:execute(statement)
     if not cursor then
-        server.log_error(string.format("Buffering stats data because of a MySQL stats failure: %s", errorinfo))
+        server.log_error(string.format("Buffering login data because of a %s%s",
+            "MySQL login failure: ", errorinfo))
         connection:close()
         connection = nil
     end
@@ -61,7 +62,14 @@ player_command_function("register", function(cn, _username, _password)
     if not execute_statement(string.format(
         adduser,
         escape_string(_username),
-        escape_string(_password))) then return nil end
+        escape_string(_password))) then return nil
+    else
+        return execute_statement(string.format(
+        adduser,
+        escape_string(_username),
+        escape_string(_password)
+        ))
+    end
     local cursor = execute_statement("SELECT last_insert_id()")
     if not cursor then return nil end
     return cursor:fetch()
@@ -150,7 +158,15 @@ player_command_function("loginpm", function(cn, _username, _message)
             escape_string(_username),
             escape_string(server.player_displayname(cn)),
             escape_string(_message)
-        )) then return nil end
+        )) then return nil
+        else
+            execute_statement(string.format(
+            sendpm,
+            escape_string(_username),
+            escape_string(server.player_displayname(cn)),
+            escape_string(_message)
+        ))
+        end
     else
         return false, error_user_not_found
     end
@@ -175,4 +191,7 @@ player_command_function("setloginprivs", function(cn, _username, _privileges)
     else
         return false, error_user_not_found
     end
+    local cursor = execute_statement("SELECT last_insert_id()")
+    if not cursor then return nil end
+    return cursor:fetch()
 end)

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libfungu_http.a  CMakeFiles/fungu_http.dir/connection.cpp.o CMakeFiles/fungu_http.dir/header.cpp.o CMakeFiles/fungu_http.dir/info.cpp.o CMakeFiles/fungu_http.dir/request.cpp.o CMakeFiles/fungu_http.dir/request_line.cpp.o CMakeFiles/fungu_http.dir/response.cpp.o CMakeFiles/fungu_http.dir/status.cpp.o
+/usr/bin/ranlib libfungu_http.a

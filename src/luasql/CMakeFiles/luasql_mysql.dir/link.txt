@@ -1,0 +1,1 @@
+/usr/bin/gcc  -fPIC    -shared -Wl,-soname,libluasql_mysql.so -o libluasql_mysql.so CMakeFiles/luasql_mysql.dir/luasql.c.o CMakeFiles/luasql_mysql.dir/ls_mysql.c.o -llua5.2 -lmysqlclient 

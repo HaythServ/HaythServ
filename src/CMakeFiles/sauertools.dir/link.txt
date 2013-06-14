@@ -1,0 +1,2 @@
+/usr/bin/ar cr libsauertools.a  CMakeFiles/sauertools.dir/shared/tools.cpp.o CMakeFiles/sauertools.dir/shared/stream.cpp.o CMakeFiles/sauertools.dir/shared/crypto.cpp.o
+/usr/bin/ranlib libsauertools.a

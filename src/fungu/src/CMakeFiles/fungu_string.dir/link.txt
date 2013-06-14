@@ -1,0 +1,2 @@
+/usr/bin/ar cr libfungu_string.a  CMakeFiles/fungu_string.dir/string.cpp.o
+/usr/bin/ranlib libfungu_string.a

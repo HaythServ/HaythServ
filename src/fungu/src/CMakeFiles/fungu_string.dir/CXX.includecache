@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/root/suckerserv/suckerserv-v5/src/fungu/src/string.cpp
+fungu/string.hpp
+-
+fungu/stringutils.hpp
+-
+assert.h
+-
+math.h
+-
+string
+-
+string.h
+-
+
+src/fungu/include/fungu/string.hpp
+string
+-
+
+src/fungu/include/fungu/stringutils.hpp
+string.hpp
+src/fungu/include/fungu/string.hpp
+string
+-
+string.h
+-
+boost/functional/hash.hpp
+-
+ostream
+-
+istream
+-
+

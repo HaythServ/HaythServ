@@ -1,0 +1,42 @@
+FILE(REMOVE_RECURSE
+  "CMakeFiles/lua_modules.dir/hopmod/lib/md5.c.o"
+  "CMakeFiles/lua_modules.dir/hopmod/utils.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/net/address.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/net/address_mask.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/net/address_prefix.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/event.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/push_function.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/library_extensions.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/pcall.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/error_handler.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/push.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/register_class.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/module.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/crypto.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/timer.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/geoip.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/filesystem.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/packlib.c.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/cubescript.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/net/module.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/net/tcp_socket.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/net/weak_ref.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/net/ipmask.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/net/file_stream.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/net/tcp_acceptor.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/net/resolver.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/net/ssl_context.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/lua/modules/net/ssl_tcp_stream.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/cubescript/cubescript.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/cubescript/lua_command_stack.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/cubescript/lua/pcall.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/httpserver/filesystem_resource.cpp.o"
+  "CMakeFiles/lua_modules.dir/hopmod/httpserver/lua_module.cpp.o"
+  "liblua_modules.pdb"
+  "liblua_modules.a"
+)
+
+# Per-language clean rules from dependency scanning.
+FOREACH(lang C CXX)
+  INCLUDE(CMakeFiles/lua_modules.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

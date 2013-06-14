@@ -92,6 +92,27 @@ player_command_function("login", function(cn, _username, _password)
             checkpassword,
             escape_string(_username))) then return nil
         else
+            local getloginpms_sender = [[SELECT sendusername FROM loginpms WHERE getusername='%s']]
+            local getloginpms_message = [[SELECT message FROM loginpms WHERE getusername='%s']]
+            if not execute_statement(string.format(
+                getloginpms_sender,
+                escape_string(_username)
+            )) and not execute_statement(string.format(
+                getlogin_message,
+                escape_string(_username)
+            )) then return nil
+            else
+                local pmrecived_msg (concatword((red">>> ") (blue "You ") 
+                    "recived a " (magenta "private message") "from: " (orange "%s") 
+                    ", with" (blue "content") ": " (orange "%s")))
+                server.player_msg(cn, string.format(pmrecived_msg, execute_statement(string.format(
+                    getloginpms_sender,
+                    escape_string(_username)
+                )), execute_statement(string.format(
+                    getloginpms_message,
+                    escape_string(_username)
+                ))))
+            end
             _privs = _privileges(escape_string(_username), escape_string(_password))
             if _privs == "verify" then
                 server.msg(string.format(server.verify_message, server.player_displayname(cn), _username))
@@ -105,6 +126,31 @@ player_command_function("login", function(cn, _username, _password)
                 server.setadmin(cn)
             end
         end
+    else
+        return false, error_user_not_found
+    end
+end)
+
+player_command_function("loginpm", function(cn, _username, _message)
+    local _usernames = [[SELECT username FROM logins]]
+    local _sender = server.player_displayname(cn)
+    local error_user_not_found = "user does not exist!"
+    local usage = "#loginpm username message"
+    if not _username then
+        return false, usage
+    end
+    if not _message then
+        return false, usage
+    end
+    if _usernames[_username] then
+        local sendpm = [[INSERT INTO loginpms (getusername, sendusername, message)
+        VALUES ('%s', '%s', '%s')]]
+        if not execute_statement(string.format(
+            sendpm,
+            escape_string(_username),
+            escape_string(server.player_displayname(cn)),
+            escape_string(_message)
+        )) then return nil end
     else
         return false, error_user_not_found
     end

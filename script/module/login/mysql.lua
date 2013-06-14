@@ -67,6 +67,15 @@ player_command_function("register", function(cn, _username, _password)
     return cursor:fetch()
 end)
 
+local function _privileges(__username, __password) {
+    local __privileges = [[SELECT privileges FROM logins WHERE username='%s' AND password='%s']]
+    return execute_statement(string.format(
+        __privileges,
+        escape_string(__username),
+        escape_string(__password)
+    ))
+}
+
 player_command_function("login", function(cn, _username, _password)
     local _usernames = [[SELECT username FROM logins]]
     local error_user_not_found = "user does not exist!"
@@ -83,15 +92,15 @@ player_command_function("login", function(cn, _username, _password)
             checkpassword,
             escape_string(_username))) then return nil
         else
-            local _privileges = [[SELECT privileges FROM logins WHERE username='%s' AND password='%s']]
-            if _privileges == verify then
+            _privs = (_privileges(escape_string(_username), escape_string(_password)))
+            if _privs == "verify" then
                 server.msg(string.format(server.verify_message, server.player_displayname(cn), _username))
             end
-            if _privileges == master then
+            if _privs == "master" then
                 server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), _username))
                 server.setauth(cn)
             end
-            if _privileges == admin then
+            if _privs == "admin" then
                 server.msg(string.format(server.claimadmin, server.player_displayname(cn), _username))
                 server.setadmin(cn)
             end

@@ -7,8 +7,7 @@ if using_mysql then
 		username    = server.stats_mysql_username,
 		password    = server.stats_mysql_password,
 		database    = server.stats_mysql_database,
-		schema      = "./script/module/login/mysql_schema.sql",
-		triggers    = "./script/module/login/mysql_triggers.sql",
+		schema      = "./script/module/login/schema.sql",
 		install     = server.stats_mysql_install == "true",
 		servername  = server.stats_servername
 	})

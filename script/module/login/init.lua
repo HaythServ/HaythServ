@@ -1,7 +1,6 @@
 local using_mysql = (server.stats_use_mysql == 1)
 if using_mysql then
-	commit_backends.mysql = dofile("./script/module/login/mysql.lua")
-	catch_error(commit_backends.mysql.open, {
+	catch_error(dofile("./script/module/login/mysql.lua"), {
 		hostname    = server.stats_mysql_hostname,
 		port        = server.stats_mysql_port,
 		username    = server.stats_mysql_username,

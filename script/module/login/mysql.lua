@@ -12,10 +12,10 @@ local function escape_string(s)
 end
 
 local function execute_statement(statement)
-    local cursor, errorinfo = connection:execute(statement)
+    local cursor, error = connection:execute(statement)
     if not cursor then
         server.log_error(string.format("Buffering login data because of a %s%s",
-            "MySQL login failure: ", errorinfo))
+            "MySQL login failure: ", error))
         connection:close()
         connection = nil
     end
@@ -53,6 +53,8 @@ end
 
 player_command_function("register", function(cn, _username, _password)
     local usage = "#register username password"
+    local error_register_failed = "registration failed!"
+    local error_user_already_registred = "user does already exist!"
     if not _username then
         return false, usage
     end
@@ -61,19 +63,17 @@ player_command_function("register", function(cn, _username, _password)
     end
     local adduser = [[INSERT INTO logins (username, password, privileges)
         VALUES ('%s', '%s', 'verify')]]
+    local getusers = [[SELECT username FROM logins]]
+    if getusers[_username] then
+        return false, error_user_already_registred
+    end
     if not execute_statement(string.format(
         adduser,
         escape_string(_username),
-        escape_string(_password))) then return nil
-    else
-        return execute_statement(string.format(
-        adduser,
-        escape_string(_username),
         escape_string(_password)
-        ))
-    end
+    )) then return nil end
     local cursor = execute_statement("SELECT last_insert_id()")
-    if not cursor then return nil end
+    if not cursor then return false, error_register_failed end
     return cursor:fetch()
 end)
 
@@ -112,7 +112,7 @@ player_command_function("login", function(cn, _username, _password)
                 escape_string(_username)
             )) then return nil
             else
-                local pmrecived_msg (concatword((red">>> ") (blue "You ") 
+--[[                local pmrecived_msg (concatword((red">>> ") (blue "You ") 
                     "recived a " (magenta "private message") "from: " (orange "%s") 
                     ", with" (blue "content") ": " (orange "%s")))
                 server.player_msg(cn, string.format(pmrecived_msg, execute_statement(string.format(
@@ -121,7 +121,7 @@ player_command_function("login", function(cn, _username, _password)
                 )), execute_statement(string.format(
                     getloginpms_message,
                     escape_string(_username)
-                ))))
+                )))) ]] -- TODO: fix
             end
             _privs = _privileges(escape_string(_username), escape_string(_password))
             if _privs == "verify" then

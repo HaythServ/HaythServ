@@ -11,3 +11,5 @@ if using_mysql then
 		servername  = server.stats_servername
 	})
 end
+
+dofile("./script/module/stats/core.lua").initialize(commit_backends, query_backend)

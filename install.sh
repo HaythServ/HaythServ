@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-REVISION="137"
+export REVISION=`git rev-list HEAD --count`
 PROJECT="$(tput bold ; tput setaf 3)HaythServ $(tput setaf 2)r$REVISION$(tput sgr0)"
 if [ -z $THREADS ]; then 
     THREADS=1

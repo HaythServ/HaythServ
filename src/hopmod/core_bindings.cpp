@@ -422,7 +422,6 @@ void bind_core_variables(lua_State * L, int T)
     bind_var(L, T, "instaarmour", server::instaarmour);
     bind_var(L, T, "efficammomultipler", server::efficammomultipler);
     bind_var(L, T, "masterkicktime", server::masterkicktime);
-    bind_var(L, T, "adminleft", server::adminleft);
     
     bind_var(L, T, "flood_protect_text", server::message::resend_time::text);
     bind_var(L, T, "flood_protect_sayteam", server::message::resend_time::sayteam);

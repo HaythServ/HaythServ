@@ -6,10 +6,8 @@ if using_mysql then
 		username    = server.stats_mysql_username,
 		password    = server.stats_mysql_password,
 		database    = server.stats_mysql_database,
-		schema      = "./script/module/login/schema.sql",
+		schema      = "./script/module/login/mysql_schema.sql",
 		install     = server.stats_mysql_install == "true",
 		servername  = server.stats_servername
 	})
 end
-
-dofile("./script/module/stats/core.lua").initialize(commit_backends, query_backend)

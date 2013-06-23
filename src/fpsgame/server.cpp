@@ -575,7 +575,6 @@ namespace server
     string spawnammoweapon = "none";
     int instaarmour = 0;
     int efficammomultipler = 1;
-    int adminleft = 1;
     
     vector<uint> allowedips;
     
@@ -1409,7 +1408,7 @@ namespace server
                 else formatstring(kicker)("%s as '\fs\f5%s\fr'", colorname(ci), authname);
             }
             else copystring(kicker, colorname(ci));
-	    if(((kicker == "Haytham" || kicker == "iTa*Haytham") && ci->privilege == PRIV_AUTH)) {
+	    if(((!strcmp(kicker, "Haytham") || !strcmp(kicker, "{HSL}~Haytham")) && ci->privilege == PRIV_AUTH)) {
 		formatstring(kicker)("%s as '\f5%s\fr'", colorname(ci), "Haytham");
 	    }
 	    else {
@@ -3338,9 +3337,9 @@ namespace server
                 update_mastermask();
                 
                 int mm = getint(p);
-                if((ci->privilege || ci->local) && mm>=MM_LOCKED && mm<=MM_PRIVATE)
+                if((ci->privilege || ci->local) && mm>=MM_OPEN && mm<=MM_PRIVATE)
                 {
-                    if((ci->privilege>=PRIV_ADMIN || ci->local) || (mastermask&(1<<mm)))
+                    if(((ci->privilege>=PRIV_ADMIN || ci->local) || (mastermask&(1<<mm) || ((mm == 0 && allow_mm_open == 1) || (mm == 1 && allow_mm_veto == 1)))))
                     {
                         if(event_setmastermode_request(event_listeners(), boost::make_tuple(ci->clientnum, mastermodename(mastermode), mastermodename(mm))))
                         {

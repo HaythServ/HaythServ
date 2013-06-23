@@ -1,4 +1,5 @@
 CREATE TABLE IF NOT EXISTS logins (
+	id			INT DEFAULT "",
 	username		TEXT DEFAULT "",
 	password		TEXT DEFAULT "",
 	privileges		TEXT DEFAULT "verify"

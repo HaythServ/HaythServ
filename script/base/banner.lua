@@ -20,10 +20,6 @@ local function sendServerBanner(cn)
         server.player_msg(cn, server.connect_info_message)
 	server.player_msg(cn, server.info_message)
 
-	if server.adminleft==1 then
-		server.player_msg(cn, server.noadmin_message)
-	end
-
         server.player_vars(cn).shown_banner = true
     end)
 end

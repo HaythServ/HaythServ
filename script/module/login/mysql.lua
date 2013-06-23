@@ -61,6 +61,7 @@ player_command_function("register", function(cn, _username, _password)
     if not _password then
         return false, usage
     end
+    open(open_settings)
     local adduser = [[INSERT INTO logins (username, password, privileges)
         VALUES ('%s', '%s', 'verify')]]
     local getusers = [[SELECT username FROM logins]]
@@ -78,6 +79,7 @@ player_command_function("register", function(cn, _username, _password)
 end)
 
 local function _privileges(__username, __password)
+    open(open_settings)
     local __privileges = [[SELECT privileges FROM logins WHERE username='%s' AND password='%s']]
     return execute_statement(string.format(
         __privileges,
@@ -87,6 +89,7 @@ local function _privileges(__username, __password)
 end
 
 player_command_function("login", function(cn, _username, _password)
+    open(open_settings)
     local _usernames = [[SELECT username FROM logins]]
     local error_user_not_found = "user does not exist!"
     local usage = "#login username password"
@@ -142,6 +145,7 @@ player_command_function("login", function(cn, _username, _password)
 end)
 
 player_command_function("loginpm", function(cn, _username, _message)
+    open(open_settings)
     local _usernames = [[SELECT username FROM logins]]
     local _sender = server.player_displayname(cn)
     local error_user_not_found = "user does not exist!"
@@ -175,6 +179,7 @@ player_command_function("loginpm", function(cn, _username, _message)
 end)
 
 player_command_function("setloginprivs", function(cn, _username, _privileges)
+    open(open_settings)
     local _usernames = [[SELECT username FROM logins]]
     local error_user_not_found = "user does not exist!"
     local usage = "#setloginprivs username privilege-level"

@@ -378,7 +378,6 @@ namespace server {
     extern string spawnammoweapon;
     extern int efficammomultipler;
     extern int masterkicktime;
-    extern int adminleft;
     namespace aiman {
 	extern string botname;
     }

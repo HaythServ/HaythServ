@@ -6,11 +6,11 @@
 ################################################################################
 
 # refuse root
-#if [ "x${UID}" = "x0" ] || [ "x$(whoami)" = "xroot" ]
-#then
-#    echo "You cannot use the server as root!"
-#    exit 1
-#fi
+if [ "x${UID}" = "x0" ] || [ "x$(whoami)" = "xroot" ]
+then
+    echo "You cannot use the server as root!"
+    exit 1
+fi
 
 ################################################################################
 

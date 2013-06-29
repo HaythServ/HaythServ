@@ -372,10 +372,8 @@ namespace server {
     extern int instahp;
     extern int instaarmour;
     extern int defaultcc;
-    extern int spawnhealth;
-    extern int spawnarmour;
-    extern int spawnammo;
-    extern string spawnammoweapon;
+	extern void spawnammo(val, gun);
+	extern int spawnarmour, spawnhealth;
     extern int efficammomultipler;
     extern int masterkicktime;
     namespace aiman {
@@ -399,6 +397,10 @@ struct fpsstate
     {
         ammo[gun] = (itemstats[gun-GUN_SG].add*k)/scale;
     }
+    
+    void weapon_defaultammo(int gun) {
+		ammo[gun] = itemstats[gun-GUN_SG].add*2
+	}
 
     void addammo(int gun, int k = 1, int scale = 1)
     {
@@ -456,8 +458,6 @@ struct fpsstate
 
     void respawn()
     {
-        health = server::spawnhealth;
-        armour = server::spawnarmour;
 	if((server::spawnarmour == 100 && server::spawnarmour < 200))
 	    armourtype = A_GREEN;
 	else {
@@ -471,20 +471,7 @@ struct fpsstate
         gunwait = 0;
         loopi(NUMGUNS) ammo[i] = 0;
         ammo[GUN_FIST] = 1;
-	if(server::spawnammo != 0) {
-	    if(server::spawnammoweapon == "GUN_RL")
-		ammo[GUN_RL] = server::spawnammo;
-	    if(server::spawnammoweapon == "GUN_GL")
-                ammo[GUN_GL] = server::spawnammo;
-            if(server::spawnammoweapon == "GUN_CG")
-                ammo[GUN_CG] = server::spawnammo;
-            if(server::spawnammoweapon == "GUN_SG")
-                ammo[GUN_SG] = server::spawnammo;
-            if(server::spawnammoweapon == "GUN_RIFLE")
-                ammo[GUN_RIFLE] = server::spawnammo;
-
 	}
-    }
 
     void spawnstate(int gamemode)
     {
@@ -614,6 +601,8 @@ struct fpsstate
             ammo[GUN_PISTOL] = 40;
             ammo[GUN_GL] = 1;
 	}
+	health += spawnhealth;
+	armour += spawnarmour;
     }
     // just subtract damage here, can set death, etc. later in code calling this
     int dodamage(int damage)

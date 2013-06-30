@@ -470,6 +470,8 @@ struct fpsstate
 
     void spawnstate(int gamemode)
     {
+	armour = server::spawnarmour;
+	health = server::spawnhealth;
         if(m_demo)
         {
             gunselect = GUN_FIST;
@@ -596,8 +598,6 @@ struct fpsstate
             ammo[GUN_PISTOL] = 40;
             ammo[GUN_GL] = 1;
 	}
-	health += server::spawnhealth;
-	armour += server::spawnarmour;
     }
     // just subtract damage here, can set death, etc. later in code calling this
     int dodamage(int damage)

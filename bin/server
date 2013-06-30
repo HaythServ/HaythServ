@@ -28,9 +28,15 @@ fi
 
 cd $d_main
 
-if [ ! -d bin ] || [ ! -d log ] || [ ! -d conf ] || [ ! -d script ]
+if [ ! -d log ]
 then
-    echo "Incomplete Installation! bin/, log/, conf/ or script/ are missing."
+    mkdir log
+fi
+
+if [ ! -d bin ] || [ ! -d conf ] || [ ! -d script ]
+then
+    echo "Incomplete Installation! bin/, conf/ or script/ are missing."
+    echo "Download missing files at $(tput bold)$(tput setaf 5)https://github.com/Gnaoprr/HaythServ$(tput setaf 7)!"
     exit 1
 fi
 
@@ -296,17 +302,17 @@ case "$1" in
 	fi
     ;;
     'help')
-	echo "usage: $0 [start] [--no-statuslog]"
-	echo "       $0 [start] luapp luafile"
-	echo "       $0 [start] shell [ruby|perl]"
+	echo "usage: $(tput bold)$(tput smso)$(tput setaf 5)$0$(tput setaf 1)$(tput rmso)$(tput sgr0) [start] [--no-statuslog]"
+	echo "       $(tput bold)$(tput setaf 5)$0 $(tput setaf 1)$(tput sgr0)[start] luapp luafile"
+	echo "       $(tput bold)$(tput setaf 5)$0 $(tput setaf 1)$(tput sgr0)[start] shell [ruby|perl]"
 	echo ""
-	echo "       $0 stop"
+	echo "       $(tput bold)$(tput setaf 5)$0 $(tput setaf 1)$(tput sgr0)stop"
 	echo ""
-	echo "       $0 restart"
+	echo "       $(tput bold)$(tput setaf 5)$0 $(tput setaf 1)$(tput sgr0)restart"
 	echo ""
-	echo "       $0 status [output file]"
-	echo "       $0 updateconf"
-	echo "       $0 password 'new password'"
+	echo "       $(tput bold)$(tput setaf 5)$0 $(tput setaf 1)$(tput sgr0)status [output file]"
+	echo "       $(tput bold)$(tput setaf 5)$0 $(tput setaf 1)$(tput sgr0)updateconf"
+	echo "       $(tput bold)$(tput setaf 5)$0 $(tput setaf 1)$(tput sgr0)password 'new password'"
     ;;
     *)
         exec $d_main/bin/$f_starter start $*

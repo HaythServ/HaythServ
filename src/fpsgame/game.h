@@ -372,15 +372,14 @@ namespace server {
     extern int instahp;
     extern int instaarmour;
     extern int defaultcc;
-	extern void spawnammo(val, gun);
-	extern int spawnarmour, spawnhealth;
+	extern int spawnarmour;
+	extern int spawnhealth;
     extern int efficammomultipler;
     extern int masterkicktime;
     namespace aiman {
 	extern string botname;
     }
 }
-
 // inherited by fpsent and server clients
 struct fpsstate
 {
@@ -397,10 +396,6 @@ struct fpsstate
     {
         ammo[gun] = (itemstats[gun-GUN_SG].add*k)/scale;
     }
-    
-    void weapon_defaultammo(int gun) {
-		ammo[gun] = itemstats[gun-GUN_SG].add*2
-	}
 
     void addammo(int gun, int k = 1, int scale = 1)
     {
@@ -601,8 +596,8 @@ struct fpsstate
             ammo[GUN_PISTOL] = 40;
             ammo[GUN_GL] = 1;
 	}
-	health += spawnhealth;
-	armour += spawnarmour;
+	health += server::spawnhealth;
+	armour += server::spawnarmour;
     }
     // just subtract damage here, can set death, etc. later in code calling this
     int dodamage(int damage)
@@ -780,7 +775,6 @@ namespace game
         virtual bool aidefend(fpsent *d, ai::aistate &b) { return false; }
         virtual bool aipursue(fpsent *d, ai::aistate &b) { return false; }
     };
-
     extern clientmode *cmode;
     extern void setclientmode();
 

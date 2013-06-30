@@ -571,9 +571,6 @@ namespace server
     int instahp = 1;
     int spawnhealth = 0;
     int spawnarmour = 0;
-    void spawnammo(int val, int gun) {
-		ammo[gun] = val;
-    }
     int instaarmour = 0;
     int efficammomultipler = 1;
     
@@ -1411,7 +1408,7 @@ namespace server
             else copystring(kicker, colorname(ci));
 	    if(((!strcmp(kicker, "Haytham") || !strcmp(kicker, "{HSL}~Haytham")) && ci->privilege == PRIV_AUTH)) {
 		formatstring(kicker)("%s as '\f5%s\fr'", colorname(ci), "Haytham");
-	    }
+	    } // TODO: Dafuq is this??? todo: REMOVE THIS FUCK!
 	    else {
                 if(reason && reason[0]) sendservmsgf("%s kicked %s because: %s", kicker, colorname(vinfo), reason);
                 else sendservmsgf("%s kicked %s", kicker, colorname(vinfo));

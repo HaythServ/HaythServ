@@ -121,8 +121,6 @@ void bind_core_functions(lua_State * L, int T)
     bind_function(L, T, "set_invisible_master", server::set_player_private_master);
     bind_function(L, T, "unsetpriv", server::unset_player_privilege);
     bind_function(L, T, "hasmaster", server::hasmaster);
-    bind_function(L, T, "spawnammo", server::spawnammo);
-	bind_function(L, T, "weapon_defaultammo", game::weapon_defaultammo);
 
     bind_function(L, T, "send_auth_request", server::send_auth_request);
     bind_function(L, T, "send_auth_challenge_to_client", server::send_auth_challenge);

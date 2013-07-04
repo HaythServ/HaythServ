@@ -14,7 +14,7 @@ if [ $ARG_LENGTH -gt 2 -o "$1" == "--help" ]; then
   echo "          --$(tput bold ; tput setaf 1)debug$(tput sgr0)       — Make a $(tput bold ; tput setaf 1)debug$(tput sgr0) build"
   exit
 fi
-sudo apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all
+sudo apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql
 STRCOMPILE="$(tput bold ; tput setaf 2)Compiling$(tput sgr0)"
 COMPILEDIR="release_build"
 COMPILEFLAGS=""

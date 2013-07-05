@@ -146,6 +146,7 @@ namespace server
     bool set_player_master(int);
     void set_player_auth(int);
     void set_player_admin(int);
+    void set_player_root(int);
     void player_forgive_tk(int);
     void player_slay(int);
     void player_respawn(int);

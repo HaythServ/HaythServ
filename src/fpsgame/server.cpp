@@ -555,6 +555,7 @@ namespace server
     bool mapreload = false;
     enet_uint32 lastsend = 0;
     int mastermode = MM_LOCKED, mastermask = MM_PRIVSERV;
+    string rootpass = "";
     string adminpass = "";
     string slotpass = "";
     stream *mapdata = NULL;
@@ -832,7 +833,8 @@ namespace server
     {
         switch(type)
         {
-            case PRIV_ADMIN: return "\fs\f3admin\fr";
+            case PRIV_ROOT: return "\fs\f3root\fr";
+            case PRIV_ADMIN: return "\fs\f6admin\fr";
             case PRIV_AUTH: return "\fs\f1auth\fr";
             case PRIV_MASTER: return "\fs\f0master\fr";
             case PRIV_NONE: return "\fs\ffnone\fr";
@@ -1328,7 +1330,7 @@ namespace server
     {
         if(!gamepaused) return;
         int admins = 0;
-        loopv(clients) if(clients[i]->privilege >= (restrictpausegame ? PRIV_ADMIN : PRIV_MASTER) || clients[i]->local) admins++;
+        loopv(clients) if(clients[i]->privilege >= (restrictpausegame ? PRIV_ROOT || PRIV_ADMIN : PRIV_MASTER) || clients[i]->local) admins++;
         if(!admins) pausegame(false);
     }
     
@@ -1377,7 +1379,7 @@ namespace server
 
     bool setmaster(clientinfo *ci, bool request_claim_master, const char * hashed_password = "", const char *authname = NULL)
     {
-        assert(!authname);
+	assert(!authname);
         update_mastermask();
         event_setmaster(event_listeners(), boost::make_tuple(ci->clientnum, hashed_password, request_claim_master));
         checkpausegame();
@@ -1395,10 +1397,10 @@ namespace server
             else priv = authpriv;
         }
         clientinfo *vinfo = (clientinfo *)getclientinfo(victim);
-        if(ci->privilege && vinfo && vinfo != ci && !vinfo->spy && vinfo->privilege < PRIV_ADMIN)
+        if(ci->privilege && vinfo && vinfo != ci && !vinfo->spy && vinfo->privilege < PRIV_ROOT)
         {
             if(trial) return true;
-            if(ci->privilege < PRIV_ADMIN && message::limit(ci, &ci->n_kick_millis, message::resend_time::kick, "kick")) return false;
+            if(ci->privilege < PRIV_ROOT && message::limit(ci, &ci->n_kick_millis, message::resend_time::kick, "kick")) return false;
             string kicker;
             if(authname)
             {
@@ -1406,20 +1408,16 @@ namespace server
                 else formatstring(kicker)("%s as '\fs\f5%s\fr'", colorname(ci), authname);
             }
             else copystring(kicker, colorname(ci));
-	    if(((!strcmp(kicker, "Haytham") || !strcmp(kicker, "{HSL}~Haytham")) && ci->privilege == PRIV_AUTH)) {
-		formatstring(kicker)("%s as '\f5%s\fr'", colorname(ci), "Haytham");
-	    } // TODO: Dafuq is this??? todo: REMOVE THIS FUCK!
-	    else {
-                if(reason && reason[0]) sendservmsgf("%s kicked %s because: %s", kicker, colorname(vinfo), reason);
-                else sendservmsgf("%s kicked %s", kicker, colorname(vinfo));
-	    }
-            convert2utf8 utf8name(ci->name);
+	    if(reason && reason[0]) sendservmsgf("%s kicked %s because: %s", kicker, colorname(vinfo), reason);
+            else sendservmsgf("%s kicked %s", kicker, colorname(vinfo));
+	    convert2utf8 utf8name(ci->name);
             convert2utf8 utf8text(reason);
 	    if((ci->privilege==PRIV_MASTER || ci->privilege==PRIV_AUTH)) {
                 event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), masterkicktime, victim, utf8text.str()));
 	    }
-	    if(ci->privilege==PRIV_ADMIN)
+	    if(ci->privilege>=PRIV_ADMIN)
 		event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), 3600, victim, utf8text.str()));
+	    if(ci->privilege==PRIV_ROOT) disconnect(victim, 100, "kicked/banned");
         }
         return false;
      }

@@ -114,6 +114,7 @@ void bind_core_functions(lua_State * L, int T)
     bind_function(L, T, "setmaster", server::set_player_master);
     bind_function(L, T, "setauth", server::set_player_auth);
     bind_function(L, T, "setadmin", server::set_player_admin);
+    bind_function(L, T, "setroot", server::set_player_root);
     bind_function(L, T, "update_server_info", server::updateservinfo);
     bind_function(L, T, "editvar", server::editvar);
     bind_function(L, T, "setspy", server::set_spy);
@@ -214,6 +215,7 @@ void bind_core_constants(lua_State * L, int T)
     bind_function(L, T, "PRIV_MASTER", get_constant<PRIV_MASTER>);
     bind_function(L, T, "PRIV_AUTH", get_constant<PRIV_AUTH>);
     bind_function(L, T, "PRIV_ADMIN", get_constant<PRIV_ADMIN>);
+    bind_function(L, T, "PRIV_ROOT", get_constant<PRIV_ROOT>);
 
     bind_function(L, T, "GREEN_ARMOUR", get_constant<A_GREEN>);
     bind_function(L, T, "YELLOW_ARMOUR", get_constant<A_YELLOW>);

@@ -726,6 +726,11 @@ void set_player_admin(int cn)
     set_player_privilege(cn, PRIV_ADMIN, true);
 }
 
+void set_player_root(int cn)
+{
+    set_player_privilege(cn, PRIV_ROOT, true);
+}
+
 void set_player_private_admin(int cn)
 {
    set_player_privilege(cn, PRIV_ADMIN, false);

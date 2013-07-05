@@ -3098,11 +3098,11 @@ namespace server
                 getstring(text, p);
                 filtertext(text, text);
                 
-                if(ci && (ci->privilege == PRIV_ADMIN || !message::limit(ci, &ci->n_text_millis, message::resend_time::text, "text")))
+                if(ci && (ci->privilege >= PRIV_ADMIN || !message::limit(ci, &ci->n_text_millis, message::resend_time::text, "text")))
                 {
                     bool is_command = text[0] == '#';
 
-                    if(is_command && !strcmp(text+1, "reload") && ci->privilege == PRIV_ADMIN)
+                    if(is_command && !strcmp(text+1, "reload") && ci->privilege >= PRIV_ADMIN)
                     {
                         reload_hopmod();
                         break;

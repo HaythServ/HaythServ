@@ -15,9 +15,9 @@ if [ $ARG_LENGTH -gt 2 -o "$1" == "--help" ]; then
   exit
 fi
 if [ "x${UID}" = "x0" ] || [ "x$(whoami)" = "xroot" ]; then
-    apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql -y
+    apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql sqlite3 -y
     else
-    sudo apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql -y
+    sudo apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql sqlite3 -y
 fi
 STRCOMPILE="$(tput bold ; tput setaf 2)Compiling$(tput sgr0)"
 COMPILEDIR="release_build"

@@ -1,6 +1,6 @@
 # Declarations and default values for the Core Configuration Variables
 
-global motd "Running Hopmod"
+global motd "Running HaythServ"
 
 global show_country_message 1
 
@@ -51,9 +51,9 @@ flood_protect_sayteam 1
 flood_protect_mapvote 1
 flood_protect_switchteam 1
 flood_protect_switchname 1
-flood_protect_remip 10
-flood_protect_newmap 10
-flood_protect_spectator 10
+flood_protect_remip 1
+flood_protect_newmap 1
+flood_protect_spectator 1
 
 global shell_label "server"
 
@@ -71,7 +71,7 @@ global mute_triggers [nigger nigga negro kike faggot motherfucker jude wichser k
 
 global saveconf_vars [saveconf_vars servername motd maxclients admin_password master_password]
 
-global command_prefixes "! @ [#]"
+global command_prefixes "#"
 
 global root_password ""
 global admin_password ""

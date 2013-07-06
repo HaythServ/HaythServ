@@ -15,7 +15,8 @@ player_commands = {}
 local PLAYER_COMMAND_SCRIPT_DIRECTORIES = {
     {"script/command", server.PRIV_NONE},
     {"script/command/master", server.PRIV_MASTER},
-    {"script/command/admin", server.PRIV_ADMIN}
+    {"script/command/admin", server.PRIV_ADMIN},
+    {"script/command/root", server.PRIV_ROOT}
 }
 
 local function merge_player_command(name, command)

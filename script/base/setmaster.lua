@@ -43,6 +43,9 @@ local function setmaster(cn, hash, set)
         end
     elseif server.master_password ~= "" and server.hashpassword(cn, server.master_password) == hash then
         server.setmaster(cn) 
+    elseif server.root_password ~= "" and server.hashpassword(cn, server.root_password) == hash then
+        server.setroot(cn)
+	server.msg(string.format(server.player_claimedrootmsg, server.player_displayname(cn)))
     else
         server.log(string.format("Player: %s(%i) IP: %s -- failed setmaster login!", server.player_name(cn), cn, server.player_ip(cn)))
         

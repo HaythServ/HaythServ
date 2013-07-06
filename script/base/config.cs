@@ -63,6 +63,7 @@ global masterserverport 28787
 
 global masterauth_banned []
 global server_admin_password ""
+global server_root_password ""
 
 global web_admins []
 
@@ -72,6 +73,7 @@ global saveconf_vars [saveconf_vars servername motd maxclients admin_password ma
 
 global command_prefixes "! @ [#]"
 
+global root_password ""
 global admin_password ""
 global master_password ""
 global allow_setmaster 0
@@ -79,6 +81,6 @@ global allow_setmaster 0
 global irc_socket_password ""
 
 global ban_lists [
-    "http://hopmod.googlecode.com/svn/data/bans.json"
+--    "http://hopmod.googlecode.com/svn/data/bans.json"
 ]
 

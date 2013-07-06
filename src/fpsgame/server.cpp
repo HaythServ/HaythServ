@@ -2576,7 +2576,7 @@ namespace server
             return DISC_IPBAN;
         }
         
-        bool is_admin = ci->privilege == PRIV_ADMIN;
+        bool is_admin = ci->privilege >= PRIV_ADMIN;
         
         if((is_admin || is_reserved) && reservedslots > 0) 
         {

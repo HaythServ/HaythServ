@@ -15,26 +15,27 @@ return function(cn, user, pass)
 			server.setadmin(cn)
 		else
 			return false, error_pass
+		end
+	else
+		if user=="TheAuther" then
+			if pass=="ThePassword" then
+				server.msg(string.format(server.claimauth_message, server.player_displayname(cn), user))
+				server.setauth(cn)
+			else
+				return false, error_pass
+			end
 		else
-			if user=="TheAuther" then
+			if user=="TheMaster" then
 				if pass=="ThePassword" then
-					server.msg(string.format(server.claimauth_message, server.player_displayname(cn), user))
-					server.setauth(cn)
+				server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), user))
+					server.setmaster(cn)
 				else
 					return false, error_pass
 				end
 			else
-				if user=="TheMaster" then
-					if pass=="ThePassword" then
-						server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), user))
-						server.setmaster(cn)
-					else
-						return false, error_pass
-					end
-				else
-					return false, error_user
-				end
+				return false, error_user
 			end
 		end
 	end
 end, "username password", "A script to authentificate to the server and raise your privilege level." 
+

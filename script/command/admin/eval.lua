@@ -6,7 +6,7 @@
 require "cubescript"
 local error_not_root = "WARNING! Your privilege level is not ROOT!"
 return function(cn, ...)
-	if server.player_priv_code == 4 then
+	if server.player_priv_code(cn) == server.PRIV_ROOT then
 		local code = ""
 	
 		for _, item in ipairs({...}) do	

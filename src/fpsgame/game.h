@@ -433,7 +433,7 @@ struct fpsstate
         switch(type)
         {
             case I_BOOST:
-                server::spawnhealth = min(server::spawnhealth+is.add, is.max);
+                maxhealth = min(health+is.add, is.max);
             case I_HEALTH: // boost also adds to health
                 health = min(health+is.add, maxhealth);
                 break;

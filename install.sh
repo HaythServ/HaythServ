@@ -14,10 +14,23 @@ if [ $ARG_LENGTH -gt 2 -o "$1" == "--help" ]; then
   echo "          --$(tput bold ; tput setaf 1)debug$(tput sgr0)       — Make a $(tput bold ; tput setaf 1)debug$(tput sgr0) build"
   exit
 fi
-if [ "x${UID}" = "x0" ] || [ "x$(whoami)" = "xroot" ]; then
-    apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql sqlite3 -y
+STRDOWNLOAD="$(tput bold ; tput setaf 2)Downloading dependences for$(tput sgr0)"
+STRDOWNLOADWANT="$(tput bold ; tput setaf 2)Do you want to download the dependences for$(tput sgr0)"
+STRDOWNLOADSKIP="$(tput bold ; tput setaf 2)Skipped the download of the dependences for$(tput sgr0)"
+echo -n "$STRDOWNLOADWANT "$PROJECT"? (Y/n)"
+read -n 1 _download
+echo ""
+if [ -z $_download ] || [ $_download = "Y" ] || [ $_download = "y" ]; then
+    echo "$STRDOWNLOAD "$PROJECT"!"
+    if [ "x${UID}" = "x0" ] || [ "x$(whoami)" = "xroot" ]; then
+        apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql sqlite3 -y
     else
-    sudo apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql sqlite3 -y
+        sudo apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql sqlite3 -y
+    fi
+elif [ $_download = "N" ] || [ $_download = "n" ]; then
+    echo "$STRDOWNLOADSKIP "$PROJECT"!"
+else
+    echo "Unkown arg: "$_download"!"
 fi
 STRCOMPILE="$(tput bold ; tput setaf 2)Compiling$(tput sgr0)"
 COMPILEDIR="release_build"

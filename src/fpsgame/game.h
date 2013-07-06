@@ -569,7 +569,7 @@ struct fpsstate
                 loopi(5) baseammo(i+1, 10);
                 gunselect = GUN_GL;
             } else {
-                loopi(5) baseammo(i+1, server::efficammomultipler);
+                loopi(5) baseammo(i+1, server::efficammomultipler*2);
                 gunselect = GUN_CG;
                 ammo[GUN_CG] /= 2;
             }

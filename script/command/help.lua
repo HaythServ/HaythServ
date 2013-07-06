@@ -42,6 +42,7 @@ return function(cn, command_name)
     local privilege_colours = {}
     privilege_colours[server.PRIV_MASTER] = green
     privilege_colours[server.PRIV_ADMIN] = orange
+    privilege_colours[server.PRIV_ROOT] = red
     
     local list_of_command_names = {}
     

@@ -570,7 +570,7 @@ namespace server
     int glinsta = 0;
     int instaammo = 100;
     int instahp = 1;
-    int spawnhealth = 100;
+    int spawnhealth = 0;
     int spawnarmour = 25;
     int instaarmour = 0;
     int efficammomultipler = 1;

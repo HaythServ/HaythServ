@@ -433,7 +433,7 @@ struct fpsstate
         switch(type)
         {
             case I_BOOST:
-                maxhealth = min(health+is.add, is.max);
+                maxhealth = min(maxhealth+is.add, is.max);
             case I_HEALTH: // boost also adds to health
                 health = min(health+is.add, maxhealth);
                 break;
@@ -471,7 +471,7 @@ struct fpsstate
     void spawnstate(int gamemode)
     {
 	armour = server::spawnarmour;
-	health = server::spawnhealth;
+	health = server::spawnhealth+maxhealth;
         if(m_demo)
         {
             gunselect = GUN_FIST;

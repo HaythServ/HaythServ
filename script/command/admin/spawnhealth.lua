@@ -3,8 +3,8 @@ return function(cn, value)
 	if not value then
 		return false, error_novalue
 	end
-	if value=="default" or value=="100" then
-		server.spawnhealth = 100
+	if value=="default" or value=="0" then
+		server.spawnhealth = 0
 		server.msg(string.format(server.reset_spawnhp_message, server.player_displayname(cn)))
 	else
 		server.spawnhealth = value

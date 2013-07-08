@@ -85,7 +85,7 @@ local function _login(query_backend, sendto, _username, _password)
 	
 	if row.username == _username and row.password == _password then 
 		if row.privileges == "0" then
-			server.msg(string.format(concat(red(">>>") "Player" green("%s") "verified as" (magenta "'%s'")), server.player_name(sendto), escape_string(_username)))
+			server.msg(string.format("Player %s verified as '%s'.", server.player_name(sendto), escape_string(_username)))
 		elseif row.privileges == "1" then
 			server.msg(string.format(player_claimvialogin_message, server.player_name(sendto), green("master"), escape_string(_username)))
 			server.setmaster(sendto)

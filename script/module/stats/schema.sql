@@ -66,6 +66,13 @@ CREATE TABLE IF NOT EXISTS playertotals (
     timeplayed          INTEGER DEFAULT 0
 );
 
+CREATE TABLE IF NOT EXISTS login (
+  id                INTEGER PRIMARY KEY,
+  name              TEXT UNIQUE,
+  password          TEXT,
+  privileges        INTEGER DEFAULT 0
+)
+
 CREATE INDEX IF NOT EXISTS "player_name" ON players (name);
 CREATE INDEX IF NOT EXISTS "player_ipaddr" ON players (ipaddr);
 CREATE INDEX IF NOT EXISTS "game_id" ON players (game_id ASC);

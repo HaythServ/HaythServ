@@ -74,3 +74,12 @@ CREATE TABLE IF NOT EXISTS  `playertotals` (
   PRIMARY KEY (`id`),
   UNIQUE(name)
 ) ENGINE=MyISAM DEFAULT CHARSET=ascii ;
+
+CREATE TABLE IF NOT EXISTS  `login`  (
+  `id`              bigint(11) NOT NULL AUTO_INCREMENT,
+  `name`            varchar(32) COLLATE latin1_general_ci NOT NULL,
+  `password`        varchar(32) COLLATE latin1_general_ci NOT NULL,
+  `privileges`      tinyint(1) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE(name)
+) ENGINE=MyISAM DEFAULT CHARSET=ascii ;

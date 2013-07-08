@@ -1,1 +1,0 @@
-exec("login/init.lua");

@@ -60,6 +60,52 @@ local function open(settings)
     return true
 end
 
+player_command_function("register", function(cn, _username, _password)
+    local insert_login_sql = [[INSERT INTO login (username, password, privileges) 
+        VALUES ('%s', '%s', 0)]]
+    
+    if not execute_statement(string.format(insert_login_sql,
+        escape_string(_username),
+		escape_string(_password) and 1 or 0)) then return nil end
+    
+    local cursor = execute_statement("SELECT last_insert_id()")
+    if not cursor then return nil end
+    return cursor:fetch()
+end)
+
+local function _login(query_backend, sendto, _username, _password)
+    
+    row = query_backend.login(escape_string(_username))
+    if not row then
+        server.player_msg(sendto, "This username isn't registred yet, you can register it using: #register username password.")
+        return
+	end
+	
+	local player_claimvialogin_message = (concat (red ">>>") "Player" (green "%s") "claimed %s as " (magenta "'%s'"))
+	
+	if row.username == _username and row.password == _password then 
+		if row.privileges == "0" then
+			server.msg(string.format(concat(red(">>>") "Player" green("%s") "verified as" (magenta "'%s'")), server.player_name(sendto), escape_string(_username)))
+		elseif row.privileges == "1" then
+			server.msg(string.format(player_claimvialogin_message, server.player_name(sendto), green("master"), escape_string(_username)))
+			server.setmaster(sendto)
+		elseif row.privileges == "2" then
+			server.msg(string.format(player_claimvialogin_message, server.player_name(sendto), blue("auth"), escape_string(_username)))
+			server.setauth(sendto)
+		elseif row.privileges == "3" then
+			server.msg(string.format(player_claimvialogin_message, server.player_name(sendto), orange("admin"), escape_string(_username)))
+			server.setadmin(sendto)
+		end
+	elseif row.username == _username and row.password ~= password then
+		server.player_msg(sendto, "The password you have entered for this username is wrong.")
+		return
+	end
+end
+
+player_command_function("login", function(cn, _username, _password)
+        return _login(query_backend, cn, _username, _password)
+end)
+
 local function insert_game(game)
 
     local insert_game_sql = [[INSERT INTO games (servername, datetime, duration, gamemode, mapname, players, bots, finished) 

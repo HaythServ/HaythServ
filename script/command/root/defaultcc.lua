@@ -4,4 +4,4 @@ return function(cn, value)
 		return false, error_novalue
 	end
 	server.defaultcc = value
-end, "value", "Changes server's default connected clients"
+end, readargs("script/command/root/defaultcc"), readman("script/command/root/defaultcc")

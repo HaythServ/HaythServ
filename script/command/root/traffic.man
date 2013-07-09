@@ -1,0 +1,1 @@
+Displays used traffic and traffic speed

@@ -825,7 +825,7 @@ env["readman"] = function(command)
     end
     local content = f:read("*all")
     f:close()
-    return concat(grey("[man]:") magenta(content))
+    return magenta(string.format("[man]: %s", content))
 end
 
 env["readargs"] = function(command)
@@ -835,7 +835,7 @@ env["readargs"] = function(command)
     end
     local content = f:read("*all")
     f:close()
-    return concat(grey("[args]:") orange(content))
+    return orange(string.format("[args]: %s", content))
 end
 
 return env

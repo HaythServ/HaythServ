@@ -677,7 +677,6 @@ namespace server
             defformatstring(admin_info)(RED "ADMIN-INFO: %s joined the spy-mode.", ci->name);
             loopv(clients) if(clients[i] != ci && clients[i]->privilege >= PRIV_ADMIN) clients[i]->sendprivtext(admin_info);
             ci->spy = true;
-            ci->privilege = PRIV_ADMIN;
             ci->hide_privilege = true;
             ci->clientnum = spycn + spies.length();
             spies.add(ci);

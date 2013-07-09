@@ -645,7 +645,7 @@ namespace server
     
     #define MAXSPIES 5
     
-    int spycn = rnd(INT_MAX - MAXCLIENTS - MAXBOTS - MAXSPIES) + 1;    
+    int spycn = 1024;    
     vector<clientinfo *> spies;
     void real_cn(int &n) { n = spies[n-spycn]->n; }
     
@@ -3110,7 +3110,7 @@ namespace server
 
                     if (ci->spy && !is_command)
                     {
-                        sendservmsgf("\f3REMOTE ADMIN \f0(\f8%s\f0)\f3: \f8%s", ci->name, text);
+                        sendservmsgf("\f3REMOTE %s \f0(\f8%s\f0)\f3: \f8%s", ci->privilege == PRIV_ROOT ? "ROOT" : "ADMIN", ci->name, text);
                         break;
                     }
                     

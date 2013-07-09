@@ -280,7 +280,7 @@ void process(ENetPacket *packet, int sender, int chan)   // sender may be -1
 {
     packetbuf p(packet);
     server::parsepacket(sender, chan, p);
-    if(p.overread()) { disconnect_client(sender, DISC_EOP); return; }
+    // if(p.overread()) { disconnect_client(sender, DISC_EOP); return; }
 }
 
 void localclienttoserver(int chan, ENetPacket *packet)

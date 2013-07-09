@@ -9,4 +9,4 @@ return function(cn, value)
 		server.botname = value
 	end
         server.msg(string.format(server.change_botname_message, server.player_displayname(cn), value))
-end, "name", "Changes bots' name"
+end, server.readargs("botname"), server.readman("botname")

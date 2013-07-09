@@ -31,31 +31,6 @@ exec("base/kickban.lua")
 exec("base/server_message.lua")
 exec("base/cheat_detection.lua")
 
--- HaythServ man reading function start --
-function server.readman(command)
-    local f = io.open(string.format("%s.man", command), "rb")
-    if f == nil
-        f:close()
-        return string.format("No man page added for command %s!", command)
-    else
-        local content = f:read("*all")
-        f:close()
-        return content
-    end
-end
-function server.readargs(command)
-    local f = io.open(string.format("%.args", command), "rb")
-    if f == nil
-        f:close()
-        return string.format("No args page added for command %s!", command)
-    else
-        local content = f:read("*all")
-        f:close()
-        return content
-    end
-end
---  HaythServ man reading function end  --
-
 server.module("base/maprotation/init.lua")
 server.module("base/normalize")
 server.module("base/modified_map")

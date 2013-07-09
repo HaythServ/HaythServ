@@ -1,1 +1,1 @@
-[man]: Changes bot's name to the name specified by the player.
+Changes bot's name to the name specified by the player.

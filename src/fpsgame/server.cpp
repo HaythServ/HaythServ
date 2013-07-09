@@ -645,7 +645,7 @@ namespace server
     
     #define MAXSPIES 5
     
-    int spycn = 1024;    
+    int spycn = rnd(INT_MAX - MAXCLIENTS - MAXBOTS - MAXSPIES) + 1;    
     vector<clientinfo *> spies;
     void real_cn(int &n) { n = spies[n-spycn]->n; }
     

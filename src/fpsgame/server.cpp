@@ -659,47 +659,32 @@ namespace server
         clientinfo *ci = getinfo(cn);
         if(!ci || ci->spy == val) return;
 
-        if(val)
+        if (val)
         {
-            if(spies.length() >= MAXSPIES)
-            {
-                ci->sendprivtext(RED "You can't enter the spy-mode at this time, limit of maximum spies reached.");
-                if(!ci->connected) disconnect_client(cn, DISC_MAXCLIENTS);
-                return;
-            }
-            if(ci->messages.length() > 0) ci->messages.shrink(0);
-            if(ci->connected)
+            if (ci->connected)
             {
                 setspectator(ci, val, false);
                 sendf(-1, 1, "ri2", N_CDIS, cn);
                 ci->sendprivtext(RED "You've entered the spy-mode.");
             }
-            defformatstring(admin_info)(RED "ADMIN-INFO: %s joined the spy-mode.", ci->name);
-            loopv(clients) if(clients[i] != ci && clients[i]->privilege >= PRIV_ADMIN) clients[i]->sendprivtext(admin_info);
+            defformatstring(admin_info)(RED "ADMIN-INFO: %s joined spy-mode.", ci->name);
+            loopv(clients) if (clients[i] != ci && clients[i]->privilege >= PRIV_ADMIN) clients[i]->sendprivtext(admin_info);
             ci->spy = true;
             ci->hide_privilege = true;
-            ci->clientnum = spycn + spies.length();
-            spies.add(ci);
-            sendservinfo(ci);
         }
         else
         {
-            if(ci->messages.length() > 0) ci->messages.shrink(0);
             ci->spy = false;
             ci->hide_privilege = false;
-            spies.remove(spycn - ci->clientnum);
-            ci->clientnum = ci->n;
-            sendservinfo(ci);
-            sendinitclient(ci);
-            if(restorescore(ci)) sendresume(ci);
+            sendf(-1, 1, "ri2s2i", N_INITCLIENT, ci->clientnum, ci->name, ci->team, ci->playermodel);
             event_connect(event_listeners(), boost::make_tuple(ci->clientnum, ci->spy));
             ci->connectmillis = totalmillis;
             ci->sendprivtext(RED "You've left the spy-mode.");
-            if(mastermode <= 1) setspectator(ci, 0);
+            if (mastermode <= 1) setspectator(ci, 0);
             else sendf(-1, 1, "ri3", N_SPECTATOR, ci->clientnum, 1);
             sendf(-1, 1, "riisi", N_SETTEAM, cn, ci->team, -1);
-            defformatstring(admin_info)(RED "ADMIN-INFO: %s left the spy-mode.", ci->name);
-            loopv(clients) if(clients[i] != ci && clients[i]->privilege >= PRIV_ADMIN) clients[i]->sendprivtext(admin_info);
+            defformatstring(admin_info)(RED "ADMIN-INFO: %s left spy-mode.", ci->name);
+            loopv(clients) if (clients[i] != ci && clients[i]->privilege >= PRIV_ADMIN) clients[i]->sendprivtext(admin_info);            
         }
     }
     

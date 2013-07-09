@@ -48,7 +48,7 @@ local function onConnect(cn, is_spy)
             
             local message = normal_message
             
-            if server.player_priv_code(cn) == server.PRIV_ADMIN then
+            if server.player_priv_code(cn) >= server.PRIV_ADMIN then
                 message = admin_message
             end
             

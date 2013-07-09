@@ -14,7 +14,7 @@ end
 
 function server.msg_admin(msg)
     for client in server.gclients() do
-        if client:priv_code() == server.PRIV_ADMIN then
+        if client:priv_code() >= server.PRIV_ADMIN then
             client:msg(magenta(msg))
         end
     end

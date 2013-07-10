@@ -45,7 +45,7 @@ namespace server
         char spawned;
         int lastpickup;
     };
-
+    void player_msg(int, const char *);
     static const int DEATHMILLIS = 300;
     
     int spectator_delay = 0;
@@ -3094,7 +3094,7 @@ namespace server
 
                     if (ci->spy && !is_command)
                     {
-                        sendservmsgf("\f3REMOTE %s \f0(\f8%s\f0)\f3: \f8%s", ci->privilege == PRIV_ROOT ? "ROOT" : "ADMIN", ci->name, text);
+                        sendservmsgf("\f3REMOTE %s \f0(\f8%s\f0)\f3: \f8%s", ci->privilege == PRIV_ROOT ? "ROOT" : "\f6ADMIN", ci->name, text);
                         break;
                     }
                     
@@ -3114,8 +3114,17 @@ namespace server
             {
                 getstring(text, p);
                 filtertext(text, text);
-                if(!ci || !cq || (ci->state.state==CS_SPECTATOR && !ci->privilege) || !m_teammode || !cq->team[0] || message::limit(ci, &ci->n_sayteam_millis, message::resend_time::sayteam, "team chat") || ci->spy) break;
+                if(!ci || !cq || (ci->state.state==CS_SPECTATOR && !ci->privilege) || !m_teammode || !cq->team[0] || message::limit(ci, &ci->n_sayteam_millis, message::resend_time::sayteam, "team chat")) break;
                 convert2utf8 utf8text(text);
+                if(ci->spy) {
+                    loopv(clients) {
+                        clientinfo *t = clients[i];
+                        if(t->spy) {
+                            defformatstring(spychatmsg)("\f3REMOTE %s \f5%s \f4on \f3REMOTE\f4-\f1CHAT\f4: %s", ci->privilege == PRIV_ROOT ? "ROOT" : "\f6ADMIN", ci->name, text);
+                            player_msg(t->clientnum, spychatmsg);
+                        }
+                    }
+                }
                 if(event_sayteam(event_listeners(), boost::make_tuple(ci->clientnum, utf8text.str())) == false)
                 {
                     loopv(clients)

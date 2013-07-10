@@ -818,25 +818,5 @@ env["eval_lua"] = function(str)
     return chunk()
 end
 
-env["readman"] = function(command)
-    local f = io.open(string.format("%s.man", command), "rb")
-    if f == nil then
-         return false
-    end
-    local content = f:read("*all")
-    f:close()
-    return magenta(content)
-end
-
-env["readargs"] = function(command)
-    local f = io.open(string.format("%s.args", command), "rb")
-    if f == nil then
-         return false
-    end
-    local content = f:read("*all")
-    f:close()
-    return orange(content)
-end
-
 return env
 

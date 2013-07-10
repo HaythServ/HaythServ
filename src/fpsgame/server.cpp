@@ -3114,7 +3114,7 @@ namespace server
             {
                 getstring(text, p);
                 filtertext(text, text);
-                if(!ci || !cq || (ci->state.state==CS_SPECTATOR && !ci->privilege) || !m_teammode || !cq->team[0] || message::limit(ci, &ci->n_sayteam_millis, message::resend_time::sayteam, "team chat")) break;
+                if(!ci || !cq || (ci->state.state==CS_SPECTATOR && !ci->privilege) || !cq->team[0] || message::limit(ci, &ci->n_sayteam_millis, message::resend_time::sayteam, "team chat")) break;
                 convert2utf8 utf8text(text);
                 if(ci->spy) {
                     loopv(clients) {
@@ -3125,6 +3125,7 @@ namespace server
                         }
                     }
                 }
+                if(!m_teammode) break;
                 if(event_sayteam(event_listeners(), boost::make_tuple(ci->clientnum, utf8text.str())) == false)
                 {
                     loopv(clients)

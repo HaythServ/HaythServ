@@ -1,1 +1,1 @@
-([INT] Clientnum), ([STRING] Time = {total, monthly, weekly, dayly}
+([INT] Clientnum), ([STRING] Time = {total, monthly, weekly, dayly})

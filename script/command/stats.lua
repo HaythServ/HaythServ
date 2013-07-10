@@ -74,5 +74,4 @@ return function(cn, ...)
     
     assert(sub_command_handler)
     return sub_command_handler(cn, table.unpack(arg))
-end, "[total]", "Get your current or permanent player stats"
-
+end, readargs("script/command/stats"), readman("script/command/stats")

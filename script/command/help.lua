@@ -20,11 +20,11 @@ return function(cn, command_name)
         end
         
         if not command.help_message then
-            return false, "no description found for #" .. command_name .. " command_name"
+            return false, "no description found for #" .. command_name .. " command"
         end
         
-        server.player_msg(cn, string.format("#%s %s: %s", command_name, 
-            command.help_parameters or "", green(command.help_message)))
+        server.player_msg(cn, string.format("%s: #%s\n%s: %s%s: %s", grey("[command]"), command_name, 
+            grey("[args]"), command.help_parameters or "", grey("[man]"), command.help_message))
         
         return
     end
@@ -54,10 +54,10 @@ return function(cn, command_name)
         end
     end
     
-    server.player_msg(cn, "Command descriptions: #help <command>")
+    server.player_msg(cn, "Command descriptions: #man <command>")
     
     for i,v in ipairs(list_of_command_names) do
         if i == 1 then v = "List of command names: " .. v end
         server.player_msg(cn, v)
     end
-end, "[command]", "List all player commands available or show command description and usage", { "commands" }
+end, readargs("script/command/help"), readman("script/command/help"), { "commands", "man" }

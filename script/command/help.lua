@@ -23,8 +23,11 @@ return function(cn, command_name)
             return false, "no description found for #" .. command_name .. " command"
         end
         
-        server.player_msg(cn, string.format("%s: #%s\n%s: %s%s: %s", grey("[command]"), command_name, 
-            grey("[args]"), command.help_parameters or "", grey("[man]"), command.help_message))
+        server.player_msg(cn, string.format("\fs\f4[\f1COMMAND\f4]\fr\fs: \f5#\fr\fs%s\n\f4[\f1ARGS\f4]\fr\fs: \f5%s\f4[\f1MAN\f4]\fr: \f0%s",
+            command_name, 
+            command.help_parameters or "",
+            command.help_message
+        ))
         
         return
     end

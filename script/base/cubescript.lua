@@ -21,7 +21,7 @@ readman = function(command)
     end   
     local content = f:read("*all")
     f:close()
-    return magenta(content) 
+    return content 
 end
 
 readargs = function(command)
@@ -31,7 +31,7 @@ readargs = function(command)
     end
     local content = f:read("*all")
     f:close()
-    return orange(content) 
+    return content 
 end
 
 function add_exec_search_path(path)

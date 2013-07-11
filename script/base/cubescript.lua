@@ -14,8 +14,25 @@ pexec = library.pexec
 exec_if_found = library.exec_if_found
 search_paths = library.exec_search_paths
 exec_handler = library.exec_type
-readman = library.readman
-readargs = library.readargs
+readman = function(command)
+    local f = io.open(string.format("%s.man", command), "rb")
+    if f == nil then
+         return false
+    end   
+    local content = f:read("*all")
+    f:close()
+    return content 
+end
+
+readargs = function(command)
+    local f = io.open(string.format("%s.args", command), "rb")
+    if f == nil then 
+         return false
+    end
+    local content = f:read("*all")
+    f:close()
+    return content 
+end
 
 function add_exec_search_path(path)
     search_paths[#search_paths + 1] = path

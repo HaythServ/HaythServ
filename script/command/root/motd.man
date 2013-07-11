@@ -1,0 +1,1 @@
+Changes the server's Message Of The Day to the value insert by the player

@@ -1,0 +1,1 @@
+Reloads the server's configuration files

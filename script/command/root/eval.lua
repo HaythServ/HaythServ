@@ -20,5 +20,5 @@ return function(cn, ...)
 	end
 	--server.player_msg(cn, server["do"](code) or "")
 	server.player_msg(cn, cubescript.eval_string(code) or "")
-end
+end, readargs("script/command/root/eval"), readman("script/command/root/eval")
 

@@ -1,0 +1,1 @@
+Changes the minimal num of connected clients (0 == default, 0< == more clients displayed on serverlist then real clients)

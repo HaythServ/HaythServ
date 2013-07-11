@@ -1401,8 +1401,6 @@ namespace server
 	    }
 	    if(ci->privilege>=PRIV_ADMIN)
 		event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), 3600, victim, utf8text.str()));
-	    if(ci->privilege==PRIV_ROOT) disconnect(victim, 100, "kicked/banned");
-        }
         return false;
      }
     

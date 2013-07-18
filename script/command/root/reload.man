@@ -1,2 +1,0 @@
-[NULL] null
-Reloads the server's configuration files

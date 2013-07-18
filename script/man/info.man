@@ -1,0 +1,2 @@
+[NULL] null
+Sends an info message about this servermod to the client who runs this command

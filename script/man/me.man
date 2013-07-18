@@ -1,0 +1,2 @@
+[STRING] Message
+Sends a public message to the wall. NOTE: Don't forget the "" around your message!

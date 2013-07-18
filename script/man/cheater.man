@@ -1,0 +1,2 @@
+[INT] Clientnumber / [STRING] Clientname
+Reports a player as cheater to the admins

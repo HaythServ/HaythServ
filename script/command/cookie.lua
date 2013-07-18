@@ -18,5 +18,4 @@ return function(cn, tcn, ...)
     
 	server.player_msg(cn, string.format(server.cookie_give_message, server.player_displayname(tcn)))
     server.player_msg(tcn, string.format(server.cookie_received_message, server.player_displayname(cn), green(text)))
-end
-
+end, "", readman("cookie")

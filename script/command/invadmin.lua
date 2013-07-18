@@ -46,7 +46,7 @@ local function run(cn, pw)
             end)
         end
     end
-end
+end, "", readman("invadmin")
 
 return {init = init,run = run,unload = unload}
 

@@ -11,4 +11,4 @@ return function(cn,text)
 
     server.motd = text
     server.player_msg(cn, string.format(server.motd_modification_message, text))
-end, readargs("script/command/root/motd"), readman("script/command/root/motd")
+end, "", readman("motd")

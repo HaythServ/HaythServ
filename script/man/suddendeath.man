@@ -1,0 +1,2 @@
+([INT] OnOff = { 0, 1 } / [STRING] OnOff = { Off, On })
+Toggles/Untoggles Suddendeath. #sd toggles suddendeath, #nosd untoggles suddendeath

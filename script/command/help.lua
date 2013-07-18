@@ -20,7 +20,7 @@ return function(cn, command_name)
         end
         
         if not command.help_message then
-            return false, "no description found for #" .. command_name .. " command"
+            return false, "no manpage found for command \fs\f5#\fr" .. command_name .. ""
         end
         
         server.player_msg(cn, string.format("\fs\f3>>> \f4[\f1COMMAND\f4]\fr\fs: \f5#\fr\fs%s\n%s%s",
@@ -63,4 +63,4 @@ return function(cn, command_name)
         if i == 1 then v = "List of command names: " .. v end
         server.player_msg(cn, v)
     end
-end, "", readman("script/command/help"), { "commands", "man" }
+end, "", readman("help"), { "commands", "man" }

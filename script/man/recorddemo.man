@@ -1,0 +1,2 @@
+[INT] Record = { 0, 1 } / [STRING] Record = { "Start", "Stop" }
+Starts / Stops demo recording

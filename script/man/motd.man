@@ -1,0 +1,2 @@
+[STRING] Message Of The Day
+Changes the server's message displayed at connect

@@ -1,0 +1,2 @@
+[NULL] null
+Votes for map sucks, if mapsucks limit has been reached, the gametime gets lowered to 1 minute

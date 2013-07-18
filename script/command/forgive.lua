@@ -57,4 +57,4 @@ return function(cn)
         end
     end
     return false, server.forgive_not_teamkilled_message
-end
+end, "", readman("forgive"), { "np", "fg", "noproblem", "no_problem" }

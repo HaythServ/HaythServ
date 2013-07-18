@@ -1,0 +1,2 @@
+[INT] Clientnumber / [STRING] Clientname
+Delivers a virtual cookie to a player

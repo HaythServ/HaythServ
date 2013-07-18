@@ -1,2 +1,0 @@
-([STRING] command)
-Lists all player commands available for your privilege level or displays an help messagey for a specific command

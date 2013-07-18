@@ -12,20 +12,7 @@ local function cs_escape(msg)
   return msg
 end
 
-return function(cn, ...)
-	local text = ""
-    
-	for _, item in ipairs(arg) do
-		item = tostring(item)
-		if #item > 0 then
-			if #text > 0 then
-				text = text .. " "
-			end
-
-			text = text .. item
-		end
-	end
-  text = cs_escape(text)
+return function(cn, _text)
+    local text = cs_escape(_text)
     server.msg(string.format(server.me_message, server.player_displayname(cn), text))
-end
-
+end, "", readman("me"), { "wall" }

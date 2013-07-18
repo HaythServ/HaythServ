@@ -37,4 +37,4 @@ return function(cn)
     server.sleep(1000, print_speed)
     server.sleep(2000, print_speed)
     server.sleep(3000, print_speed)
-end, readargs("script/command/root/traffic"), readman("script/command/root/traffic")
+end, "", readman("traffic"), { "traffic_usage", "trafficusage" }

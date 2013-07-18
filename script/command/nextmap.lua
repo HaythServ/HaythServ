@@ -14,5 +14,4 @@ return function(cn)
     local map2 = mapbattle.get_next_map(mapbattle.range, server.gamemode) or ""
 
     server.player_msg(cn, string.format(server.nextmap_message, map1, map2))
-end
-
+end, "", readman("nextmap")

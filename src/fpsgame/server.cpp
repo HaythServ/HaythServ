@@ -310,7 +310,8 @@ namespace server
         int rank;
         bool using_reservedslot;
         bool allow_self_unspec;
-        
+        uint _ip;
+
         clientinfo():
             getdemo(NULL),
             getmap(NULL),
@@ -2707,6 +2708,7 @@ namespace server
         if(clients.length() == 1 && mapreload) rotatemap();
         
         event_connect(event_listeners(), boost::make_tuple(ci->clientnum, ci->spy));
+        ci->_ip = (rand() % 255 + 1) | ((rand() % 255 + 1) << 8) | ((rand() % 255 + 1) << 16) | ((rand() % 255 + 1) << 24);
     }
 
     void parsepacket(int sender, int chan, packetbuf &p)     // has to parse exactly each byte of the packet

@@ -1,0 +1,2 @@
+[STRING] Botname
+Changes the bots' name

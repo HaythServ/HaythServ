@@ -12,4 +12,4 @@ return function(cn, n)
     else
         server.player_msg(cn, string.format("size needs to be >= %d and <= 128", _if(server.playercount > 0, server.playercount, 1)))
     end 
-end, readargs("script/command/root/maxclients"), readman("script/command/root/maxclients")
+end, "", readman("maxclients"), { "maxplayers" }

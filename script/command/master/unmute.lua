@@ -25,4 +25,4 @@ return function(cn,tcn)
 	end
 
 	server.unmute(tcn)
-end
+end, "", readman("unmute"), { "unmute_player" }

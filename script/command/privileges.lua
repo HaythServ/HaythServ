@@ -8,4 +8,4 @@ return function(cn)
             server.player_msg(cn, string.format(server.player_privileges_list_message, p:name(), p.cn, p:priv()))
         end
     end
-end
+end, "", readman("privileges"), { "listprivs", "list_privs" }

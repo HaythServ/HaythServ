@@ -74,4 +74,4 @@ return function(cn, ...)
     
     assert(sub_command_handler)
     return sub_command_handler(cn, table.unpack(arg))
-end, "", readman("script/command/stats")
+end, "", readman("stats"), { "score", "statistics" }

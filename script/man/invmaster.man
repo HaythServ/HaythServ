@@ -1,0 +1,2 @@
+[NULL] null
+Server requires authkey to client to claim invisible master

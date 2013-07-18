@@ -1,0 +1,2 @@
+[INT] Client number
+Changes the player with master privileges

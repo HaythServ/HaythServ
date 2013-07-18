@@ -31,4 +31,4 @@ return function(cn, target_cn)
     end
 
 	server.player_msg(cn, string.format(server.names_command_message, current_name, namelist))
-end
+end, "", readman("names"), { "whois", "player_names" }

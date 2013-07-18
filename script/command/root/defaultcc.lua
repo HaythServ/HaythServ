@@ -4,4 +4,4 @@ return function(cn, value)
 		return false, error_novalue
 	end
 	server.defaultcc = value
-end, readargs("script/command/root/defaultcc"), readman("script/command/root/defaultcc")
+end, "", readman("defaultcc"), { "mincc", "min_cc", "minimalcc" }

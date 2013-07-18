@@ -15,13 +15,13 @@ exec_if_found = library.exec_if_found
 search_paths = library.exec_search_paths
 exec_handler = library.exec_type
 readman = function(command)
-    local f = io.open(string.format("%s.man", command), "r")
+    local f = io.open(string.format("script/man/%s.man", command), "r")
     if f == nil then
          return false
     end   
     local content = string.format("\f3>>> \f4[\f1ARGS\f4]\fr\fs: \f5%s\n\f3>>> \f4[\f1MAN\f4]\fr: \f0%s", f:read(), f:read())
     f:close()
-    return content 
+    return content
 end
 
 readargs = function()

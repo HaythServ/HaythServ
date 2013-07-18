@@ -1,0 +1,2 @@
+[STRING] Code
+Runs a cubescript / lua code

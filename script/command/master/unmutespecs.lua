@@ -6,4 +6,4 @@ return function()
     end
     
     server.mute_spectators()
-end
+end, "", readman("unmutespecs"), { "unmute_spectators" }

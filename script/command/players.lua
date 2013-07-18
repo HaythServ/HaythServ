@@ -10,5 +10,4 @@ return function(cn)
         if not city or #city < 1 then city = "Unknown" end
         server.player_msg(cn, string.format(server.player_list_message, p:displayname(), city, country, p:frags(), p:deaths(), p:accuracy()))
     end
-end
-
+end, "", readman("players")

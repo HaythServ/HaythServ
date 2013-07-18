@@ -1,0 +1,2 @@
+[NULL] null
+Displays the server's uptime

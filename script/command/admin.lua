@@ -32,7 +32,6 @@ local function run(cn)
             server.admin_log(string.format("%s playing as %s(%i) used auth to claim admin.", user_id, server.player_name(cn), cn))
         end)
     end
-end
+end, "", readman("admin"), { "claimadmin" }
 
 return {init = init, run = run, unload = unload}
-

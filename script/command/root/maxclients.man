@@ -1,2 +1,0 @@
-[INT] Maxclients
-Changes the server's maxclients

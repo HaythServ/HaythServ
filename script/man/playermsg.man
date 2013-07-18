@@ -1,0 +1,2 @@
+[INT] Clientnumber / [STRING] Clientname
+Send a private message to another player

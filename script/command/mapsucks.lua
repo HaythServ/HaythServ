@@ -52,4 +52,4 @@ return function(cn)
     end
     server.player_msg(cn, server.mapbattle_cant_vote_message)
     return -1
-end
+end, "", readman("mapsucks"), { "changemap" }

@@ -8,4 +8,4 @@ return function(cn,option)
 		server.stopdemo()
 	end
 
-end
+end, "", readman("recorddemo"), { "demo" }

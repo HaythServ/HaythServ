@@ -1,0 +1,2 @@
+[INT] Clientnumber / [STRING] Clientname
+Lists all names used by a connected player

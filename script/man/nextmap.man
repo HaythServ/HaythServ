@@ -1,0 +1,2 @@
+[NULL] null
+Sends to the client as private message which the next map will be

@@ -4,7 +4,7 @@
 
 ]]
 
-local function run(cn, tcn, ...)
+return function(cn, tcn, ...)
     
 	if not tcn then
 		return false, "#msg <cn|name> <message>"
@@ -29,7 +29,6 @@ local function run(cn, tcn, ...)
 		end
 	end
     
+    server.player_msg(cn, string.format("\f3>>> \f1Your \f0private message \f7has been delivered \f3succsessfully \f7to \f5\"%s\"", server.player_displayname(tcn)))
     server.player_msg(tcn, string.format(server.priv_message_message, server.player_displayname(cn), text))
-end
-
-return { run = run, aliases = { "pm", "pchat", "pc", "msg" } , help_parameters = "<cn|name> <message>", help_message = "Send a private message to another player" }
+end, "", readman("playermsg"), { "pm", "pchat", "pc", "msg" }

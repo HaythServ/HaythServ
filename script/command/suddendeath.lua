@@ -31,4 +31,4 @@ return {
     sd_cmd = function(cn) cmd_suddendeath(cn, "on") end,
     nosd_cmd = function(cn) cmd_suddendeath(cn, "off") end,
     run = function() end
-}
+}, "", readman("suddendeath")

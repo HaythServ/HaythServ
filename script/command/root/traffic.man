@@ -1,1 +1,2 @@
+[NULL] null
 Displays used traffic and traffic speed

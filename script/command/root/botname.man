@@ -1,1 +1,2 @@
+[STRING] Botname
 Changes bot's name to the name specified by the player.

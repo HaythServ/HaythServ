@@ -23,10 +23,9 @@ return function(cn, command_name)
             return false, "no description found for #" .. command_name .. " command"
         end
         
-        server.player_msg(cn, string.format("\fs\f3>>> \f4[\f1COMMAND\f4]\fr\fs: \f5#\fr\fs%s\n\f3>>> \f4[\f1ARGS\f4]\fr\fs: \f5%s\f3>>> \f4[\f1MAN\f4]\fr: \f0%s",
+        server.player_msg(cn, string.format("\fs\f3>>> \f4[\f1COMMAND\f4]\fr\fs: \f5#\fr\fs%s\n%s",
             command_name, 
-            command.help_parameters or "",
-            command.help_message
+            command.help_message or ""
         ))
         
         return

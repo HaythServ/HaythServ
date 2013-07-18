@@ -1,1 +1,2 @@
+[STRING] Code
 Runs a CubeScript/LUA Code

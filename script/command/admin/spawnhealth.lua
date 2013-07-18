@@ -11,4 +11,4 @@ return function(cn, value)
 		server.msg(string.format(server.change_spawnhp_message, server.player_displayname(cn), value))
 	end
 	for p in server.gplayers() do p:slay() end
-end, "hp", "Changes default health at spawn."
+end, "", readman("spawnhealth"), { "hp", "health" }

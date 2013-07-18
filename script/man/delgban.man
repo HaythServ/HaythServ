@@ -1,0 +1,2 @@
+[STRING] IP-Mask
+Deletes a global ban

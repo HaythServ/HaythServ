@@ -1,0 +1,2 @@
+[INT] Multipler
+Changes the server's efficiency gamemodes' ammo multipler

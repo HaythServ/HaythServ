@@ -5,4 +5,4 @@ return function(cn, text)
 	end
 
 	server.msg(text)
-end, "message", "Send a message to the server."
+end, "", readman("announce")

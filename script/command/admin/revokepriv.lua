@@ -5,4 +5,4 @@
 return function(cn, target)
 	server.unsetpriv(target)
 	server.msg(string.format(server.revokeprivmessage, server.player_displayname(cn), server.player_displayname(target)))
-end, "revokepriv <cn>", "Revoke a player's privileges"
+end, "", readman("revokepriv")

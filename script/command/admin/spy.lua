@@ -8,4 +8,4 @@ return function(cn, enter)
     
     server.setspy(cn, enter == 1)
     
-end, "[1|0]", "Enter or leave spy mode"
+end, "", readman("spy")

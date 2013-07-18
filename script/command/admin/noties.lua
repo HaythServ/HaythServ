@@ -22,4 +22,4 @@ return function(cn, option)
     else
         return false, usage
     end
-end
+end, "", readman("noties")

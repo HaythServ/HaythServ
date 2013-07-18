@@ -1,0 +1,2 @@
+[INT] Clientnumber, ([INT] time, [STRING] m_h = { m, h }), ([STRING] Reason)
+Bans and kicks a player for the specified time and with the specified reason

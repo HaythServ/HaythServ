@@ -1,0 +1,2 @@
+[INT] Clientnumber / [STRING] Clientname, ([STRING] Reason)
+Disconnects a client

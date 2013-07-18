@@ -25,4 +25,4 @@ return function(cn, tcn, time)
     end
 
     server.force_spec(tcn,time)
-end
+end, "", readman("forcespec")

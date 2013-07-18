@@ -1,0 +1,2 @@
+[INT] HP
+Changes the instagib gamemodes' health

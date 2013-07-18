@@ -25,4 +25,4 @@ return function(cn, tcn)
     end
 
     server.unforce_spec(tcn)
-end
+end, "", readman("unforcespec"), { "forceunspec" }

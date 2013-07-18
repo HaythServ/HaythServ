@@ -26,4 +26,4 @@ return function(cn, countdown)
             end)
         end
     end
-end
+end, "", readman("resume")

@@ -167,4 +167,4 @@ return function(cn, player1, player2, mode, map)
             return -1
         end
     end)
-end
+end, "", readman("versus"), { "duel" }

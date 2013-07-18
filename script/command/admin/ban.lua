@@ -135,4 +135,4 @@ return function(cn,arg1,arg2,arg3,arg4,arg5)
 		end
 	end
 
-end
+end, "", readman("ban"), { "kick", "kick_client", "ban_client" }

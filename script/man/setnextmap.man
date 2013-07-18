@@ -1,0 +1,2 @@
+[STRING] Map, ([STRING] Mode)
+Sets the next game's map (and mode)

@@ -1,0 +1,2 @@
+([INT] all = { 0, 1 }), [STRING] tag, ([STRING] team)
+Groups all players with same tag

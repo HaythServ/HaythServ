@@ -9,4 +9,4 @@ return function(cn, value)
 		server.masterkicktime = value
 	end
         server.msg(string.format(server.change_masterkicktime, server.player_displayname(cn),  value))
-end, "seconds", "Changes master kick time"
+end, "", readman("masterkicktime"), { "mkt" }

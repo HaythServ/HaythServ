@@ -1,0 +1,2 @@
+[INT] Persist = { 0, 1 }
+Toggles / Untoggles teams persist

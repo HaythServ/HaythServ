@@ -1,0 +1,2 @@
+[INT] Clientnumber
+Displays a player's IP-Address

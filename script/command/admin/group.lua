@@ -57,4 +57,4 @@ return function(cn, ...)
     end
     
     group_players(table.unpack({...}))
-end
+end, "", readman("group")

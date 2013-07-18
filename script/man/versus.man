@@ -1,0 +1,2 @@
+[INT] Cn1, [INT] Cn2, [STRING] Mode, [STRING] Map
+Starts a duel with 2 players

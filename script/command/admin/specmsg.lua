@@ -15,4 +15,4 @@ return function(cn, ...)
     for client in server.gspectators() do
         client:msg(string.format(server.specmsg_command_message, server.player_name(cn), cn, text))
     end
-end
+end, "", readman("specmsg")

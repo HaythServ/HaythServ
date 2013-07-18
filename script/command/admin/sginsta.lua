@@ -19,4 +19,4 @@ return function(cn, value)
                 for p in server.gplayers() do p:slay() end
                 server.msg(string.format(server.change_instatype_message, server.player_displayname(cn), "shotgun instagib"))
 	end
-end, "0|1", "toggles/untoggles shotgun insta gamemode"
+end, "", readman("sginsta"), { "sg_insta", "sg_instagib" }

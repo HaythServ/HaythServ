@@ -52,5 +52,4 @@ return function(cn, map, mode)
     local last_implementation = map_rotation.set_implementation(create_map_rotation_implementation(map, mode))
     
     normal_implementation = normal_implementation or last_implementation
-end
-
+end, "", readman("setnextmap")

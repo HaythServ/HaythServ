@@ -10,4 +10,4 @@ return function(cn, value)
 	end
 	for p in server.gplayers() do p:slay() end
         server.msg(string.format(server.change_insta_ammoorhp, server.player_displayname(cn), "hp", value))
-end, "hp", "Changes insta gamemodes' hp"
+end, "", readman("instahp"), { "instahealth" }

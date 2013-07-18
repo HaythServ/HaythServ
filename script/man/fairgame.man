@@ -1,0 +1,2 @@
+[STRING] Map, ([STRING] Mode), ([INT] Lockteams = { 0, 1 })
+Starts a fairgame

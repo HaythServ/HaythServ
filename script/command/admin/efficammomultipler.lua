@@ -10,4 +10,4 @@ return function(cn, value)
 	end
 	for p in server.gplayers() do p:slay() end
         server.msg(string.format(server.change_efficammomultipler, server.player_displayname(cn), value))
-end, "multipler", "Changes effic gamemodes' damage multipler"
+end, "", readman("efficammomultipler"), { "effic_am", "efficam", "eam" }

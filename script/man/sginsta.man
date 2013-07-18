@@ -1,0 +1,2 @@
+[INT] OnOff = { 0, 1 }
+Toggles / Untoggles shotgun instagib gamemodes

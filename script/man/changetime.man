@@ -1,0 +1,2 @@
+[INT] Minutes, ([INT] Seconds)
+Changes the gametime to the given value

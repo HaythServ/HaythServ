@@ -147,4 +147,4 @@ return function(cn, map, mode, lockteams)
     server.mastermode_owner = -1
     
     server.changemap(map, mode, -1)
-end
+end, "", readman("clanwar"), { "cw" }

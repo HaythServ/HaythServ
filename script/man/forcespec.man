@@ -1,0 +1,2 @@
+[INT] Clientnumber / [STRING] Clientname
+Forces a player to spectate

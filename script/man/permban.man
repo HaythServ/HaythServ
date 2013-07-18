@@ -1,0 +1,2 @@
+[INT] Clientnumber / [STRING] Clientname
+Adds a client to the permament bans

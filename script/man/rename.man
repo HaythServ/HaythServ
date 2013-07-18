@@ -1,0 +1,2 @@
+[INT] Clientnumber, [STRING] New name
+Changes a player's name

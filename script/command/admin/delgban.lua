@@ -21,4 +21,4 @@ return function(cn, ipmask)
     end
 
     server.player_msg(cn, string.format("marked gban (%s) as deleted", mark_gban_as_deleted(ipmask)))
-end
+end, "", readman("delgban")

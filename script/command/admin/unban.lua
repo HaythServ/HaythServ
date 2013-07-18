@@ -19,4 +19,4 @@ return function(cn, ip)
     else
         server.player_msg(cn, string.format(server.no_matching_ban_message, ip))
     end
-end
+end, "", readman("unban"), { "delban" }

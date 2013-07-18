@@ -1,0 +1,2 @@
+[INT] Clientnumber, [STRING] Privileges
+Changes a player's privilege level to the given value

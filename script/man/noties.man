@@ -1,0 +1,2 @@
+[INT] OnOff = { 0, 1 } / [STRING] On_Off = { off, on }
+Toggles / Untoggles noties module

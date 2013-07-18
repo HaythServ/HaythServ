@@ -9,4 +9,4 @@ return function(cn, value)
 	server.instaammo = 100
 	for p in server.gplayers() do p:slay() end
 	server.msg(string.format(server.resetinstagib_message, server.player_displayname(cn)))
-end, "", "resets insta gamemodes"
+end, "", readman("resetinsta")

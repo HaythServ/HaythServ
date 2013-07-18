@@ -1,0 +1,2 @@
+[INT] Clientnumber
+Gives admin privileges to a client

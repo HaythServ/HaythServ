@@ -10,4 +10,4 @@ return function(cn)
                         ))
         end 
     end
-end
+end, "", readman("gbans"), { "listgbans", "list_gbans" }

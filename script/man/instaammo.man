@@ -1,0 +1,2 @@
+[INT] Ammo
+Changes the instagib gamemodes' ammo

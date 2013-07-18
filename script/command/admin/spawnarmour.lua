@@ -11,4 +11,4 @@ return function(cn, value)
 		server.msg(string.format(server.change_spawnarmour_message, server.player_displayname(cn), value))
 	end
 	for p in server.gplayers() do p:slay() end
-end, "armour", "Changes default armour at spawn."
+end, "", readman("spawnarmour")

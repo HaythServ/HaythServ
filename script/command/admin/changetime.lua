@@ -22,4 +22,4 @@ return function(cn, minutes, seconds)
     end
     
     server.changetime((minutes*60*1000)+(seconds*1000))
-end
+end, "", readman("changetime"), { "settime" }

@@ -13,4 +13,4 @@ return function(cn)
                         ))
         end 
     end
-end
+end, "", readman("banlist"), { "showbans" }

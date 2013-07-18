@@ -8,13 +8,13 @@ return function(cn, target, privs)
 		server.msg(string.format(server.changepriv_message, server.player_displayname(cn), server.player_displayname(target), (orange "admin")))
 	else
 		if privs=="auth" then
-       		        server.setauth(target)
-      	         	server.msg(string.format(server.changepriv_message, server.player_displayname(cn), server.player_displayname(target), (blue "auth")))
-       		else
+	        server.setauth(target)
+         	server.msg(string.format(server.changepriv_message, server.player_displayname(cn), server.player_displayname(target), (blue "auth")))
+   		else
 			if privs=="master" then
-                		server.setmaster(target)
-                		server.msg(string.format(server.changepriv_message, server.player_displayname(cn), server.player_displayname(target), (green "master")))
+        		server.setmaster(target)
+        		server.msg(string.format(server.changepriv_message, server.player_displayname(cn), server.player_displayname(target), (green "master")))
 			end
-        	end
+    	end
 	end
-end, "cn privilegelevel", "changes a player's privilege level."
+end, "", readman("changepriv"), { "setpriv" }

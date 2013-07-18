@@ -31,4 +31,4 @@ return function(cn,cn_ban)
 
 	pb_file:flush()
 	pb_file:close()
-end
+end, "", readman("permban"), { "pban" }

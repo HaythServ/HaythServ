@@ -20,14 +20,12 @@ return function(cn, command_name)
         end
         
         if not command.help_message then
-            return false, "no manpage found for command \fs\f5#\fr" .. command_name .. ""
+            return false, "no manpage found for command \fs\f5#\fr" .. command_name
         end
         
-        server.player_msg(cn, string.format("\fs\f3>>> \f4[\f1COMMAND\f4]\fr\fs: \f5#\fr\fs%s\n%s%s",
+        server.player_msg(cn, string.format("\fs\f3>>> \f4[\f1COMMAND\f4]\fr\fs: \f5#\fr\fs%s\n%s",
             command_name, 
-            command_help_parameters or "",
-            command.help_message or ""
-        ))
+            command.help_message or ""))
         
         return
     end

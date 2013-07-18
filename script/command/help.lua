@@ -23,8 +23,9 @@ return function(cn, command_name)
             return false, "no description found for #" .. command_name .. " command"
         end
         
-        server.player_msg(cn, string.format("\fs\f3>>> \f4[\f1COMMAND\f4]\fr\fs: \f5#\fr\fs%s\n%s",
+        server.player_msg(cn, string.format("\fs\f3>>> \f4[\f1COMMAND\f4]\fr\fs: \f5#\fr\fs%s\n%s%s",
             command_name, 
+            command_help_parameters or "",
             command.help_message or ""
         ))
         
@@ -62,4 +63,4 @@ return function(cn, command_name)
         if i == 1 then v = "List of command names: " .. v end
         server.player_msg(cn, v)
     end
-end, readargs("script/command/help"), readman("script/command/help"), { "commands", "man" }
+end, "", readman("script/command/help"), { "commands", "man" }

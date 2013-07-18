@@ -24,6 +24,10 @@ readman = function(command)
     return content 
 end
 
+readargs = function()
+    return ""
+end
+
 function add_exec_search_path(path)
     search_paths[#search_paths + 1] = path
 end

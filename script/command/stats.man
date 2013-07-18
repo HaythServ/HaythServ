@@ -1,1 +1,2 @@
+([INT] Clientnum), ([STRING] Time = {total, monthly, weekly, dayly})
 Get your/a player's total/game statistics.

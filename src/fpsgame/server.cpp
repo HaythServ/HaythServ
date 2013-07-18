@@ -1383,26 +1383,27 @@ namespace server
         clientinfo *vinfo = (clientinfo *)getclientinfo(victim);
         if(ci->privilege && vinfo && vinfo != ci && !vinfo->spy && vinfo->privilege < PRIV_ROOT)
         {
-            if(trial) return true;
-            if(ci->privilege < PRIV_ROOT && message::limit(ci, &ci->n_kick_millis, message::resend_time::kick, "kick")) return false;
-            string kicker;
-            if(authname)
-            {
-                if(authdesc && authdesc[0]) formatstring(kicker)("%s as '\fs\f5%s\fr' [\fs\f0%s\fr]", colorname(ci), authname, authdesc);
-                else formatstring(kicker)("%s as '\fs\f5%s\fr'", colorname(ci), authname);
-            }
-            else copystring(kicker, colorname(ci));
-	    if(reason && reason[0]) sendservmsgf("%s kicked %s because: %s", kicker, colorname(vinfo), reason);
-            else sendservmsgf("%s kicked %s", kicker, colorname(vinfo));
-	    convert2utf8 utf8name(ci->name);
-            convert2utf8 utf8text(reason);
-	    if((ci->privilege==PRIV_MASTER || ci->privilege==PRIV_AUTH)) {
-                event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), masterkicktime, victim, utf8text.str()));
-	    }
-	    if(ci->privilege>=PRIV_ADMIN)
-		event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), 3600, victim, utf8text.str()));
-        return false;
-     }
+                if(trial) return true;
+                if(ci->privilege < PRIV_ROOT && message::limit(ci, &ci->n_kick_millis, message::resend_time::kick, "kick")) return false;
+                string kicker;
+                if(authname)
+                {
+                    if(authdesc && authdesc[0]) formatstring(kicker)("%s as '\fs\f5%s\fr' [\fs\f0%s\fr]", colorname(ci), authname, authdesc);
+                    else formatstring(kicker)("%s as '\fs\f5%s\fr'", colorname(ci), authname);
+                }
+                else copystring(kicker, colorname(ci));
+    	    if(reason && reason[0]) sendservmsgf("%s kicked %s because: %s", kicker, colorname(vinfo), reason);
+                else sendservmsgf("%s kicked %s", kicker, colorname(vinfo));
+    	    convert2utf8 utf8name(ci->name);
+                convert2utf8 utf8text(reason);
+    	    if((ci->privilege==PRIV_MASTER || ci->privilege==PRIV_AUTH)) {
+                    event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), masterkicktime, victim, utf8text.str()));
+    	    }
+    	    if(ci->privilege>=PRIV_ADMIN)
+    		event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), 3600, victim, utf8text.str()));
+            return false;
+        }
+    }
     
     savedscore *findscore(clientinfo *ci, bool insert)
     {
@@ -2489,7 +2490,10 @@ namespace server
     void clientdisconnect(int n,int reason) 
     {
         clientinfo *ci = (clientinfo *)getinfo(n);
-        if(ci->spy) spies.remove(ci->clientnum - spycn);
+        if(ci->spy) {
+            ci->spy = false;
+            // spies.remove(ci->clientnum - spycn);
+        }
 
         const char * disc_reason_msg = "normal";
         if(reason != DISC_NONE || ci->disconnect_reason.length())
@@ -3138,6 +3142,11 @@ namespace server
 
             case N_SWITCHNAME:
             {
+                bool wasspy = false;
+                if(ci->spy) {
+                    ci->spy = false;
+                    wasspy = true;
+                }
                 getstring(text, p);
                 filtertext(text, text, false, MAXNAMELEN);
                 if(!text[0]) copystring(text, "unnamed");
@@ -3167,7 +3176,10 @@ namespace server
                     if (strcmp(ci->name, text))
                         player_rename(ci->clientnum, oldname, false);
                 }
-                
+                if(wasspy) {
+                    ci->spy = true;
+                    wasspy = false;
+                }
                 break;
             }
 

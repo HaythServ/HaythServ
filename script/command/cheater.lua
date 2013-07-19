@@ -11,7 +11,7 @@ end
 local function unload()
 end
 
-local function run(cn,cheat)
+return function(cn,cheat)
 
 	if not cheat then
 		return false, usage
@@ -49,6 +49,4 @@ local function run(cn,cheat)
 			server.log("CHEATER: " .. server.player_displayname(cheat) .. "(" .. cheat .. ") was reported by " .. server.player_displayname(cn) .. "(" .. cn .. ")")
         end
     end
-end
-
-return {init = init,run = run,unload = unload}, "", readman("cheater"), { "report", "report_cheater" }
+end, "", readman("cheater"), { "report", "report_cheater" }

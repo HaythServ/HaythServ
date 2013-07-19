@@ -49,6 +49,6 @@ local function run(cn,cheat)
 			server.log("CHEATER: " .. server.player_displayname(cheat) .. "(" .. cheat .. ") was reported by " .. server.player_displayname(cn) .. "(" .. cn .. ")")
         end
     end
-end, "", readman("cheater"), { "report", "report_cheater" }
+end
 
-return {init = init,run = run,unload = unload}
+return {init = init,run = run,unload = unload}, "", readman("cheater"), { "report", "report_cheater" }

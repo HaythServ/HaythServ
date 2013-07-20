@@ -41,7 +41,7 @@ local function unload()
 	votes = nil
 end
 
-local function run(cn,victim)
+return function(cn,victim)
 	if server.playercount < server.votekick_min_votes_required+1 then
 		return false, "There aren't enough players here for votekick to work"
 	end
@@ -97,6 +97,4 @@ local function run(cn,victim)
 	else
 		server.msg(msg)
 	end
-end
-
-return {init = init,run = run,unload = unload}
+end, "", readman("votekick")

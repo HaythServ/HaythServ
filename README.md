@@ -36,35 +36,28 @@ Need a Lightweight version of <a href="#haythserv">HaythServ</a>? LwHaythServ is
 <br />Visit <a href="http://github.com/Gnaoprr/LwHaythServ">http://github.com/Gnaoprr/LwHaythServ</a> to get it, or follow this bash-guide:
 <br /><a href="#important">Click here</a> to see what's important for you to know about LwHaythServ!
 ```bash
-	# Download:
-		git clone https://github.com/Gnaoprr/LwHaythServ ./HaythServ/
-		cd ./HaythServ/
-	# Compilation and installation:
-		# First compilation: 
-			cd ./src/
-			make
-			mv ./sauer_server ../
-			cd ../
-		# Other compilations:
-			cd ./src/
-			make
-			mv ./sauer_server ../
-			cd ../
-		# Recompilation:
-			cd ./src/
-			make clean clean-enet
-			make
-			mv ./sauer_server ../
-			cd ../
-	# Configuration:
-		# With vi:
-			vi server-init.cfg
-		# Or with nano:
-			nano server-init.cfg
-	# Start server:
-		./sauer_server >> server.log &
-	# Stop server:
-		kill `pgrep ./sauer_server` -9
+    # Download:
+        git clone https://github.com/Gnaoprr/LwHaythServ ./HaythServ/
+        cd ./HaythServ/
+    # Installation:
+        chmod +x ./bin/server
+    # Configuration:
+        # With vi:
+            vi ./conf/server.conf
+            vi ./conf/auth.conf
+            vi ./conf/anticheat.conf
+            vi ./conf/maps.conf
+            vi ./conf/zeromod.conf
+        # Or with nano:
+            nano ./conf/server.conf
+            nano ./conf/auth.conf
+            nano ./conf/anticheat.conf
+            nano ./conf/maps.conf
+            nano ./conf/zeromod.conf
+    # Start server:
+        ./bin/server
+    # Stop server:
+        kill -9 `pgrep ./sauer_server`
 ```
 Important
 ========

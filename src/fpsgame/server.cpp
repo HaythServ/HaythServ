@@ -2399,7 +2399,7 @@ namespace server
                         logoutf("disconnecting because exceeded");
                         disconnect_client(c.clientnum, DISC_TAGT);
                     }
-                }
+                } else c.scheduleexceeded();
             }
         }
         

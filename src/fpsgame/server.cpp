@@ -2394,11 +2394,8 @@ namespace server
                             ac->ignore_exceed = totalmillis + 2500;
                         }
                     }
-                    else 
-                    {
-                        logoutf("disconnecting because exceeded");
+                    else
                         disconnect_client(c.clientnum, DISC_TAGT);
-                    }
                 } else c.scheduleexceeded();
             }
         }
@@ -2606,87 +2603,24 @@ namespace server
         return ci && ci->connected && !ci->is_delayed_spectator();
     }
     
-    bool tryauth(clientinfo *ci, const char *user, const char *desc)
+    bool tryauth(clientinfo *ci, const char * user, const char * domain, int kickcn = -1)
     {
-        ci->cleanauth();
-        if(!nextauthreq) nextauthreq = 1;
-        ci->authreq = nextauthreq++;
-        filtertext(ci->authname, user, false, 100);
-        copystring(ci->authdesc, desc);
-        if(ci->authdesc[0])
-        {
-            userinfo *u = users.access(userkey(ci->authname, ci->authdesc));
-            if(u) 
-            {
-                uint seed[3] = { ::hthash(serverauth) + detrnd(size_t(ci) + size_t(user) + size_t(desc), 0x10000), uint(totalmillis), randomMT() };
-                vector<char> buf;
-                ci->authchallenge = genchallenge(u->pubkey, seed, sizeof(seed), buf);
-                sendf(ci->clientnum, 1, "risis", N_AUTHCHAL, desc, ci->authreq, buf.getbuf());
-            }
-            else ci->cleanauth();
-        }
-        else if(!requestmasterf("reqauth %u %s\n", ci->authreq, ci->authname))
-        {
-            ci->cleanauth();
-            sendf(ci->clientnum, 1, "ris", N_SERVMSG, "not connected to authentication server");
-        }
-        if(ci->authreq) return true;
-        if(ci->connectauth) disconnect_client(ci->clientnum, ci->connectauth);
-        return false;
+        convert2utf8 utf8user(user);
+        //event_authreq(event_listeners(), boost::make_tuple(ci->clientnum, utf8user.str(), domain, kickcn));
+        return true;
     }
-
-    void answerchallenge(clientinfo *ci, uint id, char *val, const char *desc)
+    
+    void answerchallenge(clientinfo *ci, uint id, char *val, const char * desc)
     {
-        if(ci->authreq != id || strcmp(ci->authdesc, desc)) 
-        {
-            ci->cleanauth();
-            if(ci->connectauth) disconnect_client(ci->clientnum, ci->connectauth);
-            return;
-        }
         for(char *s = val; *s; s++)
         {
             if(!isxdigit(*s)) { *s = '\0'; break; }
         }
-        if(desc[0])
+        event_authrep(event_listeners(), boost::make_tuple(ci->clientnum, id, val));
+        if(ci->privilege >= PRIV_AUTH && ci->authkickvictim >= 0)
         {
-            if(ci->authchallenge && checkchallenge(val, ci->authchallenge))
-            {
-                userinfo *u = users.access(userkey(ci->authname, ci->authdesc));
-                if(u) 
-                {
-                    if(ci->connectauth) connected(ci);
-                    if(ci->authkickvictim >= 0)
-                    {
-                        if(setmaster(ci, true, "", ci->authname, ci->authdesc, u->privilege, false, true))
-                            trykick(ci, ci->authkickvictim, ci->authkickreason, ci->authname, ci->authdesc, u->privilege);
-                    }
-                    else setmaster(ci, true, "", ci->authname, ci->authdesc, u->privilege);
-                }
-            }
-            ci->cleanauth(); 
-        } 
-        else if(!requestmasterf("confauth %u %s\n", id, val))
-        {
-            ci->cleanauth();
-            sendf(ci->clientnum, 1, "ris", N_SERVMSG, "not connected to authentication server");
+            trykick(ci, ci->authkickvictim, ci->authkickreason, ci->authname, ci->authdesc, ci->privilege);
         }
-        if(!ci->authreq && ci->connectauth) disconnect_client(ci->clientnum, ci->connectauth);
-    }
-
-    void processmasterinput(const char *cmd, int cmdlen, const char *args)
-    {
-        uint id;
-        string val;
-        if(sscanf(cmd, "failauth %u", &id) == 1)
-            authfailed(id);
-        else if(sscanf(cmd, "succauth %u", &id) == 1)
-            authsucceeded(id);
-        else if(sscanf(cmd, "chalauth %u %255s", &id, val) == 2)
-            authchallenged(id, val);
-        else if(!strncmp(cmd, "cleargbans", cmdlen))
-            cleargbans();
-        else if(sscanf(cmd, "addgban %100s", val) == 1)
-            addgban(val);
     }
 
     void receivefile(int sender, uchar *data, int len)
@@ -3436,11 +3370,12 @@ namespace server
 
             case N_KICK:
             {
-                if(ci->privilege)
-             	int victim = getint(p);
-                getstring(text, p);
-                filtertext(text, text);
-                trykick(ci, victim, text);
+                if(ci->privilege) {
+                 	int victim = getint(p);
+                    getstring(text, p);
+                    filtertext(text, text);
+                    trykick(ci, victim, text);
+                }
                 break;
             }
 

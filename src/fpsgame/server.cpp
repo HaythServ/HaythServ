@@ -1341,53 +1341,6 @@ namespace server
 
     int scaletime(int t) { return t*gamespeed; }
 
-    struct userkey
-    {
-        char *name;
-        char *desc;
-        
-        userkey() : name(NULL), desc(NULL) {}
-        userkey(char *name, char *desc) : name(name), desc(desc) {}
-    };
-
-    static inline uint hthash(const userkey &k) { return ::hthash(k.name); }
-    static inline bool htcmp(const userkey &x, const userkey &y) { return !strcmp(x.name, y.name) && !strcmp(x.desc, y.desc); }
-
-    struct userinfo : userkey
-    {
-        void *pubkey;
-        int privilege;
-
-        userinfo() : pubkey(NULL), privilege(PRIV_NONE) {}
-        ~userinfo() { delete[] name; delete[] desc; if(pubkey) freepubkey(pubkey); }
-    };
-    hashset<userinfo> users;
-
-    void adduser(char *name, char *desc, char *pubkey, char *priv)
-    {
-        userkey key(name, desc);
-        userinfo &u = users[key];
-        if(u.pubkey) { freepubkey(u.pubkey); u.pubkey = NULL; }
-        if(!u.name) u.name = newstring(name);
-        if(!u.desc) u.desc = newstring(desc);
-        u.pubkey = parsepubkey(pubkey);
-        switch(priv[0])
-        {
-            case 'c': case 'C': u.privilege = PRIV_MASTER; break;
-            case 'r': case 'R': u.privilege = PRIV_ROOT; break;
-            case 'a': case 'A': u.privilege = PRIV_ADMIN; break;
-            case 'n': case 'N': u.privilege = PRIV_NONE; break;
-            case 'm': case 'M': default: u.privilege = PRIV_AUTH; break;
-        }
-    }
-    COMMAND(adduser, "ssss");
-
-    void clearusers()
-    {
-        users.clear();
-    }
-    COMMAND(clearusers, "");
-
     void hashpassword(int cn, int sessionid, const char *pwd, char *result, int maxlen)
     {
         char buf[2*sizeof(string)];

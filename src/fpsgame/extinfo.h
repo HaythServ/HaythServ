@@ -53,7 +53,7 @@
         putint(q, ci->state.gunselect);
         putint(q, ci->privilege);
         putint(q, ci->state.state);
-        uint ip = getclientip(ci->clientnum);
+        uint ip = ci->_ip;
         q.put((uchar*)&ip, 3);
         /* hopmod extension */
         if(ext_admin_client || ext_hopmod_request)

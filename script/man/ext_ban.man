@@ -1,0 +1,8 @@
+Usage:
+        #ban <cn> [time [m|h]] [reason]
+Author:
+        SuckerServ / HopMod
+Description:
+        With this command you can kick and ban a player for the specified reason for the setted time.
+Examples:
+        #ban 2 1 h "A b C"      Kicks and bans the client with the clientnum 2 for 1 hour with reason "A b C".

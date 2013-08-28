@@ -1,2 +1,2 @@
 [STRING] Message
-Sends a message to the wall. NOTE: Don't forget the "" around your message!
+Sends a message to the wall.

@@ -1,0 +1,13 @@
+Usage:
+        #man <command> [-s | --short]
+Author:
+        ~Haytham (Based on the original SuckerServ #help command)
+Description:
+        Prints an extended manpage for the chosen command. This command may require the player to use a bigger consize (e.g. 15), 
+        because this manpages are usually bigger than the console's default 5 rows.
+Examples:
+        #man man                Displays this manual page.
+        #man man -s             Displays a small help page for this command. See "#man help".
+Options:
+        <command>               The command which you want to get a manpage for.
+        [-s | --short]          Displays a shorter manual page of the command, same as "#help <command>".

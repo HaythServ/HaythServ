@@ -19,14 +19,14 @@ readman = function(command)
     if f == nil then
          return false
     end   
-    local content = string.format("\f3>>> \f4[\f1ARGS\f4]\fr\fs: \f5%s\n\f3>>> \f4[\f1MAN\f4]\fr: \f0%s", f:read(), f:read())
+    local content = string.format("\fs\f3>>> \f4[\f1ARGS\f4]\fr\fs: \f5%s\n\f3>>> \f4[\f1MAN\f4]\fr: \f0%s", f:read(), f:read())
     f:close()
     return content
 end
 
-readargs = function()
+--[[readargs = function()
     return ""
-end
+end]] -- Shouldn't be needed anymore anywhere
 
 function add_exec_search_path(path)
     search_paths[#search_paths + 1] = path

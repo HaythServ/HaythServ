@@ -1,0 +1,12 @@
+Usage:
+        #traffic [-t | --times]
+Author:
+        ~Haytham (A kind of "rewrite" of the SuckerServ #traffic command)
+Description:
+        This command displays the total used traffic and the traffic usage in a second for the determinated value.
+        The traffic usage in a second is printed 5 times by default.
+Examples:
+        #traffic                Displays the used traffic and the traffic usage for 5 seconds.
+        #traffic -t10           Displays the used traffic and the traffic usage for 10 seconds.
+Options:
+        [-t | --times]           Sets how many times you want the #traffic command to show you the traffic usage in X seconds.

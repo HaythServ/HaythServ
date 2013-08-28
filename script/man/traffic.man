@@ -1,2 +1,2 @@
-[NULL] null
-Displays total used traffic and traffic usage in a second
+([STRING] Option1)
+Displays total used traffic and traffic usage in a second for the determinated time.

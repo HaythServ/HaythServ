@@ -1,0 +1,2 @@
+[STRING] command, ([STRING] Option1)
+Prints an extented manpage for the chosen command.

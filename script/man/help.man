@@ -1,2 +1,2 @@
 ([STRING] command)
-Lists all player commands available for your privilege level or displays a man page for a specific command
+Lists all player commands available for your privilege level or displays a man page for a specific command. 

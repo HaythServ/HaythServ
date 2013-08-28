@@ -1,0 +1,10 @@
+Usage:
+        #help <command>
+Author:
+        ~Haytham (Based on the original SuckerServ #help command)
+Description:
+        Prints a small help about the chosen command.
+Examples:
+        #help ban               Displays a help page for the command ban.
+Options:
+        <command>               The command which you want to get a help page for.

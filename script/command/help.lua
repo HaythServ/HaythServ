@@ -55,10 +55,11 @@ return function(cn, command_name)
         end
     end
     
-    server.player_msg(cn, "Command descriptions: #man <command>")
+    server.player_msg(cn, "Command descriptions:            #help <command>")
+    server.player_msg(cn, "Extended command descriptions:   #man  <command>")
     
     for i,v in ipairs(list_of_command_names) do
         if i == 1 then v = "List of command names: " .. v end
         server.player_msg(cn, v)
     end
-end, "", readman("help"), { "commands", "man" }
+end, "", readman("help"), { "commands" }

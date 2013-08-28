@@ -4,7 +4,7 @@
 -- (C) 2013 by ~Haytham
 -- Improved very much, it's like a little rewrite ;)
 
-return function(cn)
+return function(cn, option1)
     local t_in, t_out, t_sum
 
     local function set_traffic()
@@ -91,34 +91,25 @@ return function(cn)
         set_traffic()
     end
 
-    server.sleep(1000, print_speed)
-    server.sleep(2000, print_speed)
-    server.sleep(3000, print_speed)
-    server.sleep(4000, print_speed)
-    server.sleep(5000, print_speed)
-    server.sleep(6000, print_speed)
-    server.sleep(7000, print_speed)
-    server.sleep(8000, print_speed)
-    server.sleep(9000, print_speed)
-    server.sleep(10000, print_speed)
-    server.sleep(11000, print_speed)
-    server.sleep(12000, print_speed)
-    server.sleep(13000, print_speed)
-    server.sleep(14000, print_speed)
-    server.sleep(15000, print_speed)
-    server.sleep(16000, print_speed)
-    server.sleep(17000, print_speed)
-    server.sleep(18000, print_speed)
-    server.sleep(19000, print_speed)
-    server.sleep(20000, print_speed)
-    server.sleep(21000, print_speed)
-    server.sleep(22000, print_speed)
-    server.sleep(23000, print_speed)
-    server.sleep(24000, print_speed)
-    server.sleep(25000, print_speed)
-    server.sleep(26000, print_speed)
-    server.sleep(27000, print_speed)
-    server.sleep(28000, print_speed)
-    server.sleep(29000, print_speed)
-    server.sleep(30000, print_speed)
+    if not option1 then
+        option1 = "-t5"
+    end
+
+    local bob = string.sub(option1, 1, -2)
+
+    if bob == "--times" then
+        option1 = string.sub(option1, 8)
+    else
+        option1 = string.sub(option1, 3)
+    end
+
+    local times = tonumber(option1)
+
+    if not times then
+        times = 5
+    end
+
+    for i = 1,times do
+        server.sleep(i*1000, print_speed)
+    end
 end, "", readman("traffic"), { "traffic_usage", "traffic_monitor" }

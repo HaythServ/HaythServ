@@ -115,7 +115,12 @@ load_player_command_script_directories()
 
 local function is_command_prefix(text)
     local first_char = string.sub(text, 1, 1)
-    return first_char == "#" or first_char == "!" or first_char == "@"
+    return first_char == "#" --or first_char == "!" or first_char == "@" No need to reserve so many reserved chars...
+end
+
+local function is_quick_pm(text) -- Quick PMs by ~Haytham
+    local first_char = string.sub(text, 1, 1)
+    return first_char == "@"
 end
 
 local function send_command_error(cn, error_message)
@@ -131,12 +136,35 @@ local function send_command_error(cn, error_message)
 end
 
 local function exec_command(cn, text, force)
-    if not force and not is_command_prefix(text) then
+    if not force and not is_command_prefix(text) and not is_quick_pm(text) then
         return
     end
     
     if is_command_prefix(text) then
         text = string.sub(text, 2)
+    elseif is_quick_pm(text) then
+        --[[
+            Quick PMs, Powered by ~Haytham
+        ]]
+        text = string.sub(text, 2)
+        local cns = {}
+        local message = ""
+        for _cn in string.gmatch(text, '[^%s],') do -- This is quiet buggy, because, you have to put a space (" ") after writing a comma (",") in the message, because it checks for clients everywhere, sorry. Oh, and, yeah, you need to write a comma (",") after the last cn too, sorry again!
+            _cn = string.sub(_cn, 1, string.len(_cn) - 1)
+            if not server.valid_cn(_cn) then
+                _cn = server.name_to_cn_list_matches(cn, _cn)
+            end
+            table.insert(cns, _cn)
+        end
+        for item in string.gmatch(text, ' [^%s]+') do -- Well, this is also buggy, but it's not huge problem, it just doubles the spaces...
+            item = tostring(item)
+            message = message .. " " .. item
+        end
+        for key, _cn in pairs(cns) do
+            server.player_msg(cn, string.format("\f3>>> \f1Your \f5quick-PM \f7has been successfully delivered to: \f1%s", server.player_displayname(_cn)))
+            server.player_msg(_cn, string.format("\f3>>> \f1You \f7got a \f5quick-PM \f7from \f1%s\f7: %s", server.player_displayname(cn), message))
+        end
+        return
     end
 
     --[[

@@ -23,6 +23,12 @@ readman = function(command)
     f:close()
     return content
 end
+inarray = function(a, i)
+    for k, v in pairs(a) do
+        if v == i then return k end
+    end
+    return false
+end
 
 --[[readargs = function()
     return ""

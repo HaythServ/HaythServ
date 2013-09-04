@@ -4,6 +4,7 @@
 
 ]]
 require "cubescript"
+local evilcommands = { "shutdown" }
 return function(cn, ...)
 	local code = ""
 	for _, item in ipairs({...}) do	
@@ -14,6 +15,10 @@ return function(cn, ...)
 			end
 			code = code .. item
 		end
+	end
+	if inarray(evilcommands, code) then
+		server.player_msg(cn, "\f3W A R N I N G ! ! ! Evil command detected o_O")
+		return
 	end
 	if code == "" then
 		return false, "#eval <code>"

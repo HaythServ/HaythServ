@@ -1,0 +1,10 @@
+Usage:
+        #cginsta <0|1>
+Author:
+        ~Haytham
+Description:
+        Toggles the chaingun instagib gamemode.
+Examples:
+        #cginsta 1              Enables chaingun instagib.
+Options:
+        <0|1>                   Do you want to enable or disable the chaingun instagib gamemode?

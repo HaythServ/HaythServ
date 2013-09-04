@@ -1,0 +1,8 @@
+Usage:
+        #banlist
+Author:
+        SuckerServ / HopMod
+Description:
+        Displays a list of all banned clients.
+Examples:
+        #banlist                ^ See above.

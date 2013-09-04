@@ -29,4 +29,4 @@ return function(cn, ...)
 	end
 	server.motd = text
 	server.player_msg(cn, string.format(server.motd_modification_message, text))
-end
+end, "", readman("motd")

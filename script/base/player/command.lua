@@ -164,7 +164,7 @@ local function exec_command(cn, text, force)
             server.player_msg(cn, string.format("\f3>>> \f1Your \f5quick-PM \f7has been successfully delivered to: \f1%s", server.player_displayname(_cn)))
             server.player_msg(_cn, string.format("\f3>>> \f1You \f7got a \f5quick-PM \f7from \f1%s\f7: %s", server.player_displayname(cn), message))
         end
-        return
+        return -1 -- This is needed to drop the message
     end
 
     --[[

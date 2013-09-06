@@ -25,12 +25,16 @@ if [ -z $_download ] || [ $_download = "Y" ] || [ $_download = "y" ]; then
     if [ "x${UID}" = "x0" ] || [ "x$(whoami)" = "xroot" ]; then
         if [[ `ls /etc/*release | grep /etc/arch-release` == "/etc/arch-release" ]]; then
           pacman -S base-devel cmake
+        elif [[ `ls /etc/*release | grep /etc/centos-release` == "/etc/centos-release" ]]; then
+          yum install lua-devel openssl-devel zlib-devel gcc gcc-c++ libstdc++-devel libstdc++-docs make cmake libtool
         else
           apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql sqlite3 -y
         fi
     else
       if [[ `ls /etc/*release | grep /etc/arch-release` == "/etc/arch-release" ]]; then
         sudo pacman -S base-devel cmake
+      elif [[ `ls /etc/*release | grep /etc/centos-release` == "/etc/centos-release" ]]; then
+        sudo yum install lua-devel openssl-devel zlib-devel gcc gcc-c++ libstdc++-devel libstdc++-docs make cmake libtool
       else
         sudo apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev libboost1.49-all postgresql sqlite3 -y
       fi

@@ -1,0 +1,8 @@
+Usage:
+        #admin
+Author:
+        SuckerServ / HopMod
+Description:
+        The server requires the client an authkey to claim admin.
+Examples:
+        #admin                  ^ See above.

@@ -1,0 +1,10 @@
+Usage:
+        #botname <name>
+Author:
+        ~Haytham
+Description:
+        Changes the bots' name to the given input.
+Examples:
+        #botname BoB            Changes the bots' name to BoB.
+Options:
+        <name>                  The bots' new name.

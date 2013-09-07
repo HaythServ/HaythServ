@@ -4,7 +4,7 @@ return function(cn, value)
 		return false, error_novalue
 	end
 	if value=="default" then
-		server.botname = bot
+		server.botname = "bot"		-- Oops the "" were missing :/
 	else
 		server.botname = value
 	end

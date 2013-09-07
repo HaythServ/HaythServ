@@ -1,0 +1,10 @@
+Usage:
+        #announce <message>
+Author:
+        ~Haytham
+Description:
+        Public an anonymous message to the wall.
+Examples:
+        #announce Hi, people!   Sends "Hi, people!" to the wall anonymously.
+Options:
+        <message>               The message you want to send to the wall anonymously.

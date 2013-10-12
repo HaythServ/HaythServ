@@ -1,66 +1,30 @@
 HaythServ
 ========
-HaythServ — A server modification for <a href="http://sauerbraten.org">Cube 2: Sauerbraten</a> based on <a href="https://code.google.com/p/suckerserv/">SuckerServ-v5</a>.
-<br />Need a Lightweight version of it? <a href="#lwhaythserv">LwHaythServ</a> is what you're looking for!
-<br /><a href="#important">Click here</a> to see what's important for you to know about HaythServ!
-```bash
-	# Download:
-		git clone https://github.com/Gnaoprr/HaythServ.git ./HaythServ/
-		cd ./HaythServ/
-	# Installation:
-		chmod +x ./install.sh
-		./install.sh
-	# Configuration:
-		# edit conf/server.conf configuration file and set the server name, port, motd and others.
-		# if you use vi, then type:
-			vi conf/server.conf
-		# else, if you use nano:
-			nano conf/server.conf
-		# Optional confiugrations:
-			# with vi:
-				vi conf/maps.conf
-				vi conf/new_maps.conf
-			# or with nano:
-				nano conf/maps.conf
-				nano conf/new_maps.conf
-	# Start:
-		# run ./bin/server start
-		./bin/server start
-	# Help:
-		# need help with server? try:
-		./bin/server help
+Features¹:
 ```
-LwHaythServ
-========
-Need a Lightweight version of <a href="#haythserv">HaythServ</a>? LwHaythServ is that what you are looking for!
-<br />Visit <a href="http://github.com/Gnaoprr/LwHaythServ">http://github.com/Gnaoprr/LwHaythServ</a> to get it, or follow this bash-guide:
-<br /><a href="#important">Click here</a> to see what's important for you to know about LwHaythServ!
-```bash
-    # Download:
-        git clone https://github.com/Gnaoprr/LwHaythServ ./HaythServ/
-        cd ./HaythServ/
-    # Installation:
-        chmod +x ./bin/server
-    # Configuration:
-        # With vi:
-            vi ./conf/server.conf
-            vi ./conf/auth.conf
-            vi ./conf/anticheat.conf
-            vi ./conf/maps.conf
-            vi ./conf/zeromod.conf
-        # Or with nano:
-            nano ./conf/server.conf
-            nano ./conf/auth.conf
-            nano ./conf/anticheat.conf
-            nano ./conf/maps.conf
-            nano ./conf/zeromod.conf
-    # Start server:
-        ./bin/server
-    # Stop server:
-        kill -9 `pgrep ./sauer_server`
+	* Based on SuckerServ-v5.
+	* Many bugs fixed.
+	* Login and register system.
+	* Root privilege level.
+	* Improved man system².
+	* Unix-like command syntax³.
+	* Many root commands to administrate the server⁴.
+	* #mkt command to set the duration of a kick done by a master (in seconds).
+	* #getip command to easily get a player's IP-Address.
 ```
-Important
+To do list:
+```
+	* Add name protection for login system.
+	* Add best-flagrun support.
+	* Support to load, unload and reload modules on-the-fly.
+	* Fix auth-system.
+```
 ========
-<a href="#haythserv">HaythServ</a> is a Linux only version of Sauerbraten server, if you are looking for a Windows version, we are going to compile <a href="#lwhaythserv">LwHaythServ</a> for windows soon!
-<br /><a href="#lwhaythserv">LwHaythServ</a> is still under testing, so it may not work as expected, if you are looking for a stable, long time tested release, try the original <a href="#haythserv">HaythServ</a>, it's stable and working!
-<br />The Windows version of <a href="#lwhaythserv">LwHaythServ</a> is going to be released as far as it'll be stable.
+Notes:
+```
+	¹) Some of these features may be available only in the development branch (dev).
+	²) The extended man system (#man) requires you to use a bigger console size (/consize 15), 
+		because most of those manpages have more than the usual 5 console lines.
+	³) The Unix-like command syntax is not available for all commands.
+	⁴) Some of this commands should not be used, that's why they are disabled.
+```

@@ -18,7 +18,7 @@ local function sendServerBanner(cn)
         
         server.player_msg(cn, server.motd)
         server.player_msg(cn, server.connect_info_message)
-	server.player_msg(cn, server.info_message)
+    server.player_msg(cn, server.info_message)
 
         server.player_vars(cn).shown_banner = true
     end)
@@ -64,3 +64,4 @@ server.event_handler("mapchange", function()
         p:vars().maploaded = nil
     end
 end)
+

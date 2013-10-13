@@ -134,3 +134,4 @@ end)
 for _, cn in ipairs(server.clients()) do
     init_vars(cn)
 end
+

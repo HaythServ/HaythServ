@@ -45,7 +45,7 @@ local function run(cn, pw)
             end)
         end
     end
-end, "", readman("invmaster")
+end--, "", readman("invmaster")
 
 return {init = init,run = run,unload = unload}
 

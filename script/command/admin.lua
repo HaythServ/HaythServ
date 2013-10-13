@@ -22,7 +22,7 @@ local function run(cn)
         auth.send_request(cn, domain, function(cn, user_id, domain, status)
 	
             if not (sid == server.player_sessionid(cn)) or not (status == auth.request_status.SUCCESS) then
-                return
+                return 
             end
 
             server.setadmin(cn)
@@ -32,6 +32,6 @@ local function run(cn)
             server.admin_log(string.format("%s playing as %s(%i) used auth to claim admin.", user_id, server.player_name(cn), cn))
         end)
     end
-end, "", readman("admin"), { "claimadmin" }
+end--, "", readman("admin"), { "claimadmin" }
 
 return {init = init, run = run, unload = unload}

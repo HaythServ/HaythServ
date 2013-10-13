@@ -19,4 +19,4 @@ return function(cn, target)
     server.player_msg(target, string.format(server.giveadmin_message, server.player_displayname(cn)))
     server.admin_log(string.format("GIVEADMIN: %s gave admin to %s", server.player_displayname(cn), server.player_displayname(target)))
     server.setadmin(target)
-end, "", readman("giveadmin"), { "setadmin", "admin" }
+end, "", readman("giveadmin"), { "setadmin" }

@@ -22,4 +22,4 @@ return function(cn, target)
 	if not (server.player_priv_code(target) >= server.PRIV_MASTER) then
 		server.setmaster(target)
 	end
-end, "", readman("givemaster"), { "setmaster", "master" }
+end, "", readman("givemaster"), { "setmaster" }

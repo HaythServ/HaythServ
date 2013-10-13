@@ -3,138 +3,74 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
     <title>HaythServ by Gnaoprr</title>
   </head>
 
   <body>
+
     <header>
-      <div class="inner">
+      <div class="container">
         <h1>HaythServ</h1>
         <h2>HaythServ — Cube 2: Sauerbraten server modification.</h2>
-        <a href="https://github.com/Gnaoprr/HaythServ" class="button"><small>View project on</small>GitHub</a>
+
+        <section id="downloads">
+          <a href="https://github.com/Gnaoprr/HaythServ/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/Gnaoprr/HaythServ/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/Gnaoprr/HaythServ" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
       </div>
     </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
-<a name="haythserv--cube-2-sauerbraten-server-modification" class="anchor" href="#haythserv--cube-2-sauerbraten-server-modification"><span class="octicon octicon-link"></span></a>HaythServ — Cube 2: Sauerbraten server modification.</h1>
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="haythserv" class="anchor" href="#haythserv"><span class="octicon octicon-link"></span></a>HaythServ</h1>
 
 <h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a name="cube-2-sauerbraten-server-modification-based-on-suckerserv" class="anchor" href="#cube-2-sauerbraten-server-modification-based-on-suckerserv"><span class="octicon octicon-link"></span></a>Cube 2: Sauerbraten server modification based on SuckerServ</h2>
 
-<p>To install the product, you just have to type following code in your terminal:<br></p>
+<p>Features¹:</p>
 
-<div class="highlight"><pre>git clone https://github.com/Gnaoprr/HaythServ.git ./HaythServ
-<span class="nb">cd </span>HaythServ
-chmod +x ./install.sh
-./install.sh
-</pre></div>
+<ul>
+<li>Based on SuckerServ-v5.</li>
+<li>Many bugs fixed.</li>
+<li>Login and register system.</li>
+<li>Root privilege level.</li>
+<li>Improved man system².</li>
+<li>Unix-like command syntax³.</li>
+<li>Many root commands to administrate the server⁴.</li>
+<li>#mkt command to set the duration of a kick done by a master (in seconds).</li>
+<li>#getip command to easily get a player's IP-Address.</li>
+</ul><hr><p>To do list:</p>
 
-<h3>
-<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h3>
+<ul>
+<li>Add name protection for login system.</li>
+<li>Add best-flagrun support.</li>
+<li>Support to load, unload and reload modules on-the-fly.</li>
+<li>Fix auth-system.</li>
+<li>Improve cheater-detection.</li>
+</ul><hr><p>Known bugs:</p>
 
-<p>To configure the product, type following code in your terminal:</p>
+<ul>
+<li>Cheater-detection may ban non-cheaters⁵.</li>
+<li>Auth-system not working.</li>
+</ul><hr><p>Notes:</p>
 
-<div class="highlight"><pre>nano conf/server.conf
-</pre></div>
-
-<p>then edit the configuration file, set server name, message of the day and others, then save file.<!--, after this, type:</p>
-<div class="highlight"><pre>nano script/command/login.lua
-</pre></div>
-<p>in your terminal, then change admin and master usernames, and also passwords.--></p>
-
-<h2>
-<a name="startingstopping-the-server" class="anchor" href="#startingstopping-the-server"><span class="octicon octicon-link"></span></a>Starting/Stopping the server</h2>
-
-<h3>
-<a name="starting-the-server" class="anchor" href="#starting-the-server"><span class="octicon octicon-link"></span></a>Starting the server</h3>
-
-<p>To start the server, just type the following code in your terminal:</p>
-
-<div class="highlight"><pre>./bin/server start
-</pre></div>
-
-<h3>
-<a name="stopping-the-server" class="anchor" href="#stopping-the-server"><span class="octicon octicon-link"></span></a>Stopping the server</h3>
-
-<p>To stop the server, just type</p>
-
-<div class="highlight"><pre>./bin/server stop
-</pre></div>
-
-<p>in your terminal.</p>
-
-<h3>
-<a name="other-things-with-the-server" class="anchor" href="#other-things-with-the-server"><span class="octicon octicon-link"></span></a>Other things with the server</h3>
-
-<h4>
-<a name="update-the-servers-configuration-file" class="anchor" href="#update-the-servers-configuration-file"><span class="octicon octicon-link"></span></a>Update the server's configuration file</h4>
-
-<p>To update the configuration file, type</p>
-
-<div class="highlight"><pre>./bin/server updateconf
-</pre></div>
-
-<p>in the terminal.</p>
-
-<h4>
-<a name="restart-the-server" class="anchor" href="#restart-the-server"><span class="octicon octicon-link"></span></a>Restart the server</h4>
-
-<p>And, also, to restart the server, just type</p>
-
-<div class="highlight"><pre>./bin/server restart
-</pre></div>
-
-<p>in the terminal.</p>
-
-<h4>
-<a name="change-the-servers-admin-password" class="anchor" href="#change-the-servers-admin-password"><span class="octicon octicon-link"></span></a>Change the server's admin password</h4>
-
-<p>Just type</p>
-
-<div class="highlight"><pre>./bin/server password new_password
-</pre></div>
-
-<p>in your terminal to change the server's admin password.</p>
-
-<h2>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h2>
-
-<p>Project created in 2013, <a href="https://github.com/Gnaoprr" class="user-mention">@Gnaoprr</a>.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/Gnaoprr/HaythServ/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/Gnaoprr/HaythServ/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          <a href="https://github.com/Gnaoprr/HaythServ/tarball/dev" class="button">
-            <small>Download - Dev</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/Gnaoprr/HaythServ"></a> is maintained by <a href="https://github.com/Gnaoprr">Gnaoprr</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+<ol>
+<li>Some of these features may be available only in the development branch (dev).</li>
+<li>The extended man system (#man) requires you to use a bigger console size (/consize 15), because most of those manpages have more than the usual 5 console lines.</li>
+<li>The Unix-like command syntax is not available for all commands.</li>
+<li>Some of this commands should not be used, that's why they are disabled.</li>
+<li>Cheater-detection is a beta, it may ban people for "player position exceeded."</li>
+</ol>
+      </section>
     </div>
 
-  
+    
   </body>
 </html>

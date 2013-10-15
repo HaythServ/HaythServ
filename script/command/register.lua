@@ -20,7 +20,6 @@ local accounts = {}
 local line = ""
 
 local  f = io.open("accounts.txt", "r")
-local _f = io.open("accounts.txt", "a")
 for _ in io.lines("accounts.txt") do
     line = f:read()
     accounts[#accounts+1] = explode(" ", line)
@@ -41,6 +40,7 @@ return function(cn, username, password)
     if account or found then
         return false, "Account already exists!"
     end
+    local _f = io.open("accounts.txt", "a")
     _f:write(string.format("%s %s none\n", username, password))
     _f:close()
     server.player_msg(cn, string.format("\f3>>> \f4Your account has been succsessfully created, wait for an admin to approve it.", username, password))

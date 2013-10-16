@@ -146,7 +146,7 @@ local function exec_command(cn, text, force)
         --[[
             Quick PMs, Powered by ~Haytham
         ]]
-        text = string.sub(text, 2)
+        --[[text = string.sub(text, 2)
         local cns = {}
         local message = ""
         for _cn in string.gmatch(text, '[^%s],') do -- This is quiet buggy, because, you have to put a space (" ") after writing a comma (",") in the message, because it checks for clients everywhere, sorry. Oh, and, yeah, you need to write a comma (",") after the last cn too, sorry again!
@@ -163,7 +163,7 @@ local function exec_command(cn, text, force)
         for key, _cn in pairs(cns) do
             server.player_msg(cn, string.format("\f3>>> \f1Your \f5quick-PM \f7has been successfully delivered to: \f1%s", server.player_displayname(_cn)))
             server.player_msg(_cn, string.format("\f3>>> \f1You \f7got a \f5quick-PM \f7from \f1%s\f7: %s", server.player_displayname(cn), message))
-        end
+        end]]
         return -1 -- This is needed to drop the message
     end
 

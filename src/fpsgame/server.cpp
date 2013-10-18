@@ -291,7 +291,7 @@ namespace server
         bool account_master;
         bool account_admin;
         bool account_root;
-        char username;
+        char *username;
 
         int clientmillis;
 
@@ -516,17 +516,17 @@ namespace server
     }
     void set_accmaster(int cn, bool set_unset) {
         clientinfo *ci = getinfo(cn);
-        ci->account_master = set_unset;
+        ci->account_master = set_unset ? 1 : 0;
         return;
     }
     void set_accadmin(int cn, bool set_unset) {
         clientinfo *ci = getinfo(cn);
-        ci->account_admin = set_unset;
+        ci->account_admin = set_unset ? 1 : 0;
         return;
     }
     void set_accroot(int cn, bool set_unset) {
         clientinfo *ci = getinfo(cn);
-        ci->account_root = set_unset;
+        ci->account_root = set_unset ? 1 : 0;
         return;
     }
     bool get_accmaster(int cn) {
@@ -541,15 +541,15 @@ namespace server
         clientinfo *ci = getinfo(cn);
         return ci->account_master;
     }
-    void set_user(int cn, char username) {
+    /* void set_user(int cn, char *username) {
         clientinfo *ci = getinfo(cn);
         ci->username = username;
         return;
     }
-    char get_user(int cn) {
+    char *get_user(int cn) {
         clientinfo *ci = getinfo(cn);
         return ci->username;
-    }
+    } */
 
     namespace aiman 
     {

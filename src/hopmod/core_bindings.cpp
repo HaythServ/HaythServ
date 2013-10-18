@@ -130,8 +130,8 @@ void bind_core_functions(lua_State * L, int T)
     bind_function(L, T, "getaccmaster", server::get_accmaster);
     bind_function(L, T, "getaccadmin", server::get_accadmin);
     bind_function(L, T, "getaccroot", server::get_accroot);
-    // bind_function(L, T, "getuser", server::get_user);
-    // bind_function(L, T, "setusername", server::set_user);
+    bind_function(L, T, "getuser", server::get_user);
+    bind_function(L, T, "setusername", server::set_user);
 
     bind_function(L, T, "send_auth_request", server::send_auth_request);
     bind_function(L, T, "send_auth_challenge_to_client", server::send_auth_challenge);

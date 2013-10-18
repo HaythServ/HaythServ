@@ -53,7 +53,7 @@ return function(cn, username, password)
     if not account then return end
     if found then
         if password == account[2] then
---            server.setusername(cn, username)
+            server.setusername(cn, username)
             server.msg(string.format(verified, server.player_displayname(cn), username))
             if account[3] == "master" then
                 --[[server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), username))

@@ -291,7 +291,7 @@ namespace server
         bool account_master;
         bool account_admin;
         bool account_root;
-        char *username;
+        const char *username;
 
         int clientmillis;
 

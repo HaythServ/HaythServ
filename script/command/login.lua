@@ -74,7 +74,7 @@ return function(cn, username, password)
                 server.accadminset(cn, true)
                 server.accrootset(cn, true)
             else
-                erver.accmasterset(cn, false)
+                server.accmasterset(cn, false)
                 server.accadminset(cn, false)
                 server.accrootset(cn, false)
             end

@@ -372,12 +372,20 @@ namespace server {
     extern int instahp;
     extern int instaarmour;
     extern int defaultcc;
-        extern int spawnarmour;
-        extern int spawnhealth;
+    extern int spawnarmour;
+    extern int spawnhealth;
     extern int efficammomultipler;
     extern int masterkicktime;
     extern bool is_verified(int cn);
     extern void set_verified(int cn);
+    extern void set_accmaster(int, bool);
+    extern void set_accadmin(int, bool);
+    extern void set_accroot(int, bool);
+    extern bool get_accmaster(int);
+    extern bool get_accadmin(int);
+    extern bool get_accroot(int);
+    extern void set_user(int, char);
+    extern char get_user(int);
     namespace aiman {
         extern string botname;
     }
@@ -929,4 +937,5 @@ namespace server
 }
 
 #endif
+
 

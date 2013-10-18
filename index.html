@@ -49,7 +49,7 @@
 </ul><hr><p>To do list:</p>
 
 <ul>
-<li>Add name protection for login system.</li>
+<li>Improve name protection.</li>
 <li>Add best-flagrun support.</li>
 <li>Support to load, unload and reload modules on-the-fly.</li>
 <li>Fix auth-system.</li>
@@ -57,16 +57,489 @@
 </ul><hr><p>Known bugs:</p>
 
 <ul>
+<li>Name protection allows login as other account...(lol).</li>
 <li>Cheater-detection may ban non-cheaters⁵.</li>
 <li>Auth-system not working.</li>
-</ul><hr><p>Notes:</p>
+</ul><hr><h1>
+<a name="wiki" class="anchor" href="#wiki"><span class="octicon octicon-link"></span></a>Wiki</h1>
+
+<h2>
+<a name="haythservs-story" class="anchor" href="#haythservs-story"><span class="octicon octicon-link"></span></a>HaythServ's story</h2>
+
+<hr><p>The first "private" release of HaythServ was done at end of year 2012, it was some basically modifics of HopMod. Jed did this work, he did some basically login system, but then I saw SuckerServ, it looked like a much better server mod, but at the moment I know it is not. I started modding it, I added some commands, changed some privileges, added Jed's login, and runned a server. At Jun, 13th 2013 I published it's first release on <a href="http://github.com/Gnaoprr/HaythServ">http://github.com/Gnaoprr/HaythServ</a>.</p>
+
+<hr><h2>
+<a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
+
+<hr><p>First we need to clone the latest version, do:</p>
+
+<div class="highlight highlight-bash"><pre>git clone https://github.com/Gnaoprr/HaythServ.git ./HaythServ/
+</pre></div>
+
+<p>and it will automatically clone it. Now we need to give execute permission to the install script, then it will do everything automatically (on some distros, it will have problems with libboost-all, cause of other versions)</p>
+
+<div class="highlight highlight-bash"><pre><span class="nb">cd</span> ./HaythServ/
+chmod +x ./install.sh
+./install.sh
+</pre></div>
+
+<p>will install it. If you discover problems with libboost-all, and you use a debian based distro, do this:</p>
+
+<div class="highlight highlight-bash"><pre>apt-cache search libboost | awk <span class="s1">'{ print $1 }'</span> | xargs apt-get install build-essential cmake gcc libgeoip-dev libzip-dev make subversion sqlite3 libmysql++ apache2 php5-mysql libapache2-mod-php5 liblua5.1-socket mysql-server libssl-dev postgresql sqlite3
+</pre></div>
+
+<p>it will do the job.</p>
+
+<hr><h2>
+<a name="configuring" class="anchor" href="#configuring"><span class="octicon octicon-link"></span></a>Configuring</h2>
+
+<h3>
+<a name="this-section-is-poorly-written-it-will-be-rewritten-soon" class="anchor" href="#this-section-is-poorly-written-it-will-be-rewritten-soon"><span class="octicon octicon-link"></span></a>This section is poorly written, it will be rewritten soon...</h3>
+
+<p>The configuration files are all stored in the ./conf/ directory - that's all you need to edit to configure the server. The server config is the server.conf file in the ./conf/ directory - it should look like this:</p>
+
+<div class="highlight highlight-lua"><pre><span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Cube</span> <span class="mi">2</span><span class="p">:</span> <span class="n">Sauerbraten</span> <span class="n">Game</span> <span class="n">Server</span> <span class="n">Configuration</span> <span class="o">#</span>
+<span class="o">#</span> <span class="n">Based</span> <span class="n">on</span> <span class="n">SuckerServ</span> <span class="p">(</span><span class="n">which</span> <span class="n">is</span> <span class="n">based</span> <span class="n">on</span> <span class="n">Hopmod</span><span class="p">)</span> <span class="o">#</span>
+<span class="o">#</span> <span class="o">#</span>
+<span class="o">#</span> <span class="n">Visit</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">piernov</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">dokuwiki</span><span class="o">/</span><span class="n">en</span><span class="p">:</span><span class="n">haythserv</span><span class="p">:</span><span class="n">start</span> <span class="k">for</span> <span class="n">a</span> <span class="n">full</span> <span class="n">list</span> <span class="n">of</span> <span class="o">#</span>
+<span class="o">#</span> <span class="n">configuration</span> <span class="n">variables</span><span class="p">.</span> <span class="o">#</span>
+<span class="o">#</span> <span class="o">#</span>
+<span class="o">###############################################################################</span>
+
+<span class="o">#</span> <span class="n">A</span> <span class="n">server</span> <span class="n">name</span> <span class="k">for</span> <span class="n">players</span> <span class="n">to</span> <span class="n">identify</span> <span class="n">your</span> <span class="n">server</span><span class="p">.</span>
+<span class="n">servername</span> <span class="s2">"</span><span class="s">^f3Running ^f5HaythServ"</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Default</span> <span class="n">connection</span> <span class="n">information</span><span class="p">:</span>
+<span class="o">#</span> <span class="n">Game</span> <span class="n">Server</span> <span class="n">socket</span> <span class="n">binds</span> <span class="n">to</span> <span class="n">UDP</span> <span class="mf">0.0.0.0</span><span class="p">:</span><span class="mi">28785</span>
+<span class="o">#</span> <span class="n">Game</span> <span class="n">Server</span> <span class="n">Info</span> <span class="n">socket</span> <span class="n">binds</span> <span class="n">to</span> <span class="n">UDP</span> <span class="mf">0.0.0.0</span><span class="p">:</span><span class="o">&lt;</span><span class="n">serverport</span><span class="o">+</span><span class="mi">1</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">28786</span><span class="p">)</span>
+<span class="o">###############################################################################</span>
+
+<span class="o">#</span> <span class="n">Server</span><span class="s1">'</span><span class="s">s IP address</span>
+<span class="o">#</span> <span class="n">serverip</span> <span class="s2">"</span><span class="s">0.0.0.0"</span>
+
+<span class="o">#</span> <span class="n">Game</span> <span class="n">server</span> <span class="n">port</span><span class="p">.</span>
+<span class="n">serverport</span> <span class="mi">28785</span>
+
+<span class="o">#</span> <span class="n">Register</span> <span class="n">your</span> <span class="n">server</span> <span class="n">with</span> <span class="n">the</span> <span class="n">master</span> <span class="n">server</span> <span class="n">every</span> <span class="mi">1</span> <span class="n">hour</span> <span class="n">to</span> <span class="n">appear</span> <span class="n">on</span> <span class="n">the</span> <span class="n">public</span> <span class="n">server</span> <span class="n">list</span><span class="p">.</span>
+<span class="n">publicserver</span> <span class="mi">1</span>
+
+<span class="o">#</span> <span class="n">Set</span> <span class="n">the</span> <span class="n">maximum</span> <span class="n">number</span> <span class="n">of</span> <span class="n">client</span> <span class="n">connections</span> <span class="n">allowed</span>
+<span class="n">maxclients</span> <span class="mi">128</span>
+
+<span class="o">#</span> <span class="o">+</span><span class="mi">1</span> <span class="n">slot</span> <span class="n">each</span> <span class="n">spectator</span>
+<span class="n">specslots</span> <span class="mi">0</span>
+
+<span class="o">#</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">reserved</span> <span class="n">connection</span> <span class="n">slots</span> <span class="k">for</span> <span class="n">admin</span> <span class="n">players</span>
+<span class="o">#</span> <span class="n">Admin</span> <span class="n">use</span><span class="p">:</span> <span class="o">/</span><span class="n">connect</span> <span class="o">&lt;</span><span class="n">serverip</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">serverport</span><span class="o">&gt;</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">admin_password</span><span class="o">&gt;</span>
+<span class="o">#</span> <span class="n">Connecting</span> <span class="n">admin</span> <span class="n">players</span> <span class="n">will</span> <span class="n">have</span> <span class="n">invisible</span> <span class="n">admin</span> <span class="n">status</span><span class="p">.</span>
+<span class="n">reserved_slots</span> <span class="mi">5</span>
+<span class="n">reserved_slots_password</span> <span class="s2">"</span><span class="s">"</span> <span class="o">#</span> <span class="n">Allow</span> <span class="n">reserved</span> <span class="n">slot</span> <span class="n">usage</span> <span class="n">without</span> <span class="n">giving</span> <span class="n">them</span> <span class="n">admin</span> <span class="n">privilege</span>
+
+<span class="o">#</span> <span class="n">Message</span> <span class="n">of</span> <span class="n">the</span> <span class="n">day</span><span class="p">.</span> <span class="n">This</span> <span class="n">message</span> <span class="n">is</span> <span class="n">sent</span> <span class="n">on</span> <span class="n">player</span> <span class="n">connection</span><span class="p">.</span>
+<span class="n">motd</span> <span class="p">(</span><span class="n">concat</span> <span class="p">(</span><span class="n">red</span> <span class="s2">"</span><span class="s">Running"</span><span class="p">)</span> <span class="p">(</span><span class="n">magenta</span> <span class="s2">"</span><span class="s">HaythServ"</span><span class="p">))</span>
+
+<span class="o">#</span> <span class="n">Password</span> <span class="n">to</span> <span class="n">claim</span> <span class="n">root</span><span class="p">.</span>
+<span class="n">root_password</span> <span class="s2">"</span><span class="s">crackme"</span>
+
+<span class="o">#</span> <span class="n">The</span> <span class="n">admin</span> <span class="n">password</span><span class="p">.</span> <span class="n">Same</span> <span class="n">password</span> <span class="n">used</span> <span class="n">by</span> <span class="n">all</span> <span class="n">admin</span> <span class="n">players</span> <span class="n">to</span> <span class="n">gain</span> <span class="n">admin</span> <span class="n">privilege</span><span class="p">,</span> <span class="n">by</span> <span class="n">typing</span> <span class="o">/</span><span class="n">setmaster</span> <span class="o">&lt;</span><span class="n">admin_password</span><span class="o">&gt;</span>
+<span class="n">admin_password</span> <span class="s2">"</span><span class="s">wasd"</span>
+
+<span class="o">#</span> <span class="n">The</span> <span class="n">master</span> <span class="n">password</span><span class="p">.</span> <span class="n">Same</span> <span class="n">password</span> <span class="n">used</span> <span class="n">by</span> <span class="n">all</span> <span class="n">master</span> <span class="n">players</span> <span class="n">to</span> <span class="n">gain</span> <span class="n">master</span> <span class="n">privilege</span><span class="p">,</span> <span class="n">by</span> <span class="n">typing</span> <span class="o">/</span><span class="n">setmaster</span> <span class="o">&lt;</span><span class="n">master_password</span><span class="o">&gt;</span><span class="p">.</span> <span class="n">Only</span> <span class="n">useful</span> <span class="k">if</span> <span class="n">allow_setmaster</span> <span class="n">is</span> <span class="mi">0</span>
+<span class="n">master_password</span> <span class="s2">"</span><span class="s">dsaw"</span>
+
+<span class="o">#</span> <span class="n">Uncomment</span> <span class="ow">and</span> <span class="n">set</span> <span class="n">a</span> <span class="n">server</span> <span class="n">password</span> <span class="n">to</span> <span class="n">lock</span> <span class="n">the</span> <span class="n">game</span> <span class="n">server</span> <span class="ow">and</span> <span class="nb">require</span> <span class="n">connecting</span> <span class="n">players</span> <span class="n">to</span> <span class="n">send</span> <span class="n">the</span> <span class="n">server</span> <span class="n">password</span> <span class="n">to</span> <span class="n">get</span> <span class="n">access</span><span class="p">.</span>
+<span class="o">#</span> <span class="n">Note</span><span class="p">:</span> <span class="n">The</span> <span class="n">Cube</span> <span class="mi">2</span> <span class="n">client</span> <span class="n">doesn</span><span class="s1">'</span><span class="s">t provide a password dialog GUI: players must use the command line to connect to a server with a given password.</span>
+<span class="o">#</span><span class="n">server_password</span> <span class="s2">"</span><span class="s">"</span>
+
+<span class="o">#</span> <span class="n">Time</span> <span class="k">in</span> <span class="n">ms</span> <span class="n">to</span> <span class="n">wait</span> <span class="n">at</span> <span class="n">intermession</span> <span class="n">before</span> <span class="n">changing</span> <span class="n">map</span> <span class="err">—</span> <span class="n">affect</span> <span class="n">also</span> <span class="n">mapbattle</span> <span class="nb">module</span>
+<span class="n">intermission_time</span> <span class="mi">15000</span>
+
+<span class="o">#</span> <span class="n">Toogles</span> <span class="n">wether</span> <span class="n">teamkilling</span> <span class="n">the</span> <span class="n">flag</span> <span class="n">runner</span> <span class="k">in</span> <span class="n">CTF</span> <span class="n">modes</span> <span class="n">should</span> <span class="n">disallow</span> <span class="n">the</span> <span class="n">teamkiller</span> <span class="n">from</span> <span class="n">stealing</span> <span class="n">the</span> <span class="n">flag</span>
+<span class="n">ctf_teamkill_penalty</span> <span class="kc">true</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Authkey</span> <span class="n">configuration</span> <span class="k">for</span> <span class="n">Name</span> <span class="n">protection</span> <span class="err">&amp;</span> <span class="n">Admin</span>
+<span class="o">###############################################################################</span>
+
+<span class="n">admin_domains</span> <span class="s2">"</span><span class="s">haythserv:admin"</span> <span class="o">#</span> <span class="n">Domain</span> <span class="k">for</span> <span class="n">admin</span>
+<span class="n">invadmin_domains</span> <span class="s2">"</span><span class="s">haythserv:admin"</span> <span class="o">#</span> <span class="n">Same</span>
+<span class="n">auto_invadmin_domains</span> <span class="s2">"</span><span class="s">haythserv_admin"</span> <span class="o">#</span> <span class="n">Same</span><span class="p">,</span> <span class="k">if</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">be</span> <span class="n">auto</span><span class="o">-</span><span class="n">invadmin</span> <span class="n">at</span> <span class="n">connection</span>
+
+<span class="n">master_domains</span> <span class="s2">"</span><span class="s">haythserv:master"</span> <span class="o">#</span> <span class="n">Domain</span> <span class="k">for</span> <span class="n">master</span>
+<span class="n">invmaster_domains</span> <span class="s2">"</span><span class="s">haythserv:master"</span> <span class="o">#</span> <span class="n">Same</span>
+<span class="n">auto_invmaster_domains</span> <span class="s2">"</span><span class="s">haythserv:master"</span> <span class="o">#</span> <span class="n">Same</span><span class="p">,</span> <span class="k">if</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">be</span> <span class="n">auto</span><span class="o">-</span><span class="n">invadmin</span> <span class="n">at</span> <span class="n">connection</span>
+
+<span class="o">#</span><span class="n">name_reservation_domain</span> <span class="s2">"</span><span class="s">127.0.0.1"</span> <span class="o">#</span> <span class="n">Domain</span> <span class="k">for</span> <span class="n">name</span> <span class="n">protect</span>
+<span class="o">#</span><span class="n">auth_domains</span> <span class="s2">"</span><span class="s">127.0.0.1"</span> <span class="o">#</span> <span class="n">Domain</span> <span class="k">for</span> <span class="n">privileges</span> <span class="n">with</span> <span class="n">new</span> <span class="n">authserver</span>
+
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">auth/name"</span> <span class="o">#</span> <span class="n">Module</span> <span class="k">for</span> <span class="n">name</span> <span class="n">protect</span>
+<span class="nb">module</span> <span class="s2">"</span><span class="s">auth/invmaster"</span> <span class="o">#</span> <span class="n">Module</span> <span class="k">for</span> <span class="n">auto</span><span class="o">-</span><span class="n">invmaster</span>
+<span class="nb">module</span> <span class="s2">"</span><span class="s">auth/invadmin"</span> <span class="o">#</span> <span class="n">Module</span> <span class="k">for</span> <span class="n">auto</span><span class="o">-</span><span class="n">invadmin</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">auth/privileges"</span> <span class="o">#</span> <span class="n">New</span> <span class="n">privileges</span> <span class="nb">module</span> <span class="n">to</span> <span class="n">set</span> <span class="n">inv</span><span class="o">-</span><span class="n">master</span><span class="o">/</span><span class="n">admin</span> <span class="n">with</span> <span class="n">new</span> <span class="n">authserver</span><span class="p">.</span> <span class="n">Disable</span> <span class="n">auth</span><span class="o">/</span><span class="n">invadmin</span> <span class="ow">and</span> <span class="n">auth</span><span class="o">/</span><span class="n">invmaster</span> <span class="n">before</span> <span class="n">enabling</span> <span class="n">this</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Jabber</span> <span class="n">Bot</span>
+<span class="o">###############################################################################</span>
+
+<span class="o">#</span><span class="n">xmpp_jid</span> <span class="s2">"</span><span class="s">"</span>
+<span class="o">#</span><span class="n">xmpp_password</span> <span class="s2">"</span><span class="s">"</span>
+<span class="o">#</span><span class="n">xmpp_debug</span> <span class="mi">0</span>
+<span class="o">#</span><span class="n">xmpp_muc_jid</span> <span class="s2">"</span><span class="s">"</span>
+<span class="o">#</span><span class="n">xmpp_muc_nick</span> <span class="s2">"</span><span class="s">HaythServ-Bot"</span>
+<span class="o">#</span><span class="n">xmpp_muc_password</span> <span class="s2">"</span><span class="s">"</span>
+<span class="o">#</span><span class="n">xmpp_bot_command_name</span> <span class="s2">"</span><span class="s">#"</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Stats</span>
+<span class="o">###############################################################################</span>
+
+<span class="n">stats_use_sqlite</span> <span class="mi">0</span> <span class="o">#</span> <span class="n">Use</span> <span class="n">a</span> <span class="n">SQLite3</span> <span class="n">Database</span><span class="p">:</span> <span class="n">default</span> <span class="n">option</span><span class="p">,</span> <span class="n">only</span> <span class="k">if</span> <span class="n">you</span> <span class="n">can</span><span class="s1">'</span><span class="s">t connect to a MySQL server, because some functions are missing</span>
+<span class="n">stats_use_json</span> <span class="mi">0</span> <span class="o">#</span> <span class="n">Use</span> <span class="n">a</span> <span class="n">JSON</span> <span class="n">Database</span><span class="p">:</span> <span class="n">very</span> <span class="n">incomplete</span><span class="p">,</span> <span class="n">don</span><span class="s1">'</span><span class="s">t use</span>
+<span class="n">stats_use_mysql</span> <span class="mi">0</span> <span class="o">#</span> <span class="n">Use</span> <span class="n">a</span> <span class="n">MySQL</span> <span class="n">Database</span><span class="p">:</span> <span class="n">Best</span> <span class="n">option</span> <span class="k">if</span> <span class="n">you</span> <span class="n">have</span> <span class="n">a</span> <span class="n">MySQL</span> <span class="n">server</span><span class="p">,</span> <span class="n">otherwise</span><span class="p">,</span> <span class="n">choose</span> <span class="n">SQLite3</span>
+<span class="n">stats_use_psql</span> <span class="mi">0</span> <span class="o">#</span> <span class="n">Use</span> <span class="n">a</span> <span class="n">PostGreSQL</span> <span class="n">database</span><span class="p">,</span> <span class="n">actually</span> <span class="ow">not</span> <span class="n">working</span><span class="p">.</span>
+<span class="n">stats_query_backend</span> <span class="n">mysql</span> <span class="o">#</span> <span class="n">Used</span> <span class="n">database</span> <span class="p">:</span> <span class="n">mysql</span><span class="p">,</span> <span class="n">sqlite3</span><span class="p">,</span> <span class="n">json</span><span class="p">,</span> <span class="n">psql</span>
+
+<span class="n">stats_mysql_hostname</span> <span class="s2">"</span><span class="s">localhost"</span> <span class="o">#</span> <span class="n">MySQL</span> <span class="n">server</span> <span class="n">hostname</span>
+<span class="n">stats_mysql_port</span> <span class="s2">"</span><span class="s">3306"</span> <span class="o">#</span> <span class="n">MySQL</span> <span class="n">server</span> <span class="n">port</span>
+<span class="n">stats_mysql_username</span> <span class="s2">"</span><span class="s">haythserv"</span> <span class="o">#</span> <span class="n">MySQL</span> <span class="n">database</span> <span class="n">username</span>
+<span class="n">stats_mysql_password</span> <span class="s2">"</span><span class="s">haythserv"</span> <span class="o">#</span> <span class="n">MySQL</span> <span class="n">database</span> <span class="n">password</span>
+<span class="n">stats_mysql_database</span> <span class="s2">"</span><span class="s">haythserv"</span> <span class="o">#</span> <span class="n">MySQL</span> <span class="n">database</span> <span class="n">name</span>
+<span class="n">stats_mysql_install</span> <span class="kc">true</span> <span class="o">#</span> <span class="n">Switch</span> <span class="n">to</span> <span class="kc">false</span> <span class="n">after</span> <span class="n">first</span> <span class="n">launch</span>
+
+<span class="n">stats_psql_hostname</span> <span class="s2">"</span><span class="s">localhost"</span> <span class="o">#</span> <span class="n">PostGreSQL</span> <span class="n">server</span> <span class="n">hostname</span>
+<span class="n">stats_psql_port</span> <span class="s2">"</span><span class="s">5432"</span> <span class="o">#</span> <span class="n">PostGreSQL</span> <span class="n">server</span> <span class="n">port</span>
+<span class="n">stats_psql_username</span> <span class="s2">"</span><span class="s">haythserv"</span> <span class="o">#</span> <span class="n">PostGreSQL</span> <span class="n">database</span> <span class="n">username</span>
+<span class="n">stats_psql_password</span> <span class="s2">"</span><span class="s">haythserv"</span> <span class="o">#</span> <span class="n">PostGreSQL</span> <span class="n">database</span> <span class="n">password</span>
+<span class="n">stats_psql_database</span> <span class="s2">"</span><span class="s">haythserv"</span> <span class="o">#</span> <span class="n">PostGreSQL</span> <span class="n">database</span> <span class="n">name</span>
+<span class="n">stats_psql_install</span> <span class="kc">true</span> <span class="o">#</span> <span class="n">Switch</span> <span class="n">to</span> <span class="kc">false</span> <span class="n">after</span> <span class="n">first</span> <span class="n">launch</span>
+
+<span class="n">stats_servername</span> <span class="s2">"</span><span class="s">HaythServ"</span> <span class="o">#</span> <span class="n">Server</span> <span class="n">name</span><span class="p">,</span> <span class="k">for</span> <span class="n">displaying</span> <span class="k">in</span> <span class="n">scoreboard</span>
+<span class="n">stats_use_auth</span> <span class="mi">1</span> <span class="o">#</span> <span class="n">Use</span> <span class="n">auth</span> <span class="n">with</span> <span class="n">stats</span>
+<span class="n">stats_auth_domain</span> <span class="s2">"</span><span class="s">haythserv"</span> <span class="o">#</span> <span class="n">Domain</span> <span class="k">for</span> <span class="n">auth</span>
+<span class="n">stats_overwrite_name_with_authname</span> <span class="mi">1</span> <span class="o">#</span> <span class="n">Replace</span> <span class="n">current</span> <span class="n">name</span> <span class="n">with</span> <span class="n">authkey</span><span class="s1">'</span><span class="s">s name in stats</span>
+<span class="n">stats_tell_auth_name</span> <span class="mi">1</span> <span class="o">#</span> <span class="n">Display</span> <span class="n">authname</span> <span class="n">at</span> <span class="n">intermission</span> <span class="ow">and</span> <span class="n">when</span> <span class="n">authkey</span> <span class="n">is</span> <span class="n">validated</span>
+
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Map</span> <span class="n">rotation</span>
+<span class="o">###############################################################################</span>
+
+<span class="o">#</span> <span class="n">Possible</span> <span class="n">values</span> <span class="k">for</span> <span class="n">map_rotation_type</span> <span class="n">include</span><span class="p">:</span> <span class="n">standard</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">size</span>
+<span class="n">map_rotation_type</span> <span class="s2">"</span><span class="s">standard"</span>
+
+<span class="o">#</span> <span class="n">The</span> <span class="n">map</span> <span class="n">rotation</span> <span class="n">lists</span>
+<span class="n">exec</span> <span class="s2">"</span><span class="s">conf/new_maps.conf"</span>
+<span class="n">exec</span> <span class="s2">"</span><span class="s">conf/maps.conf"</span>
+
+<span class="o">#</span> <span class="n">The</span> <span class="n">server</span><span class="s1">'</span><span class="s">s preferred game mode</span>
+<span class="n">default_gamemode</span> <span class="s2">"</span><span class="s">instagib"</span>
+
+<span class="o">#</span> <span class="n">Change</span> <span class="n">back</span> <span class="n">to</span> <span class="n">the</span> <span class="n">default</span> <span class="n">game</span> <span class="n">mode</span> <span class="n">when</span> <span class="n">the</span> <span class="n">server</span> <span class="n">goes</span> <span class="n">empty</span>
+<span class="n">default_game_on_empty</span> <span class="mi">1</span>
+
+<span class="o">#</span> <span class="n">For</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">map</span><span class="p">,</span> <span class="n">choose</span> <span class="n">an</span> <span class="n">appropiate</span> <span class="n">sized</span> <span class="n">map</span> <span class="n">from</span> <span class="n">a</span> <span class="n">map</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">depending</span> <span class="n">on</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">players</span> <span class="n">connected</span><span class="p">.</span>
+<span class="o">#</span> <span class="n">The</span> <span class="n">small</span> <span class="n">map</span> <span class="n">set</span> <span class="n">is</span> <span class="n">used</span> <span class="n">when</span> <span class="n">the</span> <span class="n">player</span> <span class="n">count</span> <span class="n">less</span> <span class="n">than</span> <span class="ow">or</span> <span class="n">equal</span> <span class="n">to</span> <span class="o">&lt;</span><span class="n">small_gamesize</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">else</span> <span class="n">the</span> <span class="n">big</span> <span class="n">map</span> <span class="n">set</span> <span class="n">is</span> <span class="n">used</span><span class="p">.</span>
+<span class="n">small_single_game</span> <span class="mi">5</span>
+<span class="n">small_team_game</span> <span class="mi">5</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Map</span> <span class="n">vote</span> <span class="n">restrictions</span>
+<span class="o">###############################################################################</span>
+
+<span class="n">allow_mapvote</span> <span class="mi">1</span>
+
+<span class="n">allowed_gamemodes</span> <span class="p">[</span>
+    <span class="s2">"</span><span class="s">ffa"</span>
+    <span class="s2">"</span><span class="s">coop edit"</span>
+    <span class="s2">"</span><span class="s">teamplay"</span>
+    <span class="s2">"</span><span class="s">instagib"</span>
+    <span class="s2">"</span><span class="s">instagib team"</span>
+    <span class="s2">"</span><span class="s">efficiency"</span>
+    <span class="s2">"</span><span class="s">efficiency team"</span>
+    <span class="s2">"</span><span class="s">tactics"</span>
+    <span class="s2">"</span><span class="s">tactics teams"</span>
+    <span class="s2">"</span><span class="s">capture"</span>
+    <span class="s2">"</span><span class="s">regen capture"</span>
+    <span class="s2">"</span><span class="s">ctf"</span>
+    <span class="s2">"</span><span class="s">insta ctf"</span>
+    <span class="s2">"</span><span class="s">protect"</span>
+    <span class="s2">"</span><span class="s">insta protect"</span>
+    <span class="s2">"</span><span class="s">hold"</span>
+    <span class="s2">"</span><span class="s">insta hold"</span>
+    <span class="s2">"</span><span class="s">efficiency ctf"</span>
+    <span class="s2">"</span><span class="s">efficiency protect"</span>
+    <span class="s2">"</span><span class="s">efficiency hold"</span>
+    <span class="s2">"</span><span class="s">insta collect"</span>
+    <span class="s2">"</span><span class="s">efficiency collect"</span>
+    <span class="s2">"</span><span class="s">collect"</span>
+<span class="p">]</span>
+
+<span class="o">#</span> <span class="n">Block</span> <span class="n">votes</span> <span class="k">for</span> <span class="n">unknown</span> <span class="n">maps</span> <span class="p">(</span><span class="n">known</span> <span class="n">maps</span> <span class="n">are</span> <span class="n">released</span> <span class="n">maps</span> <span class="n">found</span> <span class="k">in</span> <span class="n">the</span> <span class="n">official</span> <span class="n">game</span> <span class="n">distribution</span><span class="p">)</span>
+<span class="n">mapvote_disallow_unknown_map</span> <span class="mi">1</span>
+
+<span class="o">#</span> <span class="n">Block</span> <span class="n">votes</span> <span class="k">for</span> <span class="n">maps</span> <span class="ow">not</span> <span class="k">in</span> <span class="n">the</span> <span class="n">game</span><span class="o">-</span><span class="n">mode</span><span class="s1">'</span><span class="s">s map rotation</span>
+<span class="n">mapvote_disallow_excluded_map</span> <span class="mi">0</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Master</span> <span class="n">restrictions</span>
+<span class="o">###############################################################################</span>
+
+<span class="n">mastermode</span> <span class="mi">0</span> <span class="o">#</span> <span class="n">Default</span> <span class="n">mastermode</span>
+<span class="n">default_mastermode</span> <span class="mi">0</span> <span class="o">#</span> <span class="n">Change</span> <span class="n">default</span> <span class="n">mastermode</span>
+<span class="n">allow_setmaster</span> <span class="mi">1</span> <span class="o">#</span> <span class="n">Allow</span> <span class="o">/</span><span class="n">setmaster</span> <span class="mi">1</span> <span class="n">command</span> <span class="n">to</span> <span class="n">be</span> <span class="n">used</span> <span class="k">for</span> <span class="n">gaining</span> <span class="n">master</span>
+<span class="n">allow_mastermode_open</span> <span class="mi">1</span> <span class="o">#</span> <span class="n">Allow</span> <span class="n">master</span> <span class="n">to</span> <span class="n">set</span> <span class="n">open</span> <span class="n">mastermode</span>
+<span class="n">allow_mastermode_veto</span> <span class="mi">1</span> <span class="o">#</span> <span class="n">Allow</span> <span class="n">master</span> <span class="n">to</span> <span class="n">set</span> <span class="n">veto</span> <span class="n">mastermode</span>
+<span class="n">allow_mastermode_locked</span> <span class="mi">1</span> <span class="o">#</span> <span class="n">Allow</span> <span class="n">master</span> <span class="n">to</span> <span class="n">set</span> <span class="n">locked</span> <span class="n">mastermode</span>
+<span class="n">allow_mastermode_private</span> <span class="mi">0</span> <span class="o">#</span> <span class="n">Allow</span> <span class="n">master</span> <span class="n">to</span> <span class="n">set</span> <span class="n">private</span> <span class="n">mastermode</span>
+<span class="n">allow_reconnect_with_private_mastermode</span> <span class="mi">1</span> <span class="o">#</span> <span class="n">Allow</span> <span class="n">a</span> <span class="n">player</span> <span class="n">to</span> <span class="n">reconnect</span> <span class="n">when</span> <span class="n">private</span> <span class="n">mastermode</span> <span class="n">is</span> <span class="n">set</span>
+<span class="n">reset_mastermode</span> <span class="mi">1</span> <span class="o">#</span> <span class="n">Reset</span> <span class="n">mastermode</span> <span class="n">when</span> <span class="n">last</span> <span class="n">master</span> <span class="n">leaves</span> <span class="o">/</span> <span class="n">drops</span> <span class="n">privileges</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Web</span> <span class="n">admin</span> <span class="n">configuration</span>
+<span class="o">###############################################################################</span>
+
+<span class="o">#</span> <span class="n">The</span> <span class="n">web</span> <span class="n">admin</span> <span class="n">control</span> <span class="n">panel</span> <span class="n">url</span> <span class="n">is</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">28788</span><span class="o">/</span><span class="n">admin</span>
+<span class="o">#</span> <span class="n">There</span> <span class="n">is</span> <span class="n">no</span> <span class="n">login</span> <span class="n">required</span> <span class="n">when</span> <span class="n">access</span> <span class="n">is</span> <span class="n">through</span> <span class="n">localhost</span>
+
+<span class="o">#</span> <span class="n">To</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">web</span> <span class="n">admin</span> <span class="n">user</span> <span class="n">run</span> <span class="n">this</span> <span class="n">shell</span> <span class="n">command</span><span class="p">:</span> <span class="n">source</span> <span class="n">bin</span><span class="o">/</span><span class="n">env</span><span class="p">.</span><span class="n">sh</span><span class="p">;</span> <span class="n">bin</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">luapp</span> <span class="n">bin</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">web_admin</span><span class="p">.</span><span class="n">lua</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
+<span class="o">#</span> <span class="n">Copy</span> <span class="ow">and</span> <span class="n">paste</span> <span class="n">the</span> <span class="n">output</span> <span class="n">here</span> <span class="n">into</span> <span class="n">the</span> <span class="n">web_admins</span> <span class="n">list</span><span class="p">:</span>
+<span class="n">web_admins</span> <span class="p">[</span> <span class="p">]</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Player</span> <span class="n">Commands</span> <span class="n">configuration</span>
+<span class="o">###############################################################################</span>
+
+<span class="n">enable_commands</span> <span class="p">[</span>
+    <span class="n">cheater</span>
+    <span class="n">votekick</span>
+    <span class="n">specall</span>
+    <span class="n">unspecall</span>
+    <span class="n">maxclients</span>
+    <span class="n">uptime</span>
+    <span class="n">reload</span>
+    <span class="n">changetime</span>
+    <span class="n">players</span>
+    <span class="n">names</span>
+    <span class="n">pause</span>
+    <span class="n">resume</span>
+    <span class="n">motd</span>
+    <span class="n">cookie</span>
+    <span class="n">givemaster</span>
+    <span class="n">mute</span>
+    <span class="n">unmute</span>
+    <span class="n">me</span>
+    <span class="n">ban</span>
+    <span class="n">unban</span>
+    <span class="n">persist</span>
+    <span class="n">versus</span>
+    <span class="n">warning</span>
+    <span class="n">msg</span>
+    <span class="n">stats</span>
+    <span class="n">nextmap</span>
+    <span class="n">eval</span>
+    <span class="n">group</span>
+    <span class="n">specmsg</span>
+    <span class="n">slay</span>
+    <span class="n">recorddemo</span>
+    <span class="n">giveadmin</span>
+    <span class="n">forcespec</span>
+    <span class="n">unforcespec</span>
+    <span class="n">setnextmap</span>
+    <span class="n">traffic</span>
+    <span class="n">banlist</span>
+    <span class="n">fairgame</span>
+    <span class="n">whoisonline</span>
+    <span class="n">admin</span>
+    <span class="n">invadmin</span>
+    <span class="n">master</span>
+    <span class="n">invmaster</span>
+    <span class="n">forgive</span>
+    <span class="n">mapsucks</span>
+    <span class="n">clanwar</span>
+    <span class="n">rename</span>
+    <span class="n">disconnect</span>
+    <span class="n">info</span>
+    <span class="n">help</span>
+    <span class="n">delgban</span>
+    <span class="n">gbans</span>
+    <span class="n">spy</span>
+    <span class="n">version</span>
+    <span class="n">privileges</span>
+    <span class="n">announce</span>
+    <span class="n">revokepriv</span>
+    <span class="n">changepriv</span>
+    <span class="n">getip</span>
+    <span class="n">cginsta</span>
+    <span class="n">sginsta</span>
+    <span class="n">rlinsta</span>
+    <span class="n">glinsta</span>
+    <span class="n">instaammo</span>
+    <span class="n">instahp</span>
+    <span class="n">defaultcc</span>
+    <span class="n">spawnhealth</span>
+    <span class="n">spawnarmour</span>
+    <span class="n">botname</span>
+    <span class="n">instaarmour</span>
+    <span class="n">efficammomultipler</span>
+    <span class="n">resetinsta</span>
+    <span class="n">masterkicktime</span>
+    <span class="n">login</span>
+    <span class="n">register</span>
+    <span class="n">man</span>
+    <span class="n">root</span>
+<span class="o">#</span> <span class="n">setloginprivs</span>        <span class="o">###</span> <span class="n">Not</span> <span class="n">working</span> <span class="o">-</span> <span class="n">To</span> <span class="n">be</span> <span class="n">fixed</span> <span class="n">soon</span>
+<span class="o">#</span> <span class="n">loginpm</span> <span class="o">###</span> <span class="n">Not</span> <span class="n">working</span> <span class="o">-</span> <span class="n">To</span> <span class="n">be</span> <span class="n">fixed</span> <span class="n">soon</span>
+<span class="p">]</span>
+
+<span class="n">disable_commands</span> <span class="p">[</span>
+    <span class="n">noties</span>
+    <span class="n">suddendeath</span>
+    <span class="n">sd</span>
+    <span class="n">nosd</span>
+<span class="p">]</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span> <span class="n">Modules</span>
+<span class="o">###############################################################################</span>
+
+<span class="nb">module</span> <span class="s2">"</span><span class="s">stats"</span> <span class="o">#</span> <span class="n">Record</span> <span class="n">game</span> <span class="n">statistics</span> <span class="n">to</span> <span class="n">a</span> <span class="n">database</span> <span class="p">(</span><span class="n">it</span> <span class="n">is</span> <span class="n">needed</span> <span class="k">for</span> <span class="n">the</span> <span class="n">stats</span> <span class="ow">and</span> <span class="n">names</span> <span class="n">commands</span><span class="p">)</span>
+
+<span class="nb">module</span> <span class="s2">"</span><span class="s">display/ownage"</span> <span class="o">#</span> <span class="n">Display</span> <span class="n">player</span> <span class="n">achievement</span> <span class="n">messages</span>
+<span class="nb">module</span> <span class="s2">"</span><span class="s">display/awards"</span> <span class="o">#</span> <span class="n">Show</span> <span class="n">End</span> <span class="n">Stats</span> <span class="n">Game</span> <span class="n">of</span> <span class="n">ended</span> <span class="n">map</span> <span class="n">during</span> <span class="n">the</span> <span class="n">intermission</span>
+
+<span class="nb">module</span> <span class="s2">"</span><span class="s">detect/camping"</span> <span class="o">#</span> <span class="n">Name</span> <span class="ow">and</span> <span class="n">shame</span> <span class="n">players</span> <span class="n">who</span> <span class="n">are</span> <span class="n">found</span> <span class="n">to</span> <span class="n">be</span> <span class="n">camping</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">detect/camping_penalty"</span> <span class="o">#</span> <span class="n">Players</span> <span class="n">who</span> <span class="n">are</span> <span class="n">camping</span> <span class="n">go</span> <span class="k">in</span> <span class="n">specs</span> <span class="k">for</span> <span class="mi">10</span> <span class="n">seconds</span> <span class="p">(</span><span class="n">penality</span><span class="p">)</span>
+
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">balance/teams/by_adding_bots"</span> <span class="o">#</span> <span class="n">Use</span> <span class="n">bots</span> <span class="n">to</span> <span class="n">balance</span> <span class="n">teams</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">balance/teams/by_moving_players"</span> <span class="o">#</span> <span class="n">Player</span> <span class="n">moving</span> <span class="n">team</span> <span class="n">balancing</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">balance/teams/passive"</span> <span class="o">#</span> <span class="n">Player</span> <span class="n">moving</span> <span class="n">team</span> <span class="n">when</span> <span class="n">they</span> <span class="n">are</span> <span class="n">death</span> <span class="ow">and</span> <span class="n">cry</span> <span class="n">Balance</span>
+
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">balance/server_size/by_spec_count"</span> <span class="o">#</span> <span class="n">Increase</span> <span class="n">the</span> <span class="n">server</span> <span class="n">capacity</span><span class="p">;</span> <span class="n">depends</span> <span class="n">on</span> <span class="n">the</span> <span class="n">spectator</span> <span class="n">count</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">balance/server_size/by_mastermode"</span> <span class="o">#</span> <span class="n">Make</span> <span class="n">server</span> <span class="n">bigger</span> <span class="n">when</span> <span class="n">it</span> <span class="n">goes</span> <span class="n">into</span> <span class="n">locked</span> <span class="n">mode</span> <span class="n">so</span> <span class="n">that</span> <span class="n">many</span> <span class="n">more</span> <span class="n">spectators</span> <span class="n">can</span> <span class="n">connect</span> <span class="p">(</span><span class="n">default</span> <span class="n">resize</span> <span class="n">is</span> <span class="mi">50</span> <span class="n">players</span><span class="p">)</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">balance/server_size/by_gamemode"</span> <span class="o">#</span> <span class="n">Increase</span><span class="o">/</span> <span class="n">Decrease</span> <span class="n">server</span><span class="p">;</span> <span class="n">depends</span> <span class="n">on</span> <span class="n">the</span> <span class="n">current</span> <span class="n">gamemode</span>
+
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">override/gameduration"</span> <span class="o">#</span> <span class="n">Change</span> <span class="n">the</span> <span class="n">usual</span> <span class="mi">10</span> <span class="n">minutes</span> <span class="n">game</span> <span class="n">duration</span> <span class="n">to</span> <span class="mi">15</span> <span class="n">minutes</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">override/default_mastermode"</span> <span class="o">#</span> <span class="n">Change</span> <span class="n">the</span> <span class="n">default</span> <span class="n">mastermode</span> <span class="p">(</span><span class="n">to</span> <span class="n">locked</span> <span class="n">by</span> <span class="n">default</span><span class="p">)</span>
+
+<span class="nb">module</span> <span class="s2">"</span><span class="s">recordgames"</span> <span class="o">#</span> <span class="n">Auto</span> <span class="n">record</span> <span class="n">demos</span> <span class="n">of</span> <span class="n">every</span> <span class="n">game</span>
+
+<span class="nb">module</span> <span class="s2">"</span><span class="s">limit/inactivity"</span> <span class="o">#</span> <span class="n">Move</span> <span class="n">inactive</span> <span class="p">(</span><span class="n">dead</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">moving</span><span class="p">)</span> <span class="n">players</span> <span class="n">to</span> <span class="n">spectators</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">limit/spectating"</span> <span class="o">#</span> <span class="n">Disconnect</span> <span class="n">spectators</span> <span class="n">at</span> <span class="s2">"</span><span class="s">intermission"</span><span class="p">,</span> <span class="n">after</span> <span class="n">min</span><span class="p">.</span> <span class="mi">30</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">when</span> <span class="n">server</span> <span class="n">is</span> <span class="n">full</span> <span class="ow">and</span> <span class="n">they</span> <span class="n">haven</span><span class="s1">'</span><span class="s">t been active in chat for 5 minutes</span>
+<span class="nb">module</span> <span class="s2">"</span><span class="s">limit/ping"</span> <span class="o">#</span> <span class="n">Move</span> <span class="n">lagging</span> <span class="n">players</span> <span class="n">to</span> <span class="n">spectators</span> <span class="n">after</span> <span class="mi">2</span> <span class="n">warnings</span>
+
+
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">gamemode/no_ties"</span> <span class="o">#</span> <span class="n">Prevent</span> <span class="n">ties</span> <span class="n">by</span> <span class="n">continouse</span> <span class="n">increasing</span> <span class="n">the</span> <span class="n">maptime</span> <span class="n">by</span> <span class="n">one</span> <span class="n">minute</span> <span class="k">until</span> <span class="n">there</span> <span class="n">is</span> <span class="n">a</span> <span class="n">clear</span> <span class="n">ranking</span> <span class="n">order</span> <span class="p">(</span><span class="n">it</span> <span class="n">is</span> <span class="n">needed</span> <span class="k">for</span> <span class="n">the</span> <span class="n">noties</span> <span class="n">command</span><span class="p">)</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">gamemode/suddendeath"</span> <span class="o">#</span> <span class="n">Like</span> <span class="n">no</span> <span class="n">ties</span><span class="p">,</span> <span class="n">but</span> <span class="n">it</span> <span class="n">stops</span> <span class="n">the</span> <span class="n">game</span><span class="p">,</span> <span class="n">immediately</span><span class="p">,</span> <span class="n">when</span> <span class="n">a</span> <span class="n">team</span> <span class="n">scores</span> <span class="n">one</span> <span class="n">more</span> <span class="n">time</span> <span class="p">(</span><span class="n">it</span> <span class="n">is</span> <span class="n">needed</span> <span class="k">for</span> <span class="n">the</span> <span class="n">suddendeath</span> <span class="n">btw</span><span class="p">.</span> <span class="n">sd</span> <span class="ow">and</span> <span class="n">nosd</span> <span class="n">commands</span><span class="p">)</span>
+
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">jabber/lua_jabber_bot"</span> <span class="o">#</span> <span class="n">A</span> <span class="n">ugly</span> <span class="ow">and</span> <span class="n">unstable</span> <span class="n">Jabber</span> <span class="n">Bot</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">name_lock"</span> <span class="o">#</span> <span class="n">Prevent</span> <span class="n">players</span> <span class="n">from</span> <span class="n">renaming</span>
+<span class="nb">module</span> <span class="s2">"</span><span class="s">mute_spectators"</span> <span class="o">#</span> <span class="n">Mute</span> <span class="n">all</span> <span class="n">spectators</span><span class="p">,</span> <span class="n">requiered</span> <span class="k">for</span> <span class="o">#</span><span class="n">mutespecs</span> <span class="ow">and</span> <span class="o">#</span><span class="n">unmutespecs</span> <span class="n">commands</span>
+
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">teamkill_protect"</span> <span class="o">#</span> <span class="n">Disallow</span> <span class="n">teamkills</span> <span class="k">if</span> <span class="n">the</span> <span class="n">teamkiller</span> <span class="n">tk</span><span class="o">/</span><span class="n">frags</span> <span class="n">ratio</span> <span class="n">is</span> <span class="n">above</span> <span class="mf">0.25</span>
+
+<span class="nb">module</span> <span class="s2">"</span><span class="s">mapbattle"</span> <span class="o">#</span> <span class="n">Vote</span> <span class="k">for</span> <span class="n">map</span> <span class="n">at</span> <span class="n">intermission</span>
+
+<span class="o">###############################################################################</span>
+<span class="o">#</span><span class="n">IRC</span> <span class="n">MODULES</span>
+<span class="o">###############################################################################</span>
+
+<span class="o">#</span><span class="n">irc_socket_password</span> <span class="s2">"</span><span class="s">"</span>
+<span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">irc/python_bot"</span> <span class="o">#</span> <span class="n">Required</span> <span class="k">for</span> <span class="n">the</span> <span class="n">external</span> <span class="n">irc</span><span class="o">-</span><span class="n">bot</span><span class="p">,</span> <span class="n">dont</span> <span class="n">forget</span> <span class="n">to</span> <span class="n">set</span> <span class="n">a</span> <span class="n">connection</span> <span class="n">pass</span> <span class="n">above</span><span class="err">!</span>
+
+<span class="o">#</span><span class="n">After</span> <span class="n">that</span> <span class="n">you</span> <span class="n">need</span> <span class="n">to</span> <span class="n">configure</span> <span class="n">the</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span> <span class="n">file</span><span class="p">.</span> <span class="n">You</span> <span class="n">can</span> <span class="n">find</span> <span class="n">it</span> <span class="k">in</span> <span class="n">the</span> <span class="o">/</span><span class="n">python_bot</span> <span class="n">folder</span><span class="p">.</span> <span class="n">Have</span> <span class="n">fun</span><span class="err">!</span>
+
+<span class="o">#################################################################################</span>
+<span class="o">#</span> <span class="n">Message</span> <span class="n">customization</span>
+<span class="o">#################################################################################</span>
+<span class="o">#</span> <span class="n">Take</span> <span class="n">the</span> <span class="n">message</span><span class="s1">'</span><span class="s">s var you want customize from script/modules/declare/messages.vars</span>
+<span class="o">#</span> <span class="n">Exemple</span><span class="p">:</span> <span class="n">There</span><span class="s1">'</span><span class="s">s a "global forgive_actor_forgiven_message" in messages.vars</span>
+<span class="o">#</span> <span class="n">So</span> <span class="n">the</span> <span class="n">line</span> <span class="n">to</span> <span class="n">put</span> <span class="n">here</span><span class="p">,</span> <span class="k">for</span> <span class="n">exemple</span><span class="p">,</span> <span class="n">is</span> <span class="err">→</span> <span class="n">forgive_actor_forgiven_message</span> <span class="p">(</span><span class="n">concat</span> <span class="s2">"</span><span class="s">You've been forgiven by"</span> <span class="p">(</span><span class="n">blue</span> <span class="s2">"</span><span class="s">%s"</span><span class="p">))</span>
+</pre></div>
+
+<p>Let's start with:</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">servername</span> <span class="s2">"</span><span class="s">^f3Running ^f5HaythServ"</span>
+</pre></div>
+
+<p>well, that's the server's name. It can be what ever you want.</p>
+
+<div class="highlight highlight-lua"><pre><span class="o">#</span> <span class="n">serverip</span> <span class="s2">"</span><span class="s">0.0.0.0"</span>
+</pre></div>
+
+<p>You can let this commented if you have only one ip.</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">serverport</span> <span class="mi">28785</span>
+</pre></div>
+
+<p>This is the server port it will use, you need to open serverport and serverport+1, both for UDP.</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">publicserver</span> <span class="mi">1</span>
+</pre></div>
+
+<p>Change this to 0 if you don't want the server to show on server list.</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">maxclients</span> <span class="mi">128</span>
+</pre></div>
+
+<p>This is the number of the maximal clients allowed, max is 128.</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">specslots</span> <span class="mi">0</span>
+</pre></div>
+
+<p>This are specsslot, extra slots for every spectator.</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">motd</span> <span class="p">(</span><span class="n">concat</span> <span class="p">(</span><span class="n">red</span> <span class="s2">"</span><span class="s">Running"</span><span class="p">)</span> <span class="p">(</span><span class="n">magenta</span> <span class="s2">"</span><span class="s">HaythServ"</span><span class="p">))</span>
+</pre></div>
+
+<p>This is the "Message of the Day", it is sent to players at connect.</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">root_password</span> <span class="s2">"</span><span class="s">crackme"</span>
+<span class="n">admin_password</span> <span class="s2">"</span><span class="s">wasd"</span>
+<span class="n">master_password</span> <span class="s2">"</span><span class="s">dsaw"</span>
+</pre></div>
+
+<p>Well this are the passwords to claim the various privileges. There are more configuration options, but you mostly won't need those.</p>
+
+<hr><h2>
+<a name="starting-stopping-restarting-and-reloading-the-server" class="anchor" href="#starting-stopping-restarting-and-reloading-the-server"><span class="octicon octicon-link"></span></a>Starting, stopping, restarting and reloading the server.</h2>
+
+<p>This is pretty easy, </p>
+
+<div class="highlight highlight-bash"><pre>./bin/server <span class="s2">"start"</span>
+</pre></div>
+
+<p>will start it,</p>
+
+<div class="highlight highlight-bash"><pre>./bin/server <span class="s2">"stop"</span>
+</pre></div>
+
+<p>will stop it,</p>
+
+<div class="highlight highlight-bash"><pre>./bin/server <span class="s2">"restart"</span>
+</pre></div>
+
+<p>will set it for a restart at the end of the game and</p>
+
+<div class="highlight highlight-bash"><pre>./bin/server <span class="s2">"updateconf"</span>
+</pre></div>
+
+<p>will reload the configuration files (./conf/*), there are also other options, try</p>
+
+<div class="highlight highlight-bash"><pre>./bin/server <span class="s2">"help"</span>
+</pre></div>
+
+<p>to see all possible options.</p>
+
+<hr><p>Notes:</p>
 
 <ol>
 <li>Some of these features may be available only in the development branch (dev).</li>
 <li>The extended man system (#man) requires you to use a bigger console size (/consize 15), because most of those manpages have more than the usual 5 console lines.</li>
 <li>The Unix-like command syntax is not available for all commands.</li>
 <li>Some of this commands should not be used, that's why they are disabled.</li>
-<li>Cheater-detection is a beta, it may ban people for "player position exceeded."</li>
+<li>Cheater-detection is a beta, it may ban people for "player position </li>
 </ol>
       </section>
     </div>

@@ -384,8 +384,8 @@ namespace server {
     extern bool get_accmaster(int);
     extern bool get_accadmin(int);
     extern bool get_accroot(int);
-    // extern void set_user(int, char *);
-    // extern char *get_user(int);
+    extern void set_user(int, const char *);
+    extern const char *get_user(int);
     namespace aiman {
         extern string botname;
     }

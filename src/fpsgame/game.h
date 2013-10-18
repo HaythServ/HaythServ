@@ -61,8 +61,8 @@ enum
 struct fpsentity : extentity
 {
     int triggerstate, lasttrigger;
-    
-    fpsentity() : triggerstate(TRIGGER_RESET), lasttrigger(0) {} 
+
+    fpsentity() : triggerstate(TRIGGER_RESET), lasttrigger(0) {}
 };
 
 enum { GUN_FIST = 0, GUN_SG, GUN_CG, GUN_RL, GUN_RIFLE, GUN_GL, GUN_PISTOL, GUN_FIREBALL, GUN_ICEBALL, GUN_SLIMEBALL, GUN_BITE, GUN_BARREL, NUMGUNS };
@@ -207,7 +207,7 @@ enum
     S_CHAINSAW_IDLE,
 
     S_HIT,
-    
+
     S_FLAGFAIL
 };
 
@@ -372,12 +372,14 @@ namespace server {
     extern int instahp;
     extern int instaarmour;
     extern int defaultcc;
-	extern int spawnarmour;
-	extern int spawnhealth;
+        extern int spawnarmour;
+        extern int spawnhealth;
     extern int efficammomultipler;
     extern int masterkicktime;
+    extern bool is_verified(int cn);
+    extern void set_verified(int cn);
     namespace aiman {
-	extern string botname;
+        extern string botname;
     }
 }
 // inherited by fpsent and server clients
@@ -453,93 +455,93 @@ struct fpsstate
 
     void respawn()
     {
-	if((server::spawnarmour == 100 && server::spawnarmour < 200))
-	    armourtype = A_GREEN;
-	else {
-	    if((server::spawnarmour == 200 || server::spawnarmour > 200))
-		armourtype = A_YELLOW;
-	    else
-		armourtype = A_BLUE;
-	}
+        if((server::spawnarmour == 100 && server::spawnarmour < 200))
+            armourtype = A_GREEN;
+        else {
+            if((server::spawnarmour == 200 || server::spawnarmour > 200))
+                armourtype = A_YELLOW;
+            else
+                armourtype = A_BLUE;
+        }
         quadmillis = 0;
         gunselect = GUN_PISTOL;
         gunwait = 0;
         loopi(NUMGUNS) ammo[i] = 0;
         ammo[GUN_FIST] = 1;
-	}
+        }
 
     void spawnstate(int gamemode)
     {
-	armour = server::spawnarmour;
-	health = server::spawnhealth+maxhealth;
+        armour = server::spawnarmour;
+        health = server::spawnhealth+maxhealth;
         if(m_demo)
         {
             gunselect = GUN_FIST;
         }
         else if(m_insta)
         {
-	    if((server::instaarmour == 25 || (server::instaarmour > 25 && server::instaarmour < 100)))
-		armourtype = A_BLUE;
-	    if((server::instaarmour == 100 || (server::instaarmour > 100 && server::instaarmour < 200)))
+            if((server::instaarmour == 25 || (server::instaarmour > 25 && server::instaarmour < 100)))
+                armourtype = A_BLUE;
+            if((server::instaarmour == 100 || (server::instaarmour > 100 && server::instaarmour < 200)))
                 armourtype = A_GREEN;
-	    if((server::instaarmour == 200 || server::instaarmour > 200))
+            if((server::instaarmour == 200 || server::instaarmour > 200))
                 armourtype = A_YELLOW;
             armour = server::instaarmour;
             health = server::instahp;
-	    if(server::cginsta)
-	    {
-		gunselect = GUN_CG;
-		ammo[GUN_CG] = server::instaammo;
-		ammo[GUN_SG] = 0;
-		ammo[GUN_RL] = 0;
-		ammo[GUN_GL] = 0;
-		ammo[GUN_RIFLE] = 0;
-	    }
-	    else
-	    {
-		if(server::sginsta)
-		{
-		     gunselect = GUN_SG;
-		     ammo[GUN_CG] = 0;
-		     ammo[GUN_SG] = server::instaammo;
-		     ammo[GUN_RL] = 0;
-		     ammo[GUN_GL] = 0;
-		     ammo[GUN_RIFLE] = 0;
-		}
-		else
-		{
-		    if(server::rlinsta)
-		    {
-			gunselect = GUN_RL;
-			ammo[GUN_CG] = 0;
-			ammo[GUN_SG] = 0;
-			ammo[GUN_RL] = server::instaammo;
-			ammo[GUN_GL] = 0;
-			ammo[GUN_RIFLE] = 0;
-		    }
-		    else
-		    {
-			if(server::glinsta)
-			{
-			    gunselect = GUN_GL;
-			    ammo[GUN_CG] = 0;
-			    ammo[GUN_SG] = 0;
-			    ammo[GUN_RL] = 0;
-			    ammo[GUN_GL] = server::instaammo;
-			    ammo[GUN_RIFLE] = 0;
-			}
-			else
-			{
-	 			gunselect = GUN_RIFLE;
-				ammo[GUN_CG] = 0;
-				ammo[GUN_SG] = 0;
-				ammo[GUN_RL] = 0;
-				ammo[GUN_GL] = 0;
-				ammo[GUN_RIFLE] = server::instaammo;
-			}
-		    }
-		}
-	    }
+            if(server::cginsta)
+            {
+                gunselect = GUN_CG;
+                ammo[GUN_CG] = server::instaammo;
+                ammo[GUN_SG] = 0;
+                ammo[GUN_RL] = 0;
+                ammo[GUN_GL] = 0;
+                ammo[GUN_RIFLE] = 0;
+            }
+            else
+            {
+                if(server::sginsta)
+                {
+                     gunselect = GUN_SG;
+                     ammo[GUN_CG] = 0;
+                     ammo[GUN_SG] = server::instaammo;
+                     ammo[GUN_RL] = 0;
+                     ammo[GUN_GL] = 0;
+                     ammo[GUN_RIFLE] = 0;
+                }
+                else
+                {
+                    if(server::rlinsta)
+                    {
+                        gunselect = GUN_RL;
+                        ammo[GUN_CG] = 0;
+                        ammo[GUN_SG] = 0;
+                        ammo[GUN_RL] = server::instaammo;
+                        ammo[GUN_GL] = 0;
+                        ammo[GUN_RIFLE] = 0;
+                    }
+                    else
+                    {
+                        if(server::glinsta)
+                        {
+                            gunselect = GUN_GL;
+                            ammo[GUN_CG] = 0;
+                            ammo[GUN_SG] = 0;
+                            ammo[GUN_RL] = 0;
+                            ammo[GUN_GL] = server::instaammo;
+                            ammo[GUN_RIFLE] = 0;
+                        }
+                        else
+                        {
+                                gunselect = GUN_RIFLE;
+                                ammo[GUN_CG] = 0;
+                                ammo[GUN_SG] = 0;
+                                ammo[GUN_RL] = 0;
+                                ammo[GUN_GL] = 0;
+                                ammo[GUN_RIFLE] = server::instaammo;
+                        }
+                    }
+                }
+            }
         }
         else if(m_regencapture)
         {
@@ -583,7 +585,7 @@ struct fpsstate
         }
         else if(m_sp)
         {
-            if(m_dmsp) 
+            if(m_dmsp)
             {
                 armourtype = A_BLUE;
                 armour = 25;
@@ -597,7 +599,7 @@ struct fpsstate
             armour = 25;
             ammo[GUN_PISTOL] = 40;
             ammo[GUN_GL] = 1;
-	}
+        }
     }
     // just subtract damage here, can set death, etc. later in code calling this
     int dodamage(int damage)

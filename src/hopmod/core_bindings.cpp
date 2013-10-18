@@ -124,6 +124,14 @@ void bind_core_functions(lua_State * L, int T)
     bind_function(L, T, "hasmaster", server::hasmaster);
     bind_function(L, T, "verified", server::is_verified);
     bind_function(L, T, "verify", server::set_verified);
+    bind_function(L, T, "accmasterset", server::set_accmaster);
+    bind_function(L, T, "accadminset", server::set_accadmin);
+    bind_function(L, T, "accrootset", server::set_accroot);
+    bind_function(L, T, "getaccmaster", server::get_accmaster);
+    bind_function(L, T, "getaccadmin", server::get_accadmin);
+    bind_function(L, T, "getaccroot", server::get_accroot);
+    // bind_function(L, T, "getuser", server::get_user);
+    // bind_function(L, T, "setusername", server::set_user);
 
     bind_function(L, T, "send_auth_request", server::send_auth_request);
     bind_function(L, T, "send_auth_challenge_to_client", server::send_auth_challenge);

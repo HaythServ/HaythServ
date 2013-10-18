@@ -1,9 +1,6 @@
 require "geoip"
 
 local BANNER_DELAY = 500
-require "geoip"
-
-local BANNER_DELAY = 500
 local show_country_message = server.show_country_message == 1
 
 local function sendServerBanner(cn)

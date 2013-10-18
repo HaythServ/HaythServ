@@ -541,15 +541,15 @@ namespace server
         clientinfo *ci = getinfo(cn);
         return ci->account_master;
     }
-    /* void set_user(int cn, char *username) {
+    void set_user(int cn, const char *username) {
         clientinfo *ci = getinfo(cn);
         ci->username = username;
         return;
     }
-    char *get_user(int cn) {
+    const char *get_user(int cn) {
         clientinfo *ci = getinfo(cn);
         return ci->username;
-    } */
+    }
 
     namespace aiman 
     {

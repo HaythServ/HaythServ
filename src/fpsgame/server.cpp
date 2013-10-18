@@ -288,6 +288,10 @@ namespace server
         int authkickvictim;
         char *authkickreason;
         bool verified;
+        bool account_master;
+        bool account_admin;
+        bool account_root;
+        char username;
 
         int clientmillis;
 
@@ -508,6 +512,43 @@ namespace server
     void set_verified(int cn) {
         clientinfo *ci = getinfo(cn);
         ci->verified = 1;
+        return;
+    }
+    void set_accmaster(int cn, bool set_unset) {
+        clientinfo *ci = getinfo(cn);
+        ci->account_master = set_unset;
+        return;
+    }
+    void set_accadmin(int cn, bool set_unset) {
+        clientinfo *ci = getinfo(cn);
+        ci->account_admin = set_unset;
+        return;
+    }
+    void set_accroot(int cn, bool set_unset) {
+        clientinfo *ci = getinfo(cn);
+        ci->account_root = set_unset;
+        return;
+    }
+    bool get_accmaster(int cn) {
+        clientinfo *ci = getinfo(cn);
+        return ci->account_master;
+    }
+    bool get_accadmin(int cn) {
+        clientinfo *ci = getinfo(cn);
+        return ci->account_master;
+    }
+    bool get_accroot(int cn) {
+        clientinfo *ci = getinfo(cn);
+        return ci->account_master;
+    }
+    void set_user(int cn, char username) {
+        clientinfo *ci = getinfo(cn);
+        ci->username = username;
+        return;
+    }
+    char get_user(int cn) {
+        clientinfo *ci = getinfo(cn);
+        return ci->username;
     }
 
     namespace aiman 

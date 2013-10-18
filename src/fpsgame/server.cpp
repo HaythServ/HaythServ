@@ -450,7 +450,7 @@ namespace server
             cleanauth();
             mapchange();
         }
-        
+
         int geteventmillis(int servmillis, int clientmillis)
         {
             if(!timesync || (events.empty() && state.waitexpired(servmillis)))
@@ -499,6 +499,15 @@ namespace server
         int time;
         uint ip;
     };
+
+    bool is_verified(int cn) {
+        clientinfo *ci = getinfo(cn);
+        return ci->verified;
+    }
+    void set_verified(int cn) {
+        clientinfo *ci = getinfo(cn);
+        ci->verified = 1;
+    }
 
     namespace aiman 
     {

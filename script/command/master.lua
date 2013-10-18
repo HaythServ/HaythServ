@@ -15,5 +15,5 @@ return function(cn)
                 return false, "Your account has not got any master rights."
         end
         server.setmaster(cn)
-        server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), --[[server.getuser(cn)]]server.player_displayname(cn)))
+        server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), server.getuser(cn)))
 end

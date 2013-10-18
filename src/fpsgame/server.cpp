@@ -287,6 +287,7 @@ namespace server
         string authname, authdesc;
         int authkickvictim;
         char *authkickreason;
+        bool verified;
 
         int clientmillis;
 

@@ -53,29 +53,30 @@ return function(cn, username, password)
     if not account then return end
     if found then
         if password == account[2] then
+--            server.setusername(cn, username)
             server.msg(string.format(verified, server.player_displayname(cn), username))
---[[            if account[4] == "invisible" then
-                if account[3] == "master" then
-                    -- server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), username))
-                    server.setmaster(cn)
-                elseif account[3] == "admin" then
-                    -- server.msg(string.format(server.claimadmin_message, server.player_displayname(cn), username))
-                    server.setadmin(cn)
-                elseif account[3] == "root" then
-                    -- server.msg(string.format(server.claimroot_message, server.player_displayname(cn), username))
-                    server.setroot(cn)
-                end
-            else]]
-                if account[3] == "master" then
-                    server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), username))
-                    server.setinvmaster(cn)
-                elseif account[3] == "admin" then
-                    server.msg(string.format(server.claimadmin_message, server.player_displayname(cn), username))
-                    server.setinvadmin(cn)
-                elseif account[3] == "root" then
-                    server.msg(string.format(server.claimroot_message, server.player_displayname(cn), username))
-                    server.setroot(cn)
---              end
+            if account[3] == "master" then
+                --[[server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), username))
+                server.setmaster(cn)]]
+                server.accmasterset(cn, true)
+                server.accadminset(cn, false)
+                server.accrootset(cn, false)
+            elseif account[3] == "admin" then
+                --[[server.msg(string.format(server.claimadmin_message, server.player_displayname(cn), username))
+                server.setadmin(cn)]]
+                server.accmasterset(cn, true)
+                server.accadminset(cn, true)
+                server.accrootset(cn, false)
+            elseif account[3] == "root" then
+                --[[server.msg(string.format(server.claimroot_message, server.player_displayname(cn), username))
+                server.setroot(cn)]]
+                server.accmasterset(cn, true)
+                server.accadminset(cn, true)
+                server.accrootset(cn, true)
+            else
+                erver.accmasterset(cn, false)
+                server.accadminset(cn, false)
+                server.accrootset(cn, false)
             end
         else
             if username == account[1] then

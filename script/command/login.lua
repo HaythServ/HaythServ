@@ -51,6 +51,9 @@ return function(cn, username, password)
         end
     end
     if not account then return end
+    if account[1] ~= server.player_displayname(cn) then
+        return false, "It seems that you don't own this account"
+    end
     if found then
         if password == account[2] then
             server.setusername(cn, username)

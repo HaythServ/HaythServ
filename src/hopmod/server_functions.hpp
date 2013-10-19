@@ -154,6 +154,7 @@ namespace server
     bool player_changeteam(int,const char *);
     int player_rank(int);
     bool player_isbot(int);
+    void set_player_private_root(int);
     void set_player_private_admin(int);
     void set_player_private_master(int);
     void unset_player_privilege(int);

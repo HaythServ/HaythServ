@@ -41,7 +41,7 @@ return function(cn, username, password)
         return false, "Account already exists!"
     end
     local _f = io.open("accounts.txt", "a")
-    _f:write(string.format("%s %s none no\n", username, password))
+    _f:write(string.format("%s %s none\n", username, password))
     _f:close()
     server.player_msg(cn, string.format("\f3>>> \f4Your account has been succsessfully created, test it with \f5#login \f0%s \f6%s", username, password))
 end

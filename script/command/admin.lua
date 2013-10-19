@@ -12,7 +12,10 @@ return function(cn)
                 return false, "You need to verify to use this command."
         end
         if not server.getaccadmin(cn) then
-                return false, "Your account has not got any master rights."
+                return false, "Your account has not got any admin rights."
+        end
+        if not server.username(cn) then
+                return false, "You need to verify to use this command."
         end
         server.setadmin(cn)
         server.msg(string.format(server.claimadmin_message, server.player_displayname(cn), server.getuser(cn)))

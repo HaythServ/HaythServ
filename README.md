@@ -1,30 +1,24 @@
-HaythServ
-========
-Features¹:
+#HaythServ
+## Features
+   * Based on SuckerServ-v5.
+   * Many bugs fixed.
+   * Login and register system.
+       * #master, #admin and #root commands to claim privileges after verifying with your account.
+       * #invmaster, #invadmin and #invroot commands to claim invisible privileges after verifying via #login Username Password.
+   * Root privilege level.
+   * Improved man system¹.
+   * Unix-like command syntax².
+   * Many root commands to administrate the server.
+   * #mkt command to set the duration of a kick done by a master (in seconds).
+   * #getip command to easily get a player's IP-Address.
+
+## Try HaythServ
+Want to try HaythServ out? Feel free to visit our open servers! Try the following commands on sauerbraten!
 ```
-	* Based on SuckerServ-v5.
-	* Many bugs fixed.
-	* Login and register system.
-	* Root privilege level.
-	* Improved man system².
-	* Unix-like command syntax³.
-	* Many root commands to administrate the server⁴.
-	* #mkt command to set the duration of a kick done by a master (in seconds).
-	* #getip command to easily get a player's IP-Address.
+/connect 162.220.10.113 28785 // Location: United States
+/connect 134.255.216.64 28785 // Location: Germany
 ```
-To do list:
-```
-	* Add name protection for login system.
-	* Add best-flagrun support.
-	* Support to load, unload and reload modules on-the-fly.
-	* Fix auth-system.
-```
-========
-Notes:
-```
-	¹) Some of these features may be available only in the development branch (dev).
-	²) The extended man system (#man) requires you to use a bigger console size (/consize 15), 
-		because most of those manpages have more than the usual 5 console lines.
-	³) The Unix-like command syntax is not available for all commands.
-	⁴) Some of this commands should not be used, that's why they are disabled.
-```
+
+## Read more
+Visit the following page for more:
+http://162.220.10.113/

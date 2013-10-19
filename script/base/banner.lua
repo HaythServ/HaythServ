@@ -48,7 +48,7 @@ local function onConnect(cn, is_spy)
 
     if is_spy or server.is_bot(cn) then return end
 
-    server.unvierfy(cn)
+    server.unverify(cn)
     server.accmasterset(cn, false)
     server.accadminset(cn, false)
     server.accrootset(cn, false)

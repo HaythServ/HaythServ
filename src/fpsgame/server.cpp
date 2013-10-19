@@ -292,6 +292,7 @@ namespace server
         bool account_admin;
         bool account_root;
         const char *username;
+        int lastflag;
 
         int clientmillis;
 
@@ -512,6 +513,11 @@ namespace server
     void set_verified(int cn) {
         clientinfo *ci = getinfo(cn);
         ci->verified = 1;
+        return;
+    }
+    void unset_verified(int cn) {
+        clientinfo *ci = getinfo(cn);
+        ci->verified = 0;
         return;
     }
     void set_accmaster(int cn, bool set_unset) {

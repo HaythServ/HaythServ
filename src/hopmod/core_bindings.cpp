@@ -125,6 +125,7 @@ void bind_core_functions(lua_State * L, int T)
     bind_function(L, T, "hasmaster", server::hasmaster);
     bind_function(L, T, "verified", server::is_verified);
     bind_function(L, T, "verify", server::set_verified);
+    bind_function(L, T, "unverify", server::unset_verified);
     bind_function(L, T, "accmasterset", server::set_accmaster);
     bind_function(L, T, "accadminset", server::set_accadmin);
     bind_function(L, T, "accrootset", server::set_accroot);

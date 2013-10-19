@@ -295,6 +295,7 @@ struct ctfclientmode : clientmode
             {
                 ivec o(vec(ci->state.o).mul(DMF));
                 sendf(-1, 1, "ri7", N_DROPFLAG, ci->clientnum, i, ++f.version, o.x, o.y, o.z);
+                ci->lastflag = 0;
                 event_dropflag(event_listeners(), boost::make_tuple(ci->clientnum, ctfflagteam(f.team)));
                 dropflag(i, o.tovec().div(DMF), lastmillis, dropper ? dropper->clientnum : ci->clientnum, dropper && dropper!=ci);
             }
@@ -363,6 +364,7 @@ struct ctfclientmode : clientmode
             ownflag(i, ci->clientnum, lastmillis);
             sendf(-1, 1, "ri4", N_TAKEFLAG, ci->clientnum, i, ++f.version);
             event_takeflag(event_listeners(), boost::make_tuple(ci->clientnum, ctfflagteam(f.team)));
+            ci->lastflag = gamemillis;
         }
         else if(m_protect)
         {

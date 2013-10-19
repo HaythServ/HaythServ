@@ -378,6 +378,7 @@ namespace server {
     extern int masterkicktime;
     extern bool is_verified(int cn);
     extern void set_verified(int cn);
+    extern void unset_verified(int cn);
     extern void set_accmaster(int, bool);
     extern void set_accadmin(int, bool);
     extern void set_accroot(int, bool);

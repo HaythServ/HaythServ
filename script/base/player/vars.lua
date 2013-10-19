@@ -128,6 +128,7 @@ end)
 
 server.event_handler("disconnect", function(cn)
     player_session_vars[server.player_sessionid(cn)] = nil
+    server.unverify(cn)
 end)
 
 -- initialization on (re)load lua

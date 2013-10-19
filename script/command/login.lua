@@ -30,9 +30,9 @@ return function(cn, username, password)
     if not username or not password then
         return false, "Usage: #login username password"
     end
---[[    if server.verified(cn) then
+    if server.verified(cn) and server.getuser(cn) then
         return false, "You have already verified."
-    end]]
+    end
     local accounts = {}
     local line = ""
 
@@ -59,20 +59,14 @@ return function(cn, username, password)
             server.setusername(cn, username)
             server.msg(string.format(verified, server.player_displayname(cn), username))
             if account[3] == "master" then
-                --[[server.msg(string.format(server.claimmaster_message, server.player_displayname(cn), username))
-                server.setmaster(cn)]]
                 server.accmasterset(cn, true)
                 server.accadminset(cn, false)
                 server.accrootset(cn, false)
             elseif account[3] == "admin" then
-                --[[server.msg(string.format(server.claimadmin_message, server.player_displayname(cn), username))
-                server.setadmin(cn)]]
                 server.accmasterset(cn, true)
                 server.accadminset(cn, true)
                 server.accrootset(cn, false)
             elseif account[3] == "root" then
-                --[[server.msg(string.format(server.claimroot_message, server.player_displayname(cn), username))
-                server.setroot(cn)]]
                 server.accmasterset(cn, true)
                 server.accadminset(cn, true)
                 server.accrootset(cn, true)

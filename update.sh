@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "Checking for updates..."
-LOCALVERSION=`git rev-list master --count`
-LATESTVERSION=`git rev-list origin --count`
-if [[ $LOCALVERSION < $LATESTVERSION ]]; then
-    echo "New version found ("$LOCALVERSION " < " $LATESTVERSION")"
+#LOCALVERSION=`git rev-list master --count`
+#LATESTVERSION=`git rev-list origin --count`
+#if [[ $LOCALVERSION < $LATESTVERSION ]]; then
+    #echo "New version found ("$LOCALVERSION " < " $LATESTVERSION")"
     echo "Generating backup of server.conf..."
     mv conf/server.conf conf/server.conf.bak
     echo "Done"
@@ -22,8 +22,8 @@ if [[ $LOCALVERSION < $LATESTVERSION ]]; then
     sleep 1
     ./bin/server start
     echo "Done"
-    LOCALVERSION=`git rev-list master --count`
-    echo "Now up-to-date with server! ("$LOCALVERSION " = "$LATESTVERSION")"
-else
-    echo "Already up-to-date ("$LOCALVERSION " = " $LATESTVERSION")"
-fi
+    #LOCALVERSION=`git rev-list master --count`
+    #echo "Now up-to-date with server! ("$LOCALVERSION " = "$LATESTVERSION")"
+#else
+    #echo "Already up-to-date ("$LOCALVERSION " = " $LATESTVERSION")"
+#fi

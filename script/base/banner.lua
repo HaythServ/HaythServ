@@ -48,6 +48,11 @@ local function onConnect(cn, is_spy)
 
     if is_spy or server.is_bot(cn) then return end
 
+    server.unvierfy(cn)
+    server.accmasterset(cn, false)
+    server.accadminset(cn, false)
+    server.accrootset(cn, false)
+
     local country = geoip.ip_to_country(server.player_ip(cn))
     local city = geoip.ip_to_city(server.player_ip(cn))
     if not city or #city < 1 then city = "Unknown" end

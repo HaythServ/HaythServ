@@ -1,33 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>HaythServ by HaythServ</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <title>HaythServ by Gnaoprr</title>
   </head>
-
   <body>
 
-    <header>
-      <div class="container">
+      <header>
         <h1>HaythServ</h1>
-        <h2>HaythServ — Cube 2: Sauerbraten server modification.</h2>
+        <p>HaythServ — Cube 2: Sauerbraten server modification.</p>
+      </header>
 
-        <section id="downloads">
-          <a href="https://github.com/Gnaoprr/HaythServ/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/Gnaoprr/HaythServ/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/Gnaoprr/HaythServ" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+      <div id="banner">
+        <span id="logo"></span>
 
-    <div class="container">
-      <section id="main_content">
+        <a href="https://github.com/HaythServ/HaythServ" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/HaythServ/HaythServ/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/HaythServ/HaythServ/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
         <h1>
 <a name="haythserv" class="anchor" href="#haythserv"><span class="octicon octicon-link"></span></a>HaythServ</h1>
 
@@ -39,7 +50,12 @@
 <ul>
 <li>Based on SuckerServ-v5.</li>
 <li>Many bugs fixed.</li>
-<li>Login and register system.</li>
+<li>Login and register system.
+
+<ul>
+<li>#master, #admin, #root commands to claim privileges after verifying with your account.</li>
+</ul>
+</li>
 <li>Root privilege level.</li>
 <li>Improved man system².</li>
 <li>Unix-like command syntax³.</li>
@@ -50,6 +66,7 @@
 
 <ul>
 <li>Improve name protection.</li>
+<li>Add #setaccountpriv command (#sap) to change an account's privilege level.</li>
 <li>Add best-flagrun support.</li>
 <li>Support to load, unload and reload modules on-the-fly.</li>
 <li>Fix auth-system.</li>
@@ -62,11 +79,6 @@
 <li>Auth-system not working.</li>
 </ul><hr><h1>
 <a name="wiki" class="anchor" href="#wiki"><span class="octicon octicon-link"></span></a>Wiki</h1>
-
-<h2>
-<a name="haythservs-story" class="anchor" href="#haythservs-story"><span class="octicon octicon-link"></span></a>HaythServ's story</h2>
-
-<hr><p>The first "private" release of HaythServ was done at end of year 2012, it was some basically modifics of HopMod. Jed did this work, he did some basically login system, but then I saw SuckerServ, it looked like a much better server mod, but at the moment I know it is not. I started modding it, I added some commands, changed some privileges, added Jed's login, and runned a server. At Jun, 13th 2013 I published it's first release on <a href="http://github.com/Gnaoprr/HaythServ">http://github.com/Gnaoprr/HaythServ</a>.</p>
 
 <hr><h2>
 <a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
@@ -500,7 +512,83 @@ chmod +x ./install.sh
 <span class="n">master_password</span> <span class="s2">"</span><span class="s">dsaw"</span>
 </pre></div>
 
-<p>Well this are the passwords to claim the various privileges. There are more configuration options, but you mostly won't need those.</p>
+<p>Well this are the passwords to claim the various privileges.</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">default_gamemode</span> <span class="s2">"</span><span class="s">instagib"</span>
+<span class="n">default_game_on_empty</span> <span class="mi">1</span>
+</pre></div>
+
+<p>Default_gamemode is the server's default gamemode - it's the gamemode used at startup, if default_game_on_empty is set to 1, the gamemode will change to the default one when the server gets empty.</p>
+
+<h3>
+<a name="advanced-configurations" class="anchor" href="#advanced-configurations"><span class="octicon octicon-link"></span></a>Advanced configurations</h3>
+
+<h4>
+<a name="setting-up-an-insta-ctf-server" class="anchor" href="#setting-up-an-insta-ctf-server"><span class="octicon octicon-link"></span></a>Setting up an insta ctf server</h4>
+
+<div class="highlight highlight-lua"><pre><span class="n">allow_mapvote</span> <span class="mi">1</span>
+<span class="n">allowed_gamemodes</span> <span class="p">[</span>
+    <span class="s2">"</span><span class="s">ffa"</span>
+    <span class="s2">"</span><span class="s">coop edit"</span>
+    <span class="s2">"</span><span class="s">teamplay"</span>
+    <span class="s2">"</span><span class="s">instagib"</span>
+    <span class="s2">"</span><span class="s">instagib team"</span>
+    <span class="s2">"</span><span class="s">efficiency"</span>
+    <span class="s2">"</span><span class="s">efficiency team"</span>
+    <span class="s2">"</span><span class="s">tactics"</span>
+    <span class="s2">"</span><span class="s">tactics teams"</span>
+    <span class="s2">"</span><span class="s">capture"</span>
+    <span class="s2">"</span><span class="s">regen capture"</span>
+    <span class="s2">"</span><span class="s">ctf"</span>
+    <span class="s2">"</span><span class="s">insta ctf"</span>
+    <span class="s2">"</span><span class="s">protect"</span>
+    <span class="s2">"</span><span class="s">insta protect"</span>
+    <span class="s2">"</span><span class="s">hold"</span>
+    <span class="s2">"</span><span class="s">insta hold"</span>
+    <span class="s2">"</span><span class="s">efficiency ctf"</span>
+    <span class="s2">"</span><span class="s">efficiency protect"</span>
+    <span class="s2">"</span><span class="s">efficiency hold"</span>
+    <span class="s2">"</span><span class="s">insta collect"</span>
+    <span class="s2">"</span><span class="s">efficiency collect"</span>
+    <span class="s2">"</span><span class="s">collect"</span>
+<span class="p">]</span>
+</pre></div>
+
+<p>If we want to allow people to vote for map / mode, then we need to set allow_mapvote to 1, else to 0. Allow_gamemodes is an array of all the allowed gamemodes for non-admins. If we want e.g. to do an insta ctf server, then the allowed_gamemodes array will look like this:</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">allowed_gamemodes</span> <span class="p">[</span>
+    <span class="s2">"</span><span class="s">insta ctf"</span>
+<span class="p">]</span>
+</pre></div>
+
+<h4>
+<a name="enabling--disabling-commands" class="anchor" href="#enabling--disabling-commands"><span class="octicon octicon-link"></span></a>Enabling / Disabling commands</h4>
+
+<p>In the ./conf/server.conf file, there is a "enable_commands" and a "disable_commands" array, this are used to enable / disable commands, if we e.g. want to disable the #register command, or we want to enable #sd and #nosd, they will look something like this:</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">enable_commands</span> <span class="p">[</span>
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">login</span>
+    <span class="o">#</span> <span class="n">Note</span> <span class="n">we</span> <span class="n">removed</span> <span class="n">the</span> <span class="n">register</span> <span class="n">command</span> <span class="n">from</span> <span class="n">here</span><span class="err">!</span>
+    <span class="n">man</span>
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="o">#</span> <span class="n">The</span> <span class="n">other</span> <span class="n">commands</span> <span class="n">we</span> <span class="n">want</span> <span class="n">to</span> <span class="n">enable</span>
+    <span class="n">sd</span> 
+    <span class="n">nosd</span>
+<span class="p">]</span>
+
+<span class="n">disable_commands</span> <span class="p">[</span>
+    <span class="n">noties</span>
+    <span class="n">suddendeath</span>
+    <span class="n">register</span>
+<span class="p">]</span>
+</pre></div>
+
+<p>then we need to uncomment the suddendeath module</p>
+
+<div class="highlight highlight-lua"><pre><span class="o">#</span><span class="nb">module</span> <span class="s2">"</span><span class="s">gamemode/no_ties"</span>
+<span class="nb">module</span> <span class="s2">"</span><span class="s">gamemode/suddendeath"</span> <span class="o">#</span> <span class="n">We</span> <span class="n">uncommented</span> <span class="n">it</span> <span class="n">by</span> <span class="n">removing</span> <span class="n">the</span> <span class="s1">'</span><span class="s">#'</span> <span class="n">at</span> <span class="n">the</span> <span class="n">begin</span> <span class="n">of</span> <span class="n">the</span> <span class="n">line</span><span class="p">.</span>
+</pre></div>
 
 <hr><h2>
 <a name="starting-stopping-restarting-and-reloading-the-server" class="anchor" href="#starting-stopping-restarting-and-reloading-the-server"><span class="octicon octicon-link"></span></a>Starting, stopping, restarting and reloading the server.</h2>
@@ -532,6 +620,11 @@ chmod +x ./install.sh
 
 <p>to see all possible options.</p>
 
+<hr><h2>
+<a name="haythservs-story" class="anchor" href="#haythservs-story"><span class="octicon octicon-link"></span></a>HaythServ's story</h2>
+
+<hr><p>The first "private" release of HaythServ was done at end of year 2012, it was some basically modifics of HopMod. Jed did this work, he did some basically login system, but then I saw SuckerServ, it looked like a much better server mod, but at the moment I know it is not. I started modding it, I added some commands, changed some privileges, added Jed's login, and runned a server. At Jun, 13th 2013 I published it's first release on <a href="http://github.com/Gnaoprr/HaythServ">http://github.com/Gnaoprr/HaythServ</a>.</p>
+
 <hr><p>Notes:</p>
 
 <ol>
@@ -539,11 +632,15 @@ chmod +x ./install.sh
 <li>The extended man system (#man) requires you to use a bigger console size (/consize 15), because most of those manpages have more than the usual 5 console lines.</li>
 <li>The Unix-like command syntax is not available for all commands.</li>
 <li>Some of this commands should not be used, that's why they are disabled.</li>
-<li>Cheater-detection is a beta, it may ban people for "player position </li>
+<li>Cheater-detection is a beta, it may ban people for "player position exceeded".</li>
 </ol>
       </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/HaythServ">HaythServ</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
     </div>
-
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
 </html>

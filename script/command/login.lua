@@ -8,9 +8,12 @@
 -- 2013: Rewritten by ~Haytham
 -- 2013: Added name protection by ~Haytham
 -- 2013: Added invisible privileges support (~Haytham)
+-- 2013: Added function to reserve names + bugfixes (~Haytham)
 
 function explode(div,str)
-    if (div=='') then return false end
+    if not div or div == '' then
+        div = ' '
+    end
     local pos,arr = 0,{}
     for st,sp in function() return string.find(str,div,pos,true) end do
         table.insert(arr,string.sub(str,pos,st-1))
@@ -30,18 +33,19 @@ return function(cn, username, password)
     if not username or not password then
         return false, "Usage: #login username password"
     end
-    if server.verified(cn) and server.getuser(cn) then
-        return false, "You have already verified."
-    end
-    local accounts = {}
-    local line = ""
+    local accounts       = {}
+    local reserved_names = {}
+    local reserved_name  = {}
+    local line           = ""
+    local allowusename   = 0
+    local found          = 0
 
-    local f = io.open("accounts.txt", "r")
+    local f1 = io.open("accounts.txt", "r")
     for _ in io.lines("accounts.txt") do
-        line = f:read()
+        line = f1:read()
         accounts[#accounts+1] = explode(" ", line)
     end
-    f:close()
+    f1:close()
     for item,_ in pairs(accounts) do
         for _item,__ in pairs(_) do
             if __ == username then
@@ -50,12 +54,26 @@ return function(cn, username, password)
             end
         end
     end
-    if not account then return end
-    if account[1] ~= server.player_displayname(cn) then
-        return false, "It seems that you don't own this account"
+    if server.verified(cn) and server.getuser(cn) == username then
+        return false, "You have already verified."
     end
-    if found then
+    if found and account then
+        local f2 = io.open("reserved_names.txt", "r")
+        for _ in io.lines("reserved_names.txt") do
+            line = f2:read()
+            reserved_names[#reserved_names+1] = explode(" ", line)
+            reserved_name = reserved_names[#reserved_names]
+            if reserved_name[1] == account[1] then
+                allowusename = 1
+            end
+        end
         if password == account[2] then
+            if allowusename then
+                server.setallowed(cn, true)
+            elseif server.hastoverfy and not allowusename then
+                server.player_msg(cn, "\f3>>> \f2[\f4NOTE\f2] \f4Please note that you have to verify via another account to use this name.")
+            end
+            server.verify(cn)
             server.setusername(cn, username)
             server.msg(string.format(verified, server.player_displayname(cn), username))
             if account[3] == "master" then
@@ -78,15 +96,12 @@ return function(cn, username, password)
         else
             if username == account[1] then
                 server.msg(string.format(failed, server.player_displayname(cn), username))
-                return
             else
                 server.player_msg(cn, string.format(unknownuser, username))
-                return
             end
         end
     else
         server.player_msg(cn, string.format(unknownuser, username))
-        return
     end
-    server.verify(cn)
 end
+

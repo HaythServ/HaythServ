@@ -4,6 +4,7 @@
 -- Changelog:
 -- 2013: Added this register script for the HSLS
 --       (HaythServ Login System).
+-- 2013: Bugfixed.
 
 function explode(div,str)
     if (div=='') then return false end
@@ -16,20 +17,20 @@ function explode(div,str)
     return arr
 end
 
-local accounts = {}
-local line = ""
-
-local  f = io.open("accounts.txt", "r")
-for _ in io.lines("accounts.txt") do
-    line = f:read()
-    accounts[#accounts+1] = explode(" ", line)
-end
-f:close()
-
 return function(cn, username, password)
     if not username or not password then
         return false, "Usage: #register username password"
     end
+    local found = 0
+    local accounts = {}
+    local line = ""
+
+    local f = io.open("accounts.txt", "r")
+    for _ in io.lines("accounts.txt") do
+        line = f:read()
+        accounts[#accounts+1] = explode(" ", line)
+    end
+    f:close()
     for item,_ in pairs(accounts) do
         for _item,__ in pairs(_) do
             if __ == username then
@@ -45,3 +46,4 @@ return function(cn, username, password)
     _f:close()
     server.player_msg(cn, string.format("\f3>>> \f4Your account has been succsessfully created, test it with \f5#login \f0%s \f6%s", username, password))
 end
+

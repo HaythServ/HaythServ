@@ -376,14 +376,18 @@ namespace server {
     extern int spawnhealth;
     extern int efficammomultipler;
     extern int masterkicktime;
-    extern bool is_verified(int cn);
-    extern void set_verified(int cn);
-    extern void unset_verified(int cn);
+    extern bool is_verified(int);
+    extern void set_verified(int);
+    extern void unset_verified(int);
     extern void set_accmaster(int, bool);
     extern void set_accadmin(int, bool);
     extern void set_accroot(int, bool);
     extern bool get_accmaster(int);
     extern bool get_accadmin(int);
+    extern void set_allowed(int, bool);
+    extern bool is_allowed(int);
+    extern void require_verify(int, bool);
+    extern bool using_reserved_name(int);
     extern bool get_accroot(int);
     extern void set_user(int, const char *);
     extern const char *get_user(int);
@@ -938,4 +942,5 @@ namespace server
 }
 
 #endif
+
 

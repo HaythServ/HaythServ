@@ -255,9 +255,9 @@ namespace server
     
     extern int gamemillis, nextexceeded;
 
-	#define anticheat_class
+    #define anticheat_class
     #include "anticheat.h"
-	#undef anticheat_class
+    #undef anticheat_class
 
     struct clientinfo
     {
@@ -291,6 +291,8 @@ namespace server
         bool account_master;
         bool account_admin;
         bool account_root;
+        bool has_to_verify;
+        bool allow_use_name;
         const char *username;
         int lastflag;
 
@@ -546,6 +548,24 @@ namespace server
     bool get_accroot(int cn) {
         clientinfo *ci = getinfo(cn);
         return ci->account_master;
+    }
+    void set_allowed(int cn, bool allow) {
+        clientinfo *ci = getinfo(cn);
+        ci->allow_use_name = allow;
+        return;
+    }
+    bool is_allowed(int cn) {
+        clientinfo *ci = getinfo(cn);
+        return ci->allow_use_name;
+    }
+    void require_verify(int cn, bool require) {
+        clientinfo *ci = getinfo(cn);
+        ci->has_to_verify = require;
+        return;
+    }
+    bool using_reserved_name(int cn) {
+        clientinfo *ci = getinfo(cn);
+        return ci->has_to_verify;
     }
     void set_user(int cn, const char *username) {
         clientinfo *ci = getinfo(cn);
@@ -1228,7 +1248,7 @@ namespace server
             sendservmsgf("cleared demo %d", n);
         }
     }
-	
+    
     static void freegetmap(ENetPacket *packet)
     {
         loopv(clients)
@@ -1421,7 +1441,7 @@ namespace server
 
     bool setmaster(clientinfo *ci, bool request_claim_master, const char * hashed_password = "", const char *authname = NULL)
     {
-	assert(!authname);
+    assert(!authname);
         update_mastermask();
         event_setmaster(event_listeners(), boost::make_tuple(ci->clientnum, hashed_password, request_claim_master));
         checkpausegame();
@@ -1450,15 +1470,15 @@ namespace server
                     else formatstring(kicker)("%s as '\fs\f5%s\fr'", colorname(ci), authname);
                 }
                 else copystring(kicker, colorname(ci));
-    	    if(reason && reason[0]) sendservmsgf("%s kicked %s because: %s", kicker, colorname(vinfo), reason);
+            if(reason && reason[0]) sendservmsgf("%s kicked %s because: %s", kicker, colorname(vinfo), reason);
                 else sendservmsgf("%s kicked %s", kicker, colorname(vinfo));
-    	    convert2utf8 utf8name(ci->name);
+            convert2utf8 utf8name(ci->name);
                 convert2utf8 utf8text(reason);
-    	    if((ci->privilege==PRIV_MASTER || ci->privilege==PRIV_AUTH)) {
+            if((ci->privilege==PRIV_MASTER || ci->privilege==PRIV_AUTH)) {
                     event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), masterkicktime, victim, utf8text.str()));
-    	    }
-    	    if(ci->privilege>=PRIV_ADMIN)
-    		event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), 3600, victim, utf8text.str()));
+            }
+            if(ci->privilege>=PRIV_ADMIN)
+            event_kick_request(event_listeners(), boost::make_tuple(ci->clientnum, utf8name.str(), 3600, victim, utf8text.str()));
             return false;
         }
     }
@@ -1501,10 +1521,10 @@ namespace server
     }
 
     #define anticheat_parsepacket
-	#include "anticheat.h"
-	#undef anticheat_parsepacket
-	
-	int checktype(int type, clientinfo *ci, clientinfo *cq, packetbuf &p) //NEW (thomas): clientinfo *cq, packetbuf &p
+    #include "anticheat.h"
+    #undef anticheat_parsepacket
+    
+    int checktype(int type, clientinfo *ci, clientinfo *cq, packetbuf &p) //NEW (thomas): clientinfo *cq, packetbuf &p
     {
         if(!ci) return -1;  //0_o TODO check, if it is needed
         if(ci)
@@ -3028,7 +3048,7 @@ namespace server
             {
                 int gunselect = getint(p);
                 if(!cq || cq->state.state!=CS_ALIVE) break;
-				if(gunselect<GUN_FIST || gunselect>GUN_PISTOL) break;
+                if(gunselect<GUN_FIST || gunselect>GUN_PISTOL) break;
                 cq->state.gunselect = gunselect;
                 QUEUE_AI;
                 QUEUE_MSG;
@@ -3038,7 +3058,7 @@ namespace server
             case N_SPAWN:
             {
                 int ls = getint(p), gunselect = getint(p);
-				if(gunselect<GUN_FIST || gunselect>GUN_PISTOL) break;
+                if(gunselect<GUN_FIST || gunselect>GUN_PISTOL) break;
                 if(!cq || (cq->state.state!=CS_ALIVE && cq->state.state!=CS_DEAD) || ls!=cq->state.lifesequence || cq->state.lastspawn<0) break;
                 if(!cq->mapcrc && cq->state.aitype == AI_NONE)
                 {
@@ -3370,8 +3390,8 @@ namespace server
                     event_maploaded(event_listeners(), boost::make_tuple(ci->clientnum));
                 }
 
-				ci->lastpingupdate = totalmillis;
-				ci->clientmillis = clientmillis;
+                ci->lastpingupdate = totalmillis;
+                ci->clientmillis = clientmillis;
                 
                 sendf(sender, 1, "i2", N_PONG, clientmillis);
                 break;
@@ -3428,7 +3448,7 @@ namespace server
             case N_KICK:
             {
                 if(ci->privilege) {
-                 	int victim = getint(p);
+                    int victim = getint(p);
                     getstring(text, p);
                     filtertext(text, text);
                     trykick(ci, victim, text);
@@ -3783,6 +3803,7 @@ namespace server
     
     #include "aiman.h"
     namespace aiman {
-	extern string botname;
+    extern string botname;
     }
 } //namespace server
+

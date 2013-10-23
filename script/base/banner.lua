@@ -35,15 +35,6 @@ function explode(div,str)
     return arr
 end
 
-local accounts = {}
-local line = ""
-
-local f = io.open("accounts.txt", "r")
-for _ in io.lines("accounts.txt") do
-    line = f:read()
-    accounts[#accounts] = line
-end
-
 local function onConnect(cn, is_spy)
 
     if is_spy or server.is_bot(cn) then return end
@@ -86,34 +77,44 @@ local function onConnect(cn, is_spy)
     local f = io.open("accounts.txt", "r")
     for _ in io.lines("accounts.txt") do
         line = f:read()
-        accounts[#accounts+1] = explode(" ", line)
+        accounts[#accounts] = line
     end
-    f:close()
-        for item,_ in pairs(accounts) do
-        for _item,__ in pairs(_) do
-            if __ == server.player_displayname(cn) then
-                server.player_msg(cn, "\f3>>> \f2[INFO] \f0You \f3are using a reserved name, please verify or change name.")
-                server.sleep(5000, function()
-                    if not server.verified(cn) then
-                        server.player_msg(cn, string.format("\f3>>> \f2[WARNING] \f3Please login as \f5'\f0%s\f5'\f3!", __))
-                        server.sleep(5000, function()
-                            if not server.verified(cn) then
-                                server.player_msg(cn, string.format("\f3>>> \f2[WARNING] \f3Please login as \f5'\f0%s\f5'\f3!", __))
-                                server.sleep(5000, function()
-                                    if not server.verified(cn) then
-                                        server.player_msg(cn, string.format("\f3>>> \f2[LAST-WARNING] \f3Please login as \f5'\f0%s\f5'\f3!", __))
-                                        server.sleep(5000, function()
-                                            if not server.verified(cn) then
-                                                server.disconnect(cn, 100, "Use of reserved name")
-                                            end
-                                        end)
-                                    end
-                                end)
-                            end
-                        end)
-                    end
-                end)
-            end
+    local resnames = {}
+    local curname  = {}
+    local line = ""
+
+    local _f = io.open("reserved_names.txt", "r")
+    for _ in io.lines("reserved_names.txt") do
+        line = _f:read()
+        resnames[#resnames+1] = explode(" ", line)
+    end
+    _f:close()
+    for item1,value1 in pairs(resnames) do
+        curname = value1
+        if server.player_displayname(cn) == curname[2] then
+            server.setallowed(cn, false)
+            server.requireverify(cn, true)
+            server.player_msg(cn, "\f3>>> \f2[\f4INFO\f2] \f0You \f3are using a reserved name, please verify or change name.")
+            server.sleep(5000, function()
+                if not server.isallowed(cn) and server.player_displayname(cn) == curname[2] then
+                    server.player_msg(cn, string.format("\f3>>> \f2[WARNING] \f3Please verify to use the name \f5'\f0%s\f5'\f3!", curname[2]))
+                    server.sleep(5000, function()
+                        if not server.isallowed(cn) and server.player_displayname(cn) == curname[2]  then
+                            server.player_msg(cn, string.format("\f3>>> \f2[WARNING] \f3Please verify to use the name \f5'\f0%s\f5'\f3!", curname[2]))
+                            server.sleep(5000, function()
+                                if not server.isallowed(cn) and server.player_displayname(cn) == curname[2]  then
+                                    server.player_msg(cn, string.format("\f3>>> \f2[\f3LAST\f4-\f2WARNING] \f3Please verify to use the name \f5'\f0%s\f5'\f3!", curname[2]))
+                                    server.sleep(5000, function()
+                                        if not server.isallowed(cn) and server.player_displayname(cn) == curname[2]  then
+                                            server.disconnect(cn, 100, "Use of reserved name")
+                                        end
+                                    end)
+                                end
+                            end)
+                        end
+                    end)
+                end
+            end)
         end
     end
 end
@@ -125,4 +126,5 @@ server.event_handler("mapchange", function()
         p:vars().maploaded = nil
     end
 end)
+
 

@@ -132,6 +132,10 @@ void bind_core_functions(lua_State * L, int T)
     bind_function(L, T, "getaccmaster", server::get_accmaster);
     bind_function(L, T, "getaccadmin", server::get_accadmin);
     bind_function(L, T, "getaccroot", server::get_accroot);
+    bind_function(L, T, "hastoverify", server::using_reserved_name);
+    bind_function(L, T, "isallowed", server::is_allowed);
+    bind_function(L, T, "requireverify", server::require_verify);
+    bind_function(L, T, "setallowed", server::set_allowed);
     bind_function(L, T, "getuser", server::get_user);
     bind_function(L, T, "setusername", server::set_user);
 
@@ -463,4 +467,5 @@ void bind_core_variables(lua_State * L, int T)
 
     bind_prop<int>(L, T, "mastermode", server::get_mastermode, server::set_mastermode);
 }
+
 

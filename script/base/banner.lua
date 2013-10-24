@@ -25,7 +25,9 @@ local function sendServerBanner(cn)
 end
 
 function explode(div,str)
-    if (div=='') then return false end
+    if div == '' then
+        return false
+    end
     local pos,arr = 0,{}
     for st,sp in function() return string.find(str,div,pos,true) end do
         table.insert(arr,string.sub(str,pos,st-1))
@@ -33,6 +35,116 @@ function explode(div,str)
     end
     table.insert(arr,string.sub(str,pos))
     return arr
+end
+
+function inArray(value,array)
+    if value == '' then
+        return false
+    end
+    for key,_value in pairs(array) do
+        if _value == value then
+            return true
+        end
+    end
+    return false
+end
+
+function getKey(value,array)
+    if value == '' then
+        return false
+    end
+    for key,_value in pairs(array) do
+        if _value == value then
+            return key
+        end
+    end
+    return false
+end
+
+function arraySort(key,array)
+    local curarr  = {}
+    local prevarr = {}
+    local swapped = true
+    while swapped do
+        swapped = false
+        for _,value in pairs(array) do
+            if value ~= array[1] then
+                if value[key]  > array[key-1] then
+                    curarr     = array[_]
+                    prevarr    = array[_-1]
+                    array[_]   = prevarr
+                    array[_-1] = curarr
+                    curarr     = {}
+                    prevarr    = {}
+                    swapped    = true
+                end
+            end
+        end
+    end
+    return array
+end
+
+local function getRanking(cn)
+    local f = io.open("stats.txt", "r")
+    local lines     = {}
+    local words     = {}
+    local stats     = {}
+    local _key      = 0
+    local curfrags  = 0
+    local curdeaths = 0
+    local curkpd    = 0.0
+    local curtks    = 0
+    local curacc    = 0.0
+    local curmax    = 0
+    local output    = 0
+    if not f then
+        return "Unknown"
+    end
+    for line in io.lines("stats.txt") do
+        lines[#lines] = f:read()
+    end
+    f:close()
+    if not lines then
+        return "Unknown"
+    end
+    for key_,value_ in pairs(lines) do
+        words = explode(' ', value_)
+        if words[1] ~= "--[[" and words[#words] ~= "]]--" then -- if this line is not a comment
+            if inArray(words[1], stats) then
+                _key             = getKey(words[1], stats)
+                stats[_key][2]   = stats[_key][2] + words[2]
+                stats[_key][3]   = stats[_key][3] + words[3]
+                stats[_key][4]   = stats[_key][4] + words[4]
+                stats[_key][5]   = stats[_key][5] + words[5]
+            else
+                stats[#stats+1]  = {}
+                stats[#stats][1] = words[1]
+                stats[#stats][2] = words[2]
+                stats[#stats][3] = words[3]
+                stats[#stats][4] = words[4]
+                stats[#stats][5] = words[5]
+                stats[#stats][6] = 0
+            end
+        end
+    end
+    for key,value in pairs(stats) do
+        curfrags  = stats[key][2]
+        if stats[key][3] == 0 then
+            stats[key][3] = 1
+        end
+        curdeaths = stats[key][3]
+        curtks    = stats[key][4]
+        curacc    = stats[key][5]
+        curkpd    = curfrags / curdeaths
+        stats[key][6] = curkpd - curtks + curacc -- The bigger this score is, the lower the ranking is.
+    end
+    stats = arraySort(6, stats)
+    for key,value in pairs(stats) do
+        if value[1] == server.player_displayname(cn) then
+            return key
+        end
+    end
+    return "Unknown"
 end
 
 local function onConnect(cn, is_spy)
@@ -50,12 +162,7 @@ local function onConnect(cn, is_spy)
 
     if show_country_message and #country > 0 then
 
-        if server.player_ranking then
-            player_ranking = server.player_ranking(server.player_name(cn))
-        end
-        if not player_ranking then
-            player_ranking = "Unknown"
-        end
+        local player_ranking = getRanking(cn)
 
         local normal_message = string.format(server.client_connect_message, server.player_displayname(cn), city, country, player_ranking)
         local admin_message = string.format(server.client_connect_admin_message, normal_message, server.player_ip(cn))
@@ -126,5 +233,3 @@ server.event_handler("mapchange", function()
         p:vars().maploaded = nil
     end
 end)
-
-

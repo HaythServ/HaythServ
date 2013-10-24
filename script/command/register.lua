@@ -5,6 +5,7 @@
 -- 2013: Added this register script for the HSLS
 --       (HaythServ Login System).
 -- 2013: Bugfixed.
+-- 2013: Bugfixes
 
 function explode(div,str)
     if (div=='') then return false end
@@ -26,6 +27,9 @@ return function(cn, username, password)
     local line = ""
 
     local f = io.open("accounts.txt", "r")
+    if not f then
+        return false, "Cannot open accounts.txt for read"
+    end
     for _ in io.lines("accounts.txt") do
         line = f:read()
         accounts[#accounts+1] = explode(" ", line)
@@ -38,10 +42,13 @@ return function(cn, username, password)
             end
         end
     end
-    if account or found then
+    if account then
         return false, "Account already exists!"
     end
     local _f = io.open("accounts.txt", "a")
+    if not _f then
+        return false, "Cannot open accounts.txt for write"
+    end
     _f:write(string.format("%s %s none\n", username, password))
     _f:close()
     server.player_msg(cn, string.format("\f3>>> \f4Your account has been succsessfully created, test it with \f5#login \f0%s \f6%s", username, password))

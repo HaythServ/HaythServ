@@ -13,6 +13,7 @@ add_exec_search_path("conf")
 add_exec_search_path("script")
 add_exec_search_path("script/module")
 
+exec("base/stats.lua")
 exec("base/config.cs")
 exec("base/config.lua")
 exec("base/utils.lua")
@@ -58,4 +59,5 @@ end)
 
 exec_if_found("conf/server.conf")
 exec("base/saveconf.lua")
+
 

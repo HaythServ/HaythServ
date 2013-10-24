@@ -1,2 +1,0 @@
-exec("stats/init.lua")
-

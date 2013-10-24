@@ -16,7 +16,6 @@
 Want to try HaythServ out? Feel free to visit our open servers! Try the following commands on sauerbraten!
 ```
 /connect 162.220.10.113 28785 // Location: United States
-/connect 134.255.216.64 28785 // Location: Germany
 ```
 
 ## Read more

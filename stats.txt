@@ -1,0 +1,2 @@
+--[[ This file stores the playerstats ]]--
+--[[ Playername Frags Deaths Accuracy ]]--

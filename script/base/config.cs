@@ -58,7 +58,7 @@ flood_protect_spectator 1
 global shell_label "server"
 
 global publicserver 1
-global masterserver "master.crapmod.net"
+global masterserver "sauerbraten.org"
 global masterserverport 28787
 
 global masterauth_banned []

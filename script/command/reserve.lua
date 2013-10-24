@@ -3,6 +3,7 @@
 
 -- Changelog:
 -- 2013: Added this script to link an username to an account
+-- 2013: Bugfixes.
 
 -- Task list:
 -- [ ] Limit usernames per account to a variable defined in the server.conf file
@@ -33,6 +34,9 @@ return function(cn, username)
     local found   = 0
     local resnames = {}
     local f = io.open("reserved_names.txt", "r")
+    if not f then
+        return false, "Cannot open reserved_names.txt for read"
+    end
     for _ in io.lines("reserved_names.txt") do
         line = f:read()
         resnames[#resnames+1] = explode(" ", line)
@@ -51,6 +55,9 @@ return function(cn, username)
         return false, "You cannot reserve this username"
     end
     local _f = io.open("reserved_names.txt", "a")
+    if not _f then
+        return false, "Cannot open reserved_names.txt for write"
+    end
     _f:write(string.format("%s %s\n", account, user))
     _f:close()
 end

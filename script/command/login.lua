@@ -1,5 +1,4 @@
--- HaythServ Login System
--- Copyright (C) 2012        Jed
+-- HaythServ Login System -- Copyright (C) 2012 Jed
 -- Copyright (C) 2012-2013   ~Haytham
 
 -- Changelog:
@@ -9,6 +8,7 @@
 -- 2013: Added name protection by ~Haytham
 -- 2013: Added invisible privileges support (~Haytham)
 -- 2013: Added function to reserve names + bugfixes (~Haytham)
+-- 2013: Bugfix (~Haytham)
 
 function explode(div,str)
     if not div or div == '' then
@@ -41,6 +41,9 @@ return function(cn, username, password)
     local found          = 0
 
     local f1 = io.open("accounts.txt", "r")
+    if not f1 then
+        return false, "Could not open accounts.txt for read"
+    end
     for _ in io.lines("accounts.txt") do
         line = f1:read()
         accounts[#accounts+1] = explode(" ", line)
@@ -59,6 +62,9 @@ return function(cn, username, password)
     end
     if found and account then
         local f2 = io.open("reserved_names.txt", "r")
+        if not f2 then
+            return false, "Could not open reserved_names.txt for read"
+        end
         for _ in io.lines("reserved_names.txt") do
             line = f2:read()
             reserved_names[#reserved_names+1] = explode(" ", line)

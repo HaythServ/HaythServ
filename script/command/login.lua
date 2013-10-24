@@ -1,4 +1,5 @@
--- HaythServ Login System -- Copyright (C) 2012 Jed
+-- HaythServ Login System
+-- Copyright (C) 2012        Jed
 -- Copyright (C) 2012-2013   ~Haytham
 
 -- Changelog:

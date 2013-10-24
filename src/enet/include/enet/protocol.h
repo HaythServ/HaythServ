@@ -13,7 +13,7 @@ enum
    ENET_PROTOCOL_MAXIMUM_MTU             = 4096,
    ENET_PROTOCOL_MAXIMUM_PACKET_COMMANDS = 32,
    ENET_PROTOCOL_MINIMUM_WINDOW_SIZE     = 4096,
-   ENET_PROTOCOL_MAXIMUM_WINDOW_SIZE     = 32768,
+   ENET_PROTOCOL_MAXIMUM_WINDOW_SIZE     = 65536,
    ENET_PROTOCOL_MINIMUM_CHANNEL_COUNT   = 1,
    ENET_PROTOCOL_MAXIMUM_CHANNEL_COUNT   = 255,
    ENET_PROTOCOL_MAXIMUM_PEER_ID         = 0xFFF,
@@ -57,7 +57,7 @@ typedef enum _ENetProtocolFlag
 #ifdef _MSC_VER_
 #pragma pack(push, 1)
 #define ENET_PACKED
-#elif defined(__GNUC__)
+#elif defined(__GNUC__) || defined(__clang__)
 #define ENET_PACKED __attribute__ ((packed))
 #else
 #define ENET_PACKED

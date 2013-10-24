@@ -1,4 +1,4 @@
-find_package(ENet 1.3.6)
+find_package(ENet 1.3.10)
 
 if(ENET_FOUND)
     set(ENET_INCLUDE_DIRS ${ENET_INCLUDE_DIR})    

@@ -17,7 +17,7 @@ else(LUA5.2_FOUND)
 endif(LUA5.2_FOUND)
 
 
-find_package(Boost 1.35.0 COMPONENTS signals system thread)
+find_package(Boost 1.55.0 COMPONENTS signals system thread)
 
 if(Boost_FOUND)
     set(BOOST_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})

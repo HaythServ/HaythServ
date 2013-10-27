@@ -42,10 +42,8 @@ return function(cn, username)
         resnames[#resnames+1] = explode(" ", line)
     end
     for item,_ in pairs(resnames) do
-        for _item,__ in pairs(_) do
-            if __ == user then
-                found = 1
-            end
+        if _[2] == user then
+            found = 1
         end
     end
     if found == 1 then

@@ -1,4 +1,9 @@
 #HaythServ
+## NOTE This servermod is old, outdated and buggy!!! Wait for HaythServ-v2! Check our BETA server:
+```
+/connect 162.220.10.113 // Location: United States, FL
+```
+
 ## Features
    * Based on SuckerServ-v5.
    * Many bugs fixed.
@@ -12,11 +17,6 @@
    * #mkt command to set the duration of a kick done by a master (in seconds).
    * #getip command to easily get a player's IP-Address.
 
-## Try HaythServ
-Want to try HaythServ out? Feel free to visit our open servers! Try the following commands on sauerbraten!
-```
-/connect 162.220.10.113 28785 // Location: United States
-```
 
 ## Read more
 Visit the following page for more:

@@ -1,8 +1,5 @@
 #HaythServ
-## NOTE This servermod is old, outdated and buggy!!! Wait for HaythServ-v2! Check our BETA server:
-```
-/connect 162.220.10.113 // Location: United States, FL
-```
+## https://github.com/HaythServ/HaythServ-2
 
 ## Features
    * Based on SuckerServ-v5.
